@@ -1,0 +1,5 @@
+cuidado com as pastas que vocês forem upar suas modificacoes!
+
+se lembrem de sempre modificar apenas as SUAS pastas (se nao vai dar erro de merge no git). 
+
+facam um PR para cada modificação com uma branch com sua fase

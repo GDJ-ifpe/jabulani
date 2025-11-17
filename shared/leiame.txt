@@ -1,0 +1,8 @@
+recursos que todos vamos usar
+
+coloquei logo a pasta de player para já facilitar. a estrutura esta assim
+player/sprites/
+ui/
+base_scenes/ -> caso a gente precise compartilhar o codigo dos inimigos base
+
+cuidado quando for mexer para não dar erro de conflito!!!!!!!!!!!!!!!! AVISE SEMPRE NO GRUPO!

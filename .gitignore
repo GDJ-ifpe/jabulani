@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.import/
+
+# arquivos temp do krita
+*.kra
+*.kra~
+
+# arquivos temp de png
+*.png~
