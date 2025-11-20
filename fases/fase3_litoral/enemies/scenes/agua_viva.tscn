@@ -1,0 +1,114 @@
+[gd_scene load_steps=16 format=3 uid="uid://kwuyaoxauotc"]
+
+[ext_resource type="Texture2D" uid="uid://yojo5cvx47b" path="res://assets/inimigos-comuns/Agua_viva2/idle.png" id="1_nutgf"]
+[ext_resource type="Script" uid="uid://0662uxgfnvvk" path="res://scripts/fase_litoral/inimigos/agua_viva.gd" id="1_vmt2w"]
+[ext_resource type="Texture2D" uid="uid://cw0dw68ckw36i" path="res://assets/inimigos-comuns/Agua_viva2/Dead.png" id="2_bhj1h"]
+[ext_resource type="PackedScene" uid="uid://cj43ru45hclm3" path="res://scenes/Fase_litoral/inimigos/hitbox.tscn" id="3_liqim"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmt2w"]
+size = Vector2(56, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhj1h"]
+atlas = ExtResource("1_nutgf")
+region = Rect2(0, 0, 165, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_liqim"]
+atlas = ExtResource("1_nutgf")
+region = Rect2(165, 0, 165, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmt2w"]
+atlas = ExtResource("1_nutgf")
+region = Rect2(330, 0, 165, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g15ck"]
+atlas = ExtResource("2_bhj1h")
+region = Rect2(0, 0, 167, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gtjo"]
+atlas = ExtResource("2_bhj1h")
+region = Rect2(167, 0, 167, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oltmf"]
+atlas = ExtResource("2_bhj1h")
+region = Rect2(334, 0, 167, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi6py"]
+atlas = ExtResource("2_bhj1h")
+region = Rect2(501, 0, 167, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1rv0"]
+atlas = ExtResource("2_bhj1h")
+region = Rect2(668, 0, 167, 168)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nutgf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhj1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_liqim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmt2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmt2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_liqim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhj1h")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g15ck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gtjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oltmf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wi6py")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1rv0")
+}],
+"loop": false,
+"name": &"morte",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g15ck"]
+size = Vector2(83, 87)
+
+[node name="agua_viva" type="CharacterBody2D" groups=["inimigos"]]
+collision_layer = 20
+collision_mask = 33
+script = ExtResource("1_vmt2w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -1)
+shape = SubResource("RectangleShape2D_vmt2w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_nutgf")
+animation = &"morte"
+autoplay = "idle"
+
+[node name="Hitbox" parent="." instance=ExtResource("3_liqim")]
+collision_layer = 20
+collision_mask = 33
+
+[node name="colliosion" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_g15ck")
+debug_color = Color(0.8958556, 0.22780389, 0.564401, 0.41960785)

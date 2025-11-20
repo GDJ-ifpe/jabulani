@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqpavlnkcsfxl"]
+
+[ext_resource type="Script" uid="uid://c7i6gdv75qq2g" path="res://scripts/fase_litoral/Poluizao/atira_polu.gd" id="1_d6toe"]
+[ext_resource type="PackedScene" uid="uid://cj43ru45hclm3" path="res://scenes/Fase_litoral/inimigos/hitbox.tscn" id="1_s2y4o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqkj4"]
+size = Vector2(149, 117)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d6toe"]
+size = Vector2(95, 135)
+
+[node name="atira" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 33
+script = ExtResource("1_d6toe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_aqkj4")
+
+[node name="Hitbox" parent="." instance=ExtResource("1_s2y4o")]
+collision_layer = 20
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-52, -1)
+shape = SubResource("RectangleShape2D_d6toe")
+debug_color = Color(0.8283299, 0.3448912, 0.51137626, 0.41960785)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

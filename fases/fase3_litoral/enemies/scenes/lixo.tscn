@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://be565oo6n812d"]
+
+[ext_resource type="PackedScene" uid="uid://cj43ru45hclm3" path="res://scenes/Fase_litoral/inimigos/hitbox.tscn" id="1_1q2a5"]
+[ext_resource type="Script" uid="uid://dekabjitqjot4" path="res://scripts/fase_litoral/inimigos/lixo.gd" id="1_ns3nb"]
+[ext_resource type="Texture2D" uid="uid://bdv3jaid8xefd" path="res://assets/Poluizao/primeiro ataque/Projetil.png" id="2_5adtb"]
+
+[sub_resource type="Animation" id="Animation_5adtb"]
+resource_name = "throw"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 2), Vector2(0, 0), Vector2(0, -2), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1fcc2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3tgst"]
+_data = {
+&"RESET": SubResource("Animation_1fcc2"),
+&"throw": SubResource("Animation_5adtb")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1q2a5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ns3nb"]
+radius = 32.06244
+
+[node name="Lixo" type="CharacterBody2D" groups=["projetil"]]
+collision_layer = 20
+collision_mask = 33
+script = ExtResource("1_ns3nb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5707964
+texture = ExtResource("2_5adtb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3tgst")
+}
+autoplay = "throw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1q2a5")
+
+[node name="Hitbox" parent="." instance=ExtResource("1_1q2a5")]
+collision_layer = 20
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_ns3nb")
+debug_color = Color(0.90488017, 0.2400051, 0.48678857, 0.41960785)

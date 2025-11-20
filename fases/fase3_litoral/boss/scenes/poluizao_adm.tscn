@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://1dxj8pi1rv1n"]
+
+[ext_resource type="Script" uid="uid://bi5mrkdfbj3b3" path="res://scripts/fase_litoral/Poluizao/poluizao_adm.gd" id="1_xc23v"]
+[ext_resource type="PackedScene" uid="uid://cj43ru45hclm3" path="res://scenes/Fase_litoral/inimigos/hitbox.tscn" id="2_r6csm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vluwm"]
+size = Vector2(203, 161.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hnq46"]
+size = Vector2(126, 197)
+
+[node name="cabeca_adm" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 33
+script = ExtResource("1_xc23v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8.75)
+shape = SubResource("RectangleShape2D_vluwm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Hitbox" parent="." instance=ExtResource("2_r6csm")]
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-53, 7.5)
+shape = SubResource("RectangleShape2D_hnq46")
+debug_color = Color(0.90175337, 0.2213881, 0.5511509, 0.41960785)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,225 @@
+[gd_scene load_steps=21 format=3 uid="uid://e4hpw57s0vlu"]
+
+[ext_resource type="Script" uid="uid://1mmlexjq7c57" path="res://fases/fase3_litoral/scripts/fase_final.gd" id="1_4t8cq"]
+[ext_resource type="PackedScene" uid="uid://buhegnsvwuv3f" path="res://fases/fase3_litoral/boss/scenes/poluizao.tscn" id="1_iejbd"]
+[ext_resource type="PackedScene" uid="uid://dscx8hbalv6vx" path="res://fases/fase3_litoral/scenes/plataformas/plataform_movel_d.tscn" id="2_d5b30"]
+[ext_resource type="PackedScene" uid="uid://b0g6fk3yxsmp8" path="res://shared/player/scenes/player.tscn" id="3_1qmov"]
+[ext_resource type="PackedScene" uid="uid://bb06kfdajvr6i" path="res://fases/fase3_litoral/boss/scenes/pilar.tscn" id="4_1ps3k"]
+[ext_resource type="PackedScene" uid="uid://1dxj8pi1rv1n" path="res://fases/fase3_litoral/boss/scenes/poluizao_adm.tscn" id="5_17pks"]
+[ext_resource type="PackedScene" uid="uid://bqpavlnkcsfxl" path="res://fases/fase3_litoral/boss/scenes/atira_polu.tscn" id="6_lsimd"]
+[ext_resource type="AudioStream" uid="uid://bicsx4go6x2lf" path="res://fases/fase3_litoral/assets/soundtracks/p1_background.mp3" id="7_gden0"]
+[ext_resource type="Texture2D" uid="uid://os8wr060nhb3" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_UP/litoral-2.png" id="8_s4ohf"]
+[ext_resource type="Shader" uid="uid://d0d81n63orp10" path="res://fases/fase3_litoral/scripts/shaders/movement_background_down.gdshader" id="9_gh4e1"]
+[ext_resource type="Texture2D" uid="uid://brvnnh4m4bd1" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_UP/litoral-1.png" id="9_vntbv"]
+[ext_resource type="Texture2D" uid="uid://bbb21vdy335gx" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_UP/litoral4.png" id="10_gh4e1"]
+[ext_resource type="Texture2D" uid="uid://cxkry6d1xxujo" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_UP/litoral3.png" id="11_4t8cq"]
+[ext_resource type="Texture2D" uid="uid://b0kn4q070jrmq" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_UP/litoral2.png" id="12_n7628"]
+[ext_resource type="Texture2D" uid="uid://c1nykpgjg8h4c" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_UP/litoral1.png" id="13_voop0"]
+[ext_resource type="Texture2D" uid="uid://0w8fkm02hmfe" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_UP/litoral0.png" id="14_hyne0"]
+[ext_resource type="Texture2D" uid="uid://dqkmuq07mvv72" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_Down/background_camada_01.png" id="15_vntbv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsimd"]
+size = Vector2(6337.5, 5244.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4t8cq"]
+shader = ExtResource("9_gh4e1")
+shader_parameter/move_speed = 0.01
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_voop0"]
+size = Vector2(409, 4000)
+
+[node name="FaseFinal" type="Node2D"]
+script = ExtResource("1_4t8cq")
+
+[node name="poluizao" parent="." instance=ExtResource("1_iejbd")]
+
+[node name="plataform_movel_D2" parent="." instance=ExtResource("2_d5b30")]
+position = Vector2(-1132, 257)
+move_speed = 5.0
+move_horizontal = false
+
+[node name="plataform_movel_D3" parent="." instance=ExtResource("2_d5b30")]
+position = Vector2(-806, 257)
+move_speed = 5.5
+move_horizontal = false
+
+[node name="plataform_movel_D" parent="." instance=ExtResource("2_d5b30")]
+position = Vector2(-479, 257)
+move_speed = 6.0
+move_horizontal = false
+
+[node name="cabeca_adm" parent="." instance=ExtResource("5_17pks")]
+process_mode = 4
+position = Vector2(-174, 39)
+
+[node name="atira" parent="." instance=ExtResource("6_lsimd")]
+position = Vector2(-261, -46)
+
+[node name="pilar" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
+position = Vector2(-810, 653)
+move_speed = 150.0
+distance = 500
+flash_duration = 6.0
+flash_frequency = 0.08
+
+[node name="pilar2" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
+position = Vector2(-1184, 639)
+move_speed = 150.0
+distance = 500
+flash_duration = 6.0
+flash_frequency = 0.08
+
+[node name="pilar3" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
+position = Vector2(-425, 653)
+move_speed = 150.0
+distance = 500
+flash_duration = 6.0
+flash_frequency = 0.08
+
+[node name="player" parent="." instance=ExtResource("3_1qmov")]
+position = Vector2(-1128, 45)
+
+[node name="gravity" type="Area2D" parent="."]
+visible = false
+position = Vector2(2176, 1390)
+monitorable = false
+gravity_space_override = 3
+gravity = 900.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gravity"]
+position = Vector2(-2282, -967)
+shape = SubResource("RectangleShape2D_lsimd")
+debug_color = Color(0.38255185, 0.49931693, 0.9285554, 0.41960785)
+
+[node name="boss_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_gden0")
+autoplay = true
+parameters/looping = true
+
+[node name="pilar6" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
+position = Vector2(-829, 530)
+rotation = 1.5707964
+move_speed = 150.0
+flash_duration = 6.0
+
+[node name="pilar4" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
+position = Vector2(-1216, 533)
+rotation = 1.5707964
+move_speed = 150.0
+flash_duration = 6.0
+
+[node name="pilar5" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
+position = Vector2(-422, 533)
+rotation = 1.5707964
+move_speed = 150.0
+flash_duration = 6.0
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="7" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-693, -80)
+scale = Vector2(3, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/7"]
+texture = ExtResource("8_s4ohf")
+
+[node name="6" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-1167, -335)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/6"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_4t8cq")
+position = Vector2(191, 216)
+scale = Vector2(1.6, 0.738)
+texture = ExtResource("9_vntbv")
+
+[node name="5" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-816, 157)
+scale = Vector2(2, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/5"]
+texture = ExtResource("10_gh4e1")
+
+[node name="4" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-828, 180)
+scale = Vector2(2, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/4"]
+texture = ExtResource("11_4t8cq")
+
+[node name="3" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-821, 197)
+scale = Vector2(2, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/3"]
+texture = ExtResource("12_n7628")
+
+[node name="2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-817, 218)
+scale = Vector2(2, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/2"]
+texture = ExtResource("13_voop0")
+
+[node name="1" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-676, 502)
+scale = Vector2(3, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/1"]
+texture = ExtResource("14_hyne0")
+
+[node name="teste" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-890, 1078)
+rotation = 3.1415927
+scale = Vector2(3, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/teste"]
+texture_repeat = 1
+position = Vector2(-53.333332, 767.3334)
+texture = ExtResource("15_vntbv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.87, 0.87)
+limit_enabled = false
+limit_left = -750
+limit_top = 3600
+limit_right = 5500
+limit_bottom = 7300
+
+[node name="esquerda" type="StaticBody2D" parent="." groups=["limites"]]
+position = Vector2(-1511, -4868)
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="esquerda"]
+position = Vector2(-214.5, 5140)
+shape = SubResource("RectangleShape2D_voop0")
+
+[node name="esquerda2" type="StaticBody2D" parent="." groups=["limites"]]
+position = Vector2(290, -4811)
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="esquerda2"]
+position = Vector2(-214.5, 5140)
+shape = SubResource("RectangleShape2D_voop0")
+
+[node name="esquerda3" type="StaticBody2D" parent="." groups=["limites"]]
+position = Vector2(4400, 927)
+rotation = 1.5707964
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="esquerda3"]
+position = Vector2(-214.5, 5140)
+shape = SubResource("RectangleShape2D_voop0")
+
+[node name="esquerda4" type="StaticBody2D" parent="." groups=["limites"]]
+position = Vector2(4207, -960)
+rotation = 1.5707964
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="esquerda4"]
+position = Vector2(-214.5, 5140)
+shape = SubResource("RectangleShape2D_voop0")

@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://bf7u7sm6g1pyo"]
+
+[ext_resource type="Script" uid="uid://cbmfylk0chaiu" path="res://fases/fase3_litoral/scripts/plataformas/plataforma_q.gd" id="1_iq3w5"]
+[ext_resource type="Texture2D" uid="uid://dmf8dn2kcopqc" path="res://fases/fase3_litoral/assets/sprites/plataforma.png" id="2_p4rki"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4re3"]
+size = Vector2(127, 66)
+
+[sub_resource type="Animation" id="Animation_iq3w5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ibomr"]
+resource_name = "tremor"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4, 0), Vector2(0, 0), Vector2(-4, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p4rki"]
+_data = {
+&"RESET": SubResource("Animation_iq3w5"),
+&"tremor": SubResource("Animation_ibomr")
+}
+
+[node name="plataform" type="AnimatableBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_iq3w5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_p4rki")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_k4re3")
+one_way_collision = true
+
+[node name="respawn_timer" type="Timer" parent="."]
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p4rki")
+}
+
+[connection signal="timeout" from="respawn_timer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

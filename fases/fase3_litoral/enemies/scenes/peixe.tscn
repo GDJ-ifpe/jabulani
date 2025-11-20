@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://defetn2tolysf"]
+
+[ext_resource type="Texture2D" uid="uid://ctkps8kal37wc" path="res://assets/inimigos-comuns/Peixe_2/nadando.png" id="1_ts2ed"]
+[ext_resource type="Script" uid="uid://bmtph7nhjhhh5" path="res://scripts/fase_litoral/inimigos/peixe.gd" id="1_xny7j"]
+[ext_resource type="Texture2D" uid="uid://dwqfsckwlx5j8" path="res://assets/inimigos-comuns/Peixe_2/morto.png" id="2_gxp8v"]
+[ext_resource type="PackedScene" uid="uid://cj43ru45hclm3" path="res://scenes/Fase_litoral/inimigos/hitbox.tscn" id="3_vicrg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vicrg"]
+radius = 21.0
+height = 42.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxp8v"]
+atlas = ExtResource("1_ts2ed")
+region = Rect2(0, 0, 147, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vicrg"]
+atlas = ExtResource("1_ts2ed")
+region = Rect2(147, 0, 147, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xny7j"]
+atlas = ExtResource("1_ts2ed")
+region = Rect2(292, 0, 145, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlr55"]
+atlas = ExtResource("2_gxp8v")
+region = Rect2(0, 0, 156, 169)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85fj6"]
+atlas = ExtResource("2_gxp8v")
+region = Rect2(168, 0, 113, 169)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6dbtw"]
+atlas = ExtResource("2_gxp8v")
+region = Rect2(291, 0, 146, 169)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ts2ed"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxp8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vicrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xny7j")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlr55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85fj6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6dbtw")
+}],
+"loop": false,
+"name": &"morte",
+"speed": 2.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xny7j"]
+radius = 29.0
+height = 58.0
+
+[node name="peixe" type="CharacterBody2D" groups=["inimigos"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_xny7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+shape = SubResource("CapsuleShape2D_vicrg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_ts2ed")
+animation = &"morte"
+autoplay = "idle"
+
+[node name="Hitbox" parent="." instance=ExtResource("3_vicrg")]
+collision_mask = 32
+
+[node name="colliosion" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-4, 0)
+shape = SubResource("CapsuleShape2D_xny7j")
+debug_color = Color(0.8958556, 0.22780389, 0.564401, 0.41960785)
+
+[node name="wall_detector" type="RayCast2D" parent="."]
+position = Vector2(-20, 0)
+target_position = Vector2(-16, 1)
+collision_mask = 3

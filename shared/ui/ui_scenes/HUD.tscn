@@ -1,0 +1,155 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmoljl2nm2vvg"]
+
+[ext_resource type="Script" uid="uid://3spmaudistnp" path="res://scenes/UI/hud_manager.gd" id="1_5fyfn"]
+[ext_resource type="Texture2D" uid="uid://b7t7ieylbrcdl" path="res://assets/UI/DoomTurtle/Face_00.png" id="2_7n4fj"]
+[ext_resource type="Texture2D" uid="uid://d3bxkagnkx2h8" path="res://assets/UI/Elements/Hearth.png" id="3_5ip4n"]
+[ext_resource type="Texture2D" uid="uid://bp5r1ft07hroo" path="res://assets/UI/Elements/Shell.png" id="4_l8xe2"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5fyfn")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="pontos_coluna" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="pontuacao" type="Label" parent="MarginContainer/pontos_coluna"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "pontuação :"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="contador_pontos" type="Label" parent="MarginContainer/pontos_coluna"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "0000"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="status_coluna" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="vidas_icon" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_7n4fj")
+
+[node name="separador" type="Label" parent="MarginContainer/VBoxContainer/status_coluna"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "X"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/status_coluna"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_5ip4n")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_5ip4n")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_5ip4n")
+expand_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_5ip4n")
+expand_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_5ip4n")
+expand_mode = 2
+
+[node name="TextureRect6" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_5ip4n")
+expand_mode = 2
+
+[node name="status_coluna2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="separador" type="Label" parent="MarginContainer/VBoxContainer/status_coluna2"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 30
+text = "		          "
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/status_coluna2"]
+layout_mode = 2
+
+[node name="powerup" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_l8xe2")
+expand_mode = 3
+
+[node name="powerup2" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_l8xe2")
+expand_mode = 3
+
+[node name="powerup3" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_l8xe2")
+expand_mode = 3
+
+[node name="powerup4" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_l8xe2")
+expand_mode = 3
+
+[node name="powerup5" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_l8xe2")
+expand_mode = 3
+
+[node name="powerup6" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_l8xe2")
+expand_mode = 3

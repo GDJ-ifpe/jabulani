@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://xnslvs1w3kgp"]
+
+[ext_resource type="Script" uid="uid://buxf0ryfyx0ds" path="res://fases/fase3_litoral/scripts/plataformas/plataform_movel_e.gd" id="1_irdly"]
+[ext_resource type="Texture2D" uid="uid://vmprlm8ryrs5" path="res://fases/fase3_litoral/assets/sprites/plataforma_de_baixo_da_agua.png" id="2_7y57h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4re3"]
+size = Vector2(129, 65)
+
+[node name="plataform_movel_E" type="Node2D"]
+script = ExtResource("1_irdly")
+
+[node name="plataform" type="AnimatableBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="plataform"]
+position = Vector2(-0.4999962, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("2_7y57h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plataform"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_k4re3")
+one_way_collision = true
