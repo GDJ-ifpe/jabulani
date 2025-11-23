@@ -7,24 +7,23 @@ var jabusintese := preload("res://shared/player/scenes/powerups/jabusintese.tscn
 var knockback_vector := Vector2.ZERO
 var direction
 var is_hurted := false
-@export var jump_height = 200
-@export var max_time_to_peak := 0.5
+@export var altura_pulo = 200
+@export var tempo_ate_topo_salto := 0.5
 var jump_velocity
 var gravity
 var fall_gravity
-var jabu = false
+@export var jabu = false
 var delay = true
 var player_position = position
 @onready var ray_d := $RayCast2D_D as RayCast2D
 @onready var ray_e := $RayCast2D_E as RayCast2D
 @onready var anim := $anim as AnimatedSprite2D
 @onready var remote_transform := $remote as RemoteTransform2D
-@export var atacando := false
-@export var agachado := true
+@onready var atacando := false
 signal player_has_died()
 func _ready() -> void:
-	jump_velocity = (jump_height * 2) / max_time_to_peak
-	gravity = (jump_height * 2) / pow(max_time_to_peak, 2)
+	jump_velocity = (altura_pulo * 2) / tempo_ate_topo_salto
+	gravity = (altura_pulo * 2) / pow(tempo_ate_topo_salto, 2)
 	fall_gravity = gravity 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_select") and jabu and delay:

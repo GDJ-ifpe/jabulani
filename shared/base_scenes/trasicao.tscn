@@ -1,10 +1,25 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0nmhtvhbm3ld"]
 
-[ext_resource type="Texture2D" uid="uid://c0covhdp8kxlk" path="res://assets/UI/Elements/Life.png" id="1_cr0ny"]
-[ext_resource type="Script" uid="uid://cse0otdivusw1" path="res://scripts/fase_litoral/go.gd" id="1_i4cs8"]
+[ext_resource type="Texture2D" uid="uid://c0covhdp8kxlk" path="res://shared/ui/ui_sprites/Elements/Life.png" id="1_cr0ny"]
+[ext_resource type="Script" uid="uid://chdpficyk1xja" path="res://shared/scripts_reutilizaveis/trasicao/transicao.gd" id="1_i4cs8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4cs8"]
 size = Vector2(221, 224)
+
+[sub_resource type="Animation" id="Animation_rb6rg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_auiwe"]
 resource_name = "float"
@@ -20,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -12)]
-}
-
-[sub_resource type="Animation" id="Animation_rb6rg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_25va1"]

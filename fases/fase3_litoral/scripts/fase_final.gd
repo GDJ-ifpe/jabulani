@@ -16,5 +16,6 @@ func _process(_delta: float) -> void:
 
 func reload_game():
 	await get_tree().create_timer(1.0).timeout
-	get_tree().reload_current_scene()
+	if get_tree():
+		get_tree().reload_current_scene()
 	

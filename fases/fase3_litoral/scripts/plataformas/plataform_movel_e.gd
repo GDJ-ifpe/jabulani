@@ -13,8 +13,6 @@ var platform_center := 90
 func _ready() -> void:
 	move_platform()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
 	platform.position = platform.position.lerp(follow, 0.5)
 	

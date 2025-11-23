@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bmoljl2nm2vvg"]
 
-[ext_resource type="Script" uid="uid://3spmaudistnp" path="res://scenes/UI/hud_manager.gd" id="1_5fyfn"]
-[ext_resource type="Texture2D" uid="uid://b7t7ieylbrcdl" path="res://assets/UI/DoomTurtle/Face_00.png" id="2_7n4fj"]
-[ext_resource type="Texture2D" uid="uid://d3bxkagnkx2h8" path="res://assets/UI/Elements/Hearth.png" id="3_5ip4n"]
-[ext_resource type="Texture2D" uid="uid://bp5r1ft07hroo" path="res://assets/UI/Elements/Shell.png" id="4_l8xe2"]
+[ext_resource type="Script" uid="uid://3spmaudistnp" path="res://shared/ui/hud_manager.gd" id="1_5fyfn"]
+[ext_resource type="Texture2D" uid="uid://b7t7ieylbrcdl" path="res://shared/ui/ui_sprites/DoomTurtle/Face_00.png" id="2_7n4fj"]
+[ext_resource type="Texture2D" uid="uid://d3bxkagnkx2h8" path="res://shared/ui/ui_sprites/Elements/Hearth.png" id="3_5ip4n"]
+[ext_resource type="Texture2D" uid="uid://bp5r1ft07hroo" path="res://shared/ui/ui_sprites/Elements/Shell.png" id="4_l8xe2"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3

@@ -1,0 +1,1 @@
+instancia a cena chamada "transicao" da pasta base_scenes, no inspetor há um campo chamado "next level", copia o caminho da cena da fase que quer chegar e cola no campo do inspetor.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://b6tv6bdyiw4pm"]
+[gd_scene load_steps=31 format=4 uid="uid://b6tv6bdyiw4pm"]
 
 [ext_resource type="PackedScene" uid="uid://b0g6fk3yxsmp8" path="res://shared/player/scenes/player.tscn" id="1_d5xje"]
 [ext_resource type="Script" uid="uid://d4kxuo4awnrgi" path="res://fases/fase3_litoral/scripts/litoral_parte_1.gd" id="1_yqee5"]
@@ -22,18 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://br4ibvqkuuvnd" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_Down/Elements/pedra_08.png" id="19_6d6fw"]
 [ext_resource type="Texture2D" uid="uid://dqkmuq07mvv72" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_Down/background_camada_01.png" id="19_wds81"]
 [ext_resource type="Texture2D" uid="uid://b0w2q8273x41l" path="res://fases/fase3_litoral/assets/sprites/Background/Litoral_Down/background_camada_00.png" id="20_6d6fw"]
-[ext_resource type="Script" uid="uid://bay5c7kk2x5r0" path="res://shared/scripts_reutilizaveis/trasicao/transition.gd" id="24_lkx0k"]
-[ext_resource type="Shader" uid="uid://n1r3fwmibfbo" path="res://fases/fase3_litoral/scripts/shaders/transition.gdshader" id="24_umm2r"]
-[ext_resource type="Script" uid="uid://cyrh82h2aqocb" path="res://fases/fase3_litoral/scripts/plataformas/color_rect.gd" id="25_lkx0k"]
 [ext_resource type="PackedScene" uid="uid://d0nmhtvhbm3ld" path="res://shared/base_scenes/trasicao.tscn" id="27_wds81"]
 [ext_resource type="PackedScene" uid="uid://2d0q6uaa1b4b" path="res://shared/player/scenes/powerups/powerupU_J.tscn" id="27_wgeqv"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wds81"]
-shader = ExtResource("24_umm2r")
-shader_parameter/lines = 10.0
-shader_parameter/threshold = 0.0
-shader_parameter/line_color_a = Color(1, 1, 1, 1)
-shader_parameter/line_color_b = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_77fcj"]
 size = Vector2(409, 4000)
@@ -185,16 +175,8 @@ size = Vector2(6155, 11541)
 [node name="Parte1" type="Node2D"]
 script = ExtResource("1_yqee5")
 
-[node name="transition" type="CanvasLayer" parent="."]
-script = ExtResource("24_lkx0k")
-
-[node name="Color_Rect" type="ColorRect" parent="transition"]
-material = SubResource("ShaderMaterial_wds81")
-script = ExtResource("25_lkx0k")
-metadata/_edit_use_anchors_ = true
-
 [node name="Go" parent="." instance=ExtResource("27_wds81")]
-position = Vector2(3019, 4053)
+position = Vector2(3024, 4072)
 next_level = "res://fases/fase3_litoral/scenes/fase_final.tscn"
 
 [node name="esquerda" type="StaticBody2D" parent="."]
@@ -416,8 +398,7 @@ position = Vector2(4481.5415, 4996.9717)
 
 [node name="player" parent="." instance=ExtResource("1_d5xje")]
 position = Vector2(84, 6655)
-jump_height = 180
-max_time_to_peak = 1.2
+tempo_ate_topo_salto = 1.0
 
 [node name="bg" type="ParallaxBackground" parent="."]
 

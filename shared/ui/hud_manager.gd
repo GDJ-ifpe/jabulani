@@ -20,17 +20,17 @@ func _ready():
 	contador_pontos.text = str("%05d" % PlayerManager.pontos)
 func _process(_delta: float) -> void:
 	contador_pontos.text = str("%05d" % PlayerManager.pontos)
-	if PlayerManager.player_life == 6:
-		pass
-	if PlayerManager.player_life == 5:
+	if PlayerManager.player_life <= 0:
+		texture_rect.visible = false
+	if PlayerManager.player_life <= 5:
 		texture_rect_6.visible = false
-	if PlayerManager.player_life == 4:
+	if PlayerManager.player_life <= 4:
 		texture_rect_5.visible = false
-	if PlayerManager.player_life == 3:
+	if PlayerManager.player_life <= 3:
 		texture_rect_4.visible = false
-	if PlayerManager.player_life == 2:
+	if PlayerManager.player_life <= 2:
 		texture_rect_3.visible = false
-	if PlayerManager.player_life == 1:
+	if PlayerManager.player_life <= 1:
 		texture_rect_2.visible = false
 	if PlayerManager.player_power == 6:
 		powerup_6.visible = false
