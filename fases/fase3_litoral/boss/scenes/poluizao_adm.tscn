@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://1dxj8pi1rv1n"]
 
-[ext_resource type="Script" uid="uid://bi5mrkdfbj3b3" path="res://scripts/fase_litoral/Poluizao/poluizao_adm.gd" id="1_xc23v"]
-[ext_resource type="PackedScene" uid="uid://cj43ru45hclm3" path="res://scenes/Fase_litoral/inimigos/hitbox.tscn" id="2_r6csm"]
+[ext_resource type="Script" uid="uid://bi5mrkdfbj3b3" path="res://fases/fase3_litoral/boss/scripts/poluizao_adm.gd" id="1_xc23v"]
+[ext_resource type="PackedScene" uid="uid://cj43ru45hclm3" path="res://fases/fase3_litoral/enemies/scenes/hitbox.tscn" id="2_r6csm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vluwm"]
 size = Vector2(203, 161.5)

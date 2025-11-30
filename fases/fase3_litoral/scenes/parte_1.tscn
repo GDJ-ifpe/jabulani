@@ -396,6 +396,9 @@ position = Vector2(3640.5317, 5646.7246)
 [node name="moeda4" parent="coletaveis" instance=ExtResource("9_fm2ik")]
 position = Vector2(4481.5415, 4996.9717)
 
+[node name="Powerup x" parent="coletaveis" instance=ExtResource("27_wgeqv")]
+position = Vector2(856.19434, 6684.367)
+
 [node name="player" parent="." instance=ExtResource("1_d5xje")]
 position = Vector2(84, 6655)
 tempo_ate_topo_salto = 1.0
@@ -505,6 +508,3 @@ limit_left = -750
 limit_top = 3600
 limit_right = 5500
 limit_bottom = 7300
-
-[node name="Powerup x" parent="." instance=ExtResource("27_wgeqv")]
-position = Vector2(856.19434, 6684.367)

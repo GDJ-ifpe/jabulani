@@ -1,12 +1,12 @@
 [gd_scene load_steps=42 format=3 uid="uid://buhegnsvwuv3f"]
 
-[ext_resource type="Texture2D" uid="uid://cf31a2x2vb0dk" path="res://assets/Poluizao/primeiro ataque/Primeiro ataque.png" id="1_nqy25"]
-[ext_resource type="Script" uid="uid://d3dfwics3owvm" path="res://scripts/fase_litoral/Poluizao/poluizao.gd" id="1_syqv4"]
-[ext_resource type="Texture2D" uid="uid://dlf5v2yt6pkf" path="res://assets/Poluizao/Segundo ataque/Segundo ataque.png" id="2_syqv4"]
-[ext_resource type="Texture2D" uid="uid://bj50xhe52byjr" path="res://assets/Poluizao/Morte da cabeça que atira/idle_2.png" id="3_qnwj6"]
-[ext_resource type="Texture2D" uid="uid://v6bvx5xmcrul" path="res://assets/Poluizao/Morte da cabeça que atira/cabeça que atira morrendo.png" id="4_kyw0k"]
-[ext_resource type="Texture2D" uid="uid://fnp0b8kl74y0" path="res://assets/Poluizao/Morte/Morte.png" id="5_jky0x"]
-[ext_resource type="Texture2D" uid="uid://cvbmv0x0mp8i3" path="res://assets/Poluizao/Segundo ataque/morte da cabeça do meio.png" id="6_afqkn"]
+[ext_resource type="Texture2D" uid="uid://cf31a2x2vb0dk" path="res://fases/fase3_litoral/boss/sprites/primeiro ataque/Primeiro ataque.png" id="1_nqy25"]
+[ext_resource type="Script" uid="uid://d3dfwics3owvm" path="res://fases/fase3_litoral/boss/scripts/poluizao.gd" id="1_syqv4"]
+[ext_resource type="Texture2D" uid="uid://dlf5v2yt6pkf" path="res://fases/fase3_litoral/boss/sprites/Segundo ataque/Segundo ataque.png" id="2_syqv4"]
+[ext_resource type="Texture2D" uid="uid://bj50xhe52byjr" path="res://fases/fase3_litoral/boss/sprites/Morte da cabeça que atira/idle_2.png" id="3_qnwj6"]
+[ext_resource type="Texture2D" uid="uid://v6bvx5xmcrul" path="res://fases/fase3_litoral/boss/sprites/Morte da cabeça que atira/cabeça que atira morrendo.png" id="4_kyw0k"]
+[ext_resource type="Texture2D" uid="uid://fnp0b8kl74y0" path="res://fases/fase3_litoral/boss/sprites/Morte/Morte.png" id="5_jky0x"]
+[ext_resource type="Texture2D" uid="uid://cvbmv0x0mp8i3" path="res://fases/fase3_litoral/boss/sprites/Segundo ataque/morte da cabeça do meio.png" id="6_afqkn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ps3k"]
 atlas = ExtResource("1_nqy25")

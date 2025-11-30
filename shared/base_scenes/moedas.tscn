@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cdg77iws7oyfl"]
 
-[ext_resource type="Script" uid="uid://cvbglnb1nk0kk" path="res://scripts/Coletaveis/moedas.gd" id="1_to2k4"]
-[ext_resource type="Texture2D" uid="uid://bly34y0ln7w8x" path="res://assets/UI/Elements/StoneSkin.png" id="2_qruqn"]
+[ext_resource type="Script" uid="uid://cvbglnb1nk0kk" path="res://shared/scripts_reutilizaveis/coletaveis/moedas.gd" id="1_to2k4"]
+[ext_resource type="Texture2D" uid="uid://bly34y0ln7w8x" path="res://shared/ui/ui_sprites/Elements/StoneSkin.png" id="2_qruqn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u7yqs"]
 size = Vector2(52, 20)

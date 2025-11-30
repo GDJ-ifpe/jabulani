@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqpavlnkcsfxl"]
 
-[ext_resource type="Script" uid="uid://c7i6gdv75qq2g" path="res://scripts/fase_litoral/Poluizao/atira_polu.gd" id="1_d6toe"]
-[ext_resource type="PackedScene" uid="uid://cj43ru45hclm3" path="res://scenes/Fase_litoral/inimigos/hitbox.tscn" id="1_s2y4o"]
+[ext_resource type="Script" uid="uid://c7i6gdv75qq2g" path="res://fases/fase3_litoral/boss/scripts/atira_polu.gd" id="1_d6toe"]
+[ext_resource type="PackedScene" uid="uid://cj43ru45hclm3" path="res://fases/fase3_litoral/enemies/scenes/hitbox.tscn" id="1_s2y4o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqkj4"]
 size = Vector2(149, 117)
@@ -9,7 +9,7 @@ size = Vector2(149, 117)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d6toe"]
 size = Vector2(95, 135)
 
-[node name="atira" type="CharacterBody2D"]
+[node name="cabeca_atira" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 33
 script = ExtResource("1_d6toe")

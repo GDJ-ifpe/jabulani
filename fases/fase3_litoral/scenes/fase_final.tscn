@@ -31,50 +31,74 @@ size = Vector2(409, 4000)
 [node name="FaseFinal" type="Node2D"]
 script = ExtResource("1_4t8cq")
 
-[node name="poluizao" parent="." instance=ExtResource("1_iejbd")]
+[node name="Boss" type="Node2D" parent="."]
 
-[node name="plataform_movel_D2" parent="." instance=ExtResource("2_d5b30")]
+[node name="poluizao" parent="Boss" instance=ExtResource("1_iejbd")]
+
+[node name="cabeca_adm" parent="Boss" instance=ExtResource("5_17pks")]
+process_mode = 4
+position = Vector2(-174, 39)
+
+[node name="cabeca_atira" parent="Boss" instance=ExtResource("6_lsimd")]
+position = Vector2(-261, -46)
+
+[node name="plataformas" type="Node2D" parent="."]
+
+[node name="plataform_movel_D2" parent="plataformas" instance=ExtResource("2_d5b30")]
 position = Vector2(-1132, 257)
 move_speed = 5.0
 move_horizontal = false
 
-[node name="plataform_movel_D3" parent="." instance=ExtResource("2_d5b30")]
+[node name="plataform_movel_D3" parent="plataformas" instance=ExtResource("2_d5b30")]
 position = Vector2(-806, 257)
 move_speed = 5.5
 move_horizontal = false
 
-[node name="plataform_movel_D" parent="." instance=ExtResource("2_d5b30")]
+[node name="plataform_movel_D" parent="plataformas" instance=ExtResource("2_d5b30")]
 position = Vector2(-479, 257)
 move_speed = 6.0
 move_horizontal = false
 
-[node name="cabeca_adm" parent="." instance=ExtResource("5_17pks")]
-process_mode = 4
-position = Vector2(-174, 39)
+[node name="pilares" type="Node2D" parent="."]
 
-[node name="atira" parent="." instance=ExtResource("6_lsimd")]
-position = Vector2(-261, -46)
-
-[node name="pilar" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
+[node name="pilar" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
 position = Vector2(-810, 653)
 move_speed = 150.0
 distance = 500
 flash_duration = 6.0
 flash_frequency = 0.08
 
-[node name="pilar2" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
+[node name="pilar2" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
 position = Vector2(-1184, 639)
 move_speed = 150.0
 distance = 500
 flash_duration = 6.0
 flash_frequency = 0.08
 
-[node name="pilar3" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
+[node name="pilar3" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
 position = Vector2(-425, 653)
 move_speed = 150.0
 distance = 500
 flash_duration = 6.0
 flash_frequency = 0.08
+
+[node name="pilar6" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
+position = Vector2(-829, 530)
+rotation = 1.5707964
+move_speed = 150.0
+flash_duration = 6.0
+
+[node name="pilar4" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
+position = Vector2(-1216, 533)
+rotation = 1.5707964
+move_speed = 150.0
+flash_duration = 6.0
+
+[node name="pilar5" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
+position = Vector2(-422, 533)
+rotation = 1.5707964
+move_speed = 150.0
+flash_duration = 6.0
 
 [node name="player" parent="." instance=ExtResource("3_1qmov")]
 position = Vector2(-1128, 45)
@@ -95,24 +119,6 @@ debug_color = Color(0.38255185, 0.49931693, 0.9285554, 0.41960785)
 stream = ExtResource("7_gden0")
 autoplay = true
 parameters/looping = true
-
-[node name="pilar6" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
-position = Vector2(-829, 530)
-rotation = 1.5707964
-move_speed = 150.0
-flash_duration = 6.0
-
-[node name="pilar4" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
-position = Vector2(-1216, 533)
-rotation = 1.5707964
-move_speed = 150.0
-flash_duration = 6.0
-
-[node name="pilar5" parent="." groups=["pilar"] instance=ExtResource("4_1ps3k")]
-position = Vector2(-422, 533)
-rotation = 1.5707964
-move_speed = 150.0
-flash_duration = 6.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -186,40 +192,42 @@ limit_top = 3600
 limit_right = 5500
 limit_bottom = 7300
 
-[node name="esquerda" type="StaticBody2D" parent="." groups=["limites"]]
+[node name="limites_mapa" type="Node2D" parent="."]
+
+[node name="esquerda" type="StaticBody2D" parent="limites_mapa" groups=["limites"]]
 position = Vector2(-1511, -4868)
 collision_layer = 16
 collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="esquerda"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda"]
 position = Vector2(-214.5, 5140)
 shape = SubResource("RectangleShape2D_voop0")
 
-[node name="esquerda2" type="StaticBody2D" parent="." groups=["limites"]]
+[node name="esquerda2" type="StaticBody2D" parent="limites_mapa" groups=["limites"]]
 position = Vector2(290, -4811)
 collision_layer = 16
 collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="esquerda2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda2"]
 position = Vector2(-214.5, 5140)
 shape = SubResource("RectangleShape2D_voop0")
 
-[node name="esquerda3" type="StaticBody2D" parent="." groups=["limites"]]
+[node name="esquerda3" type="StaticBody2D" parent="limites_mapa" groups=["limites"]]
 position = Vector2(4400, 927)
 rotation = 1.5707964
 collision_layer = 16
 collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="esquerda3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda3"]
 position = Vector2(-214.5, 5140)
 shape = SubResource("RectangleShape2D_voop0")
 
-[node name="esquerda4" type="StaticBody2D" parent="." groups=["limites"]]
+[node name="esquerda4" type="StaticBody2D" parent="limites_mapa" groups=["limites"]]
 position = Vector2(4207, -960)
 rotation = 1.5707964
 collision_layer = 16
 collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="esquerda4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda4"]
 position = Vector2(-214.5, 5140)
 shape = SubResource("RectangleShape2D_voop0")

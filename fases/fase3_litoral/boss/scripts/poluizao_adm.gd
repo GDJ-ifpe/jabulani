@@ -4,11 +4,11 @@ var pilar = [0,1,2]
 var pilarP1 = 0
 var pilarP2 = 0
 var vida = 20
-var nome = "boss"
+var nome = "boss" # para detecção de colisao
 func _ready() -> void:
 	pass
 
-func _process(_delta: float) -> void:
+func _process(_delta: float) -> void: # gerenciamento de morte da cabeça pilar
 	if vida <= 0:
 		SceneManagerLitoral.morte_pilar = true
 		SceneManagerLitoral.adm = false
@@ -17,7 +17,7 @@ func _process(_delta: float) -> void:
 		SceneManagerLitoral.morte = true
 		queue_free()
 
-func _on_timer_timeout() -> void:
+func _on_timer_timeout() -> void: # gerenciamento dos ataques do pilar
 	SceneManagerLitoral.olhos = true
 	pilar.shuffle()
 	pilarP1 = pilar[0]

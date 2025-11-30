@@ -1,18 +1,19 @@
 extends CharacterBody2D
 
-
+# MUITO CUIDADO AO MEXER NAS CONSTANTES PODE OCASIONAR BUGS DE GRAVIDADE
 const SPEED = 250.0
 const air_friction := 1
-var jabusintese := preload("res://shared/player/scenes/powerups/jabusintese.tscn")
+
+var jabusintese := preload("res://shared/player/scenes/powerups/jabusintese.tscn") # preload para power up
 var knockback_vector := Vector2.ZERO
 var direction
 var is_hurted := false
 @export var altura_pulo = 200
 @export var tempo_ate_topo_salto := 0.5
+@export var jabu = false
 var jump_velocity
 var gravity
 var fall_gravity
-@export var jabu = false
 var delay = true
 var player_position = position
 @onready var ray_d := $RayCast2D_D as RayCast2D
@@ -21,16 +22,17 @@ var player_position = position
 @onready var remote_transform := $remote as RemoteTransform2D
 @onready var atacando := false
 signal player_has_died()
+
 func _ready() -> void:
 	jump_velocity = (altura_pulo * 2) / tempo_ate_topo_salto
 	gravity = (altura_pulo * 2) / pow(tempo_ate_topo_salto, 2)
 	fall_gravity = gravity 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_select") and jabu and delay:
+	if Input.is_action_just_pressed("ui_select") and jabu and delay: # spawn do powerup jabusintese (adptar para receber outros powerups)
 		spawn_jabusintese()
 		await get_tree().create_timer(5).timeout
 		delay = true
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept"): # chama func de ataque
 		ataque()
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -52,12 +54,12 @@ func _physics_process(delta: float) -> void:
 			velocity = knockback_vector
 	_set_state()
 	move_and_slide()
-	for platforms in get_slide_collision_count():
+	for platforms in get_slide_collision_count(): # verificação constante de colisao
 		var collision = get_slide_collision(platforms)
 		if collision.get_collider().has_method("has_collided_with"):
 			collision.get_collider().has_collided_with(collision, self)
 
-func _on_hurtbox_body_entered(body: Node2D) -> void:
+func _on_hurtbox_body_entered(body: Node2D) -> void: # sistema de knockback personalizavel
 	if body.is_in_group("limites"):
 		emit_signal("player_has_died")
 	if body.is_in_group("pilar"):
@@ -78,12 +80,13 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 			take_damage(Vector2(0, -1200))
 		elif $RayCast2D_C.is_colliding():
 			take_damage(Vector2(1200, -1200))
+
 func ataque():
 	var porradao = $ataque.get_overlapping_areas()
-	for area in porradao:
+	for area in porradao: # dano em inimigos
 		var parent = area.get_parent()
 		parent.vida -= 1
-		if parent.nome == "boss":
+		if parent.nome == "boss": # controle de visualização de hit em inimigos
 			SceneManagerLitoral.anim.modulate = Color(1,0,0,1)
 			await get_tree().create_timer(0.02).timeout
 			SceneManagerLitoral.anim.modulate = Color(1,1,1,1)
@@ -93,7 +96,8 @@ func ataque():
 			parent.anim.modulate = Color(1,1,1,1)
 	atacando = true
 	anim.play("ataque")
-func take_damage(knockback_force := Vector2.ZERO, duration := 0.25):
+
+func take_damage(knockback_force := Vector2.ZERO, duration := 0.25): # knockback e gerencimento de vida
 	PlayerManager.player_life -= 1
 	if knockback_force != Vector2.ZERO:
 		knockback_vector = knockback_force
@@ -104,9 +108,9 @@ func take_damage(knockback_force := Vector2.ZERO, duration := 0.25):
 	is_hurted = true
 	await get_tree().create_timer(.3).timeout
 	is_hurted = false
-		
-func _set_state():
-	if PlayerManager.player_life <= 0:
+
+func _set_state(): # controle de animação do player
+	if PlayerManager.player_life <= 0: # animação de morte
 		anim.play("morte")
 		await get_tree().create_timer(1.0).timeout
 		queue_free()
@@ -125,13 +129,15 @@ func _set_state():
 				state = "hitado"
 			if anim.name != state:
 				anim.play(state)
-func follow_camera(camera):
+
+func follow_camera(camera): # camera basica (melhorar depois)
 	var camera_path = camera.get_path()
 	remote_transform.remote_path = camera_path
-func _on_anim_animation_finished() -> void:
+
+func _on_anim_animation_finished() -> void: # controle de animaçao de ataque
 	atacando = false
-	
-func spawn_jabusintese():
+
+func spawn_jabusintese(): 
 	var new_jabu = jabusintese.instantiate()
 	get_tree().current_scene.add_child(new_jabu)
 	new_jabu.position = global_position

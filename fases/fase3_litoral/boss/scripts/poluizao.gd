@@ -1,20 +1,19 @@
 extends Node2D
 
 @onready var _anim := $AnimatedSprite2D as AnimatedSprite2D
+var state # variavel para o estado das animações
 
-var state
 func _ready() -> void:
 	pass
 func _process(_delta: float) -> void:
-	SceneManagerLitoral.anim = _anim
-	SceneManagerLitoral.boss = true
-	_set_state()
+	SceneManagerLitoral.anim = _anim # transforma a animação local em global para manipulação em outros arquivos
+	SceneManagerLitoral.boss = true # muda a posição de combate do player.
+	_set_state() # seta o estado da animação
 	if SceneManagerLitoral.olhos and SceneManagerLitoral.adm:
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.5).timeout # timer para n cortar animação de morte
 		if !SceneManagerLitoral.morte:
-			$"../cabeca_adm".process_mode = Node.PROCESS_MODE_INHERIT
-func _set_state():
-	#ataque atira()
+			$"../cabeca_adm".process_mode = Node.PROCESS_MODE_INHERIT # inicia a segunda fase do boss
+func _set_state(): #gerenciamento da animações do boss
 	if !SceneManagerLitoral.adm and !SceneManagerLitoral.morte_adm and !SceneManagerLitoral.ataque_lixo:
 		state = "idle"
 	if !SceneManagerLitoral.olhos and SceneManagerLitoral.adm and !SceneManagerLitoral.morte_adm: 

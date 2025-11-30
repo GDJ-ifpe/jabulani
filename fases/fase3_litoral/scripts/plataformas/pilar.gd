@@ -1,13 +1,13 @@
 extends Node2D
 
 const dura_temp := 1.0
-
+# responsavel pela movimentação do pilar
 @onready var platform := $plataform as AnimatableBody2D
 @onready var sprite := $plataform/Sprite2D
 @export var move_speed := 3.0
 @export var distance := 192
 @export var move_horizontal := true
-
+# responsavel pela "animação" do pilar
 @export var flash_duration: float = 0.5 
 @export var flash_frequency: float = 0.05 
 
