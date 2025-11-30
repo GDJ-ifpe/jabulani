@@ -15,23 +15,36 @@ extends Control
 @onready var powerup_5: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup5
 @onready var powerup_6: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup6
 
+@onready var vidas_icon: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon
+@onready var vidas_icon_2: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2
+@onready var vidas_icon_3: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3
+@onready var vidas_icon_4: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4
+@onready var vidas_icon_5: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4/vidas_icon5
+@onready var vidas_icon_6: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4/vidas_icon5/vidas_icon6
+
 
 func _ready():
 	contador_pontos.text = str("%05d" % PlayerManager.pontos)
+
 func _process(_delta: float) -> void:
 	contador_pontos.text = str("%05d" % PlayerManager.pontos)
 	if PlayerManager.player_life <= 0:
 		texture_rect.visible = false
+		vidas_icon_6.visible = true
 	if PlayerManager.player_life <= 5:
 		texture_rect_6.visible = false
 	if PlayerManager.player_life <= 4:
 		texture_rect_5.visible = false
+		vidas_icon_2.visible = true
 	if PlayerManager.player_life <= 3:
 		texture_rect_4.visible = false
+		vidas_icon_3.visible = true
 	if PlayerManager.player_life <= 2:
 		texture_rect_3.visible = false
+		vidas_icon_4.visible = true
 	if PlayerManager.player_life <= 1:
 		texture_rect_2.visible = false
+		vidas_icon_5.visible = true
 	if PlayerManager.player_power == 6:
 		powerup_6.visible = false
 	if PlayerManager.player_power == 5:

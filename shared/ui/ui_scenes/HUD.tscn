@@ -1,24 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmoljl2nm2vvg"]
+[gd_scene load_steps=10 format=3 uid="uid://bmoljl2nm2vvg"]
 
 [ext_resource type="Script" uid="uid://3spmaudistnp" path="res://shared/ui/hud_manager.gd" id="1_5fyfn"]
 [ext_resource type="Texture2D" uid="uid://b7t7ieylbrcdl" path="res://shared/ui/ui_sprites/DoomTurtle/Face_00.png" id="2_7n4fj"]
 [ext_resource type="Texture2D" uid="uid://d3bxkagnkx2h8" path="res://shared/ui/ui_sprites/Elements/Hearth.png" id="3_5ip4n"]
+[ext_resource type="Texture2D" uid="uid://bbggt3jqd8m2w" path="res://shared/ui/ui_sprites/DoomTurtle/Face_02.png" id="3_twf0w"]
 [ext_resource type="Texture2D" uid="uid://bp5r1ft07hroo" path="res://shared/ui/ui_sprites/Elements/Shell.png" id="4_l8xe2"]
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_83slx"]
-frames = 6
-pause = true
-frame_0/texture = ExtResource("2_7n4fj")
-frame_1/texture = ExtResource("2_7n4fj")
-frame_1/duration = 1.0
-frame_2/texture = ExtResource("2_7n4fj")
-frame_2/duration = 1.0
-frame_3/texture = ExtResource("2_7n4fj")
-frame_3/duration = 1.0
-frame_4/texture = ExtResource("2_7n4fj")
-frame_4/duration = 1.0
-frame_5/texture = ExtResource("2_7n4fj")
-frame_5/duration = 1.0
+[ext_resource type="Texture2D" uid="uid://cd5owqrroce0v" path="res://shared/ui/ui_sprites/DoomTurtle/Face_05.png" id="4_twf0w"]
+[ext_resource type="Texture2D" uid="uid://brualmnt5tw0" path="res://shared/ui/ui_sprites/DoomTurtle/Face_08.png" id="5_gyp3a"]
+[ext_resource type="Texture2D" uid="uid://bxu04duxvwief" path="res://shared/ui/ui_sprites/DoomTurtle/Face_11.png" id="6_l5jig"]
+[ext_resource type="Texture2D" uid="uid://ctodq0v1c0mgi" path="res://shared/ui/ui_sprites/DoomTurtle/Face_14.png" id="7_00jmo"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -78,7 +68,57 @@ size_flags_vertical = 0
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-texture = SubResource("AnimatedTexture_83slx")
+texture = ExtResource("2_7n4fj")
+stretch_mode = 3
+
+[node name="vidas_icon2" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon"]
+visible = false
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 43.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("3_twf0w")
+stretch_mode = 3
+
+[node name="vidas_icon3" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2"]
+visible = false
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 43.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("4_twf0w")
+stretch_mode = 3
+
+[node name="vidas_icon4" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3"]
+visible = false
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 43.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("5_gyp3a")
+stretch_mode = 3
+
+[node name="vidas_icon5" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4"]
+visible = false
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 43.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("6_l5jig")
+stretch_mode = 3
+
+[node name="vidas_icon6" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4/vidas_icon5"]
+visible = false
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 43.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("7_00jmo")
 stretch_mode = 3
 
 [node name="separador" type="Label" parent="MarginContainer/VBoxContainer/status_coluna"]
