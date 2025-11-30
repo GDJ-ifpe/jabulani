@@ -9,6 +9,7 @@ var direction := -1
 func _process(_delta: float) -> void: # gerenciamento de vida
 	if vida == 0:
 		$AnimatedSprite2D.play("morte")
+		PlayerManager.pontos += 10
 		await get_tree().create_timer(1.0).timeout
 		queue_free()
 

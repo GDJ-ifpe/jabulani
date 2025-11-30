@@ -1,9 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmoljl2nm2vvg"]
+[gd_scene load_steps=6 format=3 uid="uid://bmoljl2nm2vvg"]
 
 [ext_resource type="Script" uid="uid://3spmaudistnp" path="res://shared/ui/hud_manager.gd" id="1_5fyfn"]
 [ext_resource type="Texture2D" uid="uid://b7t7ieylbrcdl" path="res://shared/ui/ui_sprites/DoomTurtle/Face_00.png" id="2_7n4fj"]
 [ext_resource type="Texture2D" uid="uid://d3bxkagnkx2h8" path="res://shared/ui/ui_sprites/Elements/Hearth.png" id="3_5ip4n"]
 [ext_resource type="Texture2D" uid="uid://bp5r1ft07hroo" path="res://shared/ui/ui_sprites/Elements/Shell.png" id="4_l8xe2"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_83slx"]
+frames = 6
+pause = true
+frame_0/texture = ExtResource("2_7n4fj")
+frame_1/texture = ExtResource("2_7n4fj")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("2_7n4fj")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("2_7n4fj")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("2_7n4fj")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("2_7n4fj")
+frame_5/duration = 1.0
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -63,7 +78,8 @@ size_flags_vertical = 0
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-texture = ExtResource("2_7n4fj")
+texture = SubResource("AnimatedTexture_83slx")
+stretch_mode = 3
 
 [node name="separador" type="Label" parent="MarginContainer/VBoxContainer/status_coluna"]
 layout_mode = 2

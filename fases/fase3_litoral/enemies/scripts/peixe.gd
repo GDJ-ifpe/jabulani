@@ -12,6 +12,7 @@ var nome := "inimigos" # para detecção de colisao
 func _process(_delta: float) -> void: # gerenciamento de vida
 	if vida == 0:
 		$AnimatedSprite2D.play("morte")
+		PlayerManager.pontos += 10
 		await get_tree().create_timer(1.5).timeout
 		queue_free()
 func _physics_process(_delta: float) -> void: # detecção de colisao e split de animaçao
