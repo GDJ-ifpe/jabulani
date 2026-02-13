@@ -1,11 +1,37 @@
-# Godot 4+ specific ignores
 .godot/
-/android/
-.import/
+.tmp/
+*.tmp
+*.bak
 
-# arquivos temp do krita
-*.kra
+export_presets.cfg
+*.godot.user
+
+# C#/ .Net
+.mono/
+.net/
+bin/
+obj/
+*_build/
+
+# IDEs
+*.csproj.user
+*.sln.user
+*.suo
+*.user
+*.userprefs
+.vscode/
+.vs/
+.idea/
+
+# SO
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs
+godot_openxr_*.log
+mono_crash.*.json
+
+# temp artes
 *.kra~
-
-# arquivos temp de png
 *.png~
