@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b0g6fk3yxsmp8"]
+[gd_scene format=3 uid="uid://b0g6fk3yxsmp8"]
 
 [ext_resource type="Script" uid="uid://uykjgak5xo0a" path="res://shared/player/scripts/player.gd" id="1_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cix8eoeiylwjy" path="res://shared/player/sprites/Crouch/Abaixar.png" id="2_smehm"]
@@ -289,49 +289,51 @@ size = Vector2(194, 176.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ur7pv"]
 size = Vector2(171.5, 159.5)
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" unique_id=19753071]
 collision_mask = 30
 script = ExtResource("1_fjrip")
 
-[node name="collision" type="CollisionShape2D" parent="."]
+[node name="collision" type="CollisionShape2D" parent="." unique_id=1786322009]
 position = Vector2(-3.5, 30.5)
 shape = SubResource("RectangleShape2D_u8vuu")
 
-[node name="anim" type="AnimatedSprite2D" parent="."]
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=2064592948]
 sprite_frames = SubResource("SpriteFrames_2dvfe")
-animation = &"idle-pre-ataque"
+animation = &"ataque"
+frame = 6
+frame_progress = 1.0
 flip_h = true
 
-[node name="hurtbox" type="Area2D" parent="."]
+[node name="hurtbox" type="Area2D" parent="." unique_id=913297653]
 collision_layer = 32
 collision_mask = 20
 
-[node name="collision" type="CollisionShape2D" parent="hurtbox"]
+[node name="collision" type="CollisionShape2D" parent="hurtbox" unique_id=974446588]
 position = Vector2(-2, 24.25)
 shape = SubResource("RectangleShape2D_fjrip")
 
-[node name="RayCast2D_D" type="RayCast2D" parent="."]
-position = Vector2(12.000001, 5)
-scale = Vector2(180, 180)
-target_position = Vector2(1.8555555, -0.033333335)
+[node name="RayCast2D_D" type="RayCast2D" parent="." unique_id=928437526]
+position = Vector2(12, 19)
+scale = Vector2(150, 150)
+target_position = Vector2(1.887, 0)
 collision_mask = 20
 hit_from_inside = true
 
-[node name="RayCast2D_E" type="RayCast2D" parent="."]
+[node name="RayCast2D_E" type="RayCast2D" parent="." unique_id=1348505255]
 position = Vector2(21.999996, 19.000002)
 scale = Vector2(150, 150)
-target_position = Vector2(-2.2533333, -0.06000001)
+target_position = Vector2(-1.887, 0)
 collision_mask = 20
 hit_from_inside = true
 
-[node name="ataque" type="Area2D" parent="."]
+[node name="ataque" type="Area2D" parent="." unique_id=1648395583]
 collision_mask = 20
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ataque"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ataque" unique_id=1002370188]
 position = Vector2(79, 12)
 shape = SubResource("RectangleShape2D_ur7pv")
 
-[node name="RayCast2D_B" type="RayCast2D" parent="."]
+[node name="RayCast2D_B" type="RayCast2D" parent="." unique_id=838216651]
 position = Vector2(-1, 18.999998)
 rotation = -1.5707964
 scale = Vector2(150, 150)
@@ -339,21 +341,21 @@ target_position = Vector2(-1.8866667, -8.242205e-08)
 collision_mask = 20
 hit_from_inside = true
 
-[node name="RayCast2D_C" type="RayCast2D" parent="."]
+[node name="RayCast2D_C" type="RayCast2D" parent="." unique_id=1361321901]
 position = Vector2(-1, 21.000002)
 rotation = 1.5707964
 scale = Vector2(150, 150)
-target_position = Vector2(-1.8533334, 0.0066667474)
+target_position = Vector2(-1.887, 0)
 collision_mask = 20
 hit_from_inside = true
 
-[node name="Hud" parent="." instance=ExtResource("9_ur7pv")]
+[node name="Hud" parent="." unique_id=1162107522 instance=ExtResource("9_ur7pv")]
 offset_left = -660.0
 offset_top = -370.0
 offset_right = 663.0
 offset_bottom = 370.0
 
-[node name="remote" type="RemoteTransform2D" parent="."]
+[node name="remote" type="RemoteTransform2D" parent="." unique_id=1427414401]
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

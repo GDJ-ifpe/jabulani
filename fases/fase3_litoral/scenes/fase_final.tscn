@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://e4hpw57s0vlu"]
+[gd_scene format=3 uid="uid://e4hpw57s0vlu"]
 
 [ext_resource type="Script" uid="uid://1mmlexjq7c57" path="res://fases/fase3_litoral/scripts/fase_final.gd" id="1_4t8cq"]
 [ext_resource type="PackedScene" uid="uid://buhegnsvwuv3f" path="res://fases/fase3_litoral/boss/scenes/poluizao.tscn" id="1_iejbd"]
@@ -28,163 +28,164 @@ shader_parameter/move_speed = 0.01
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_voop0"]
 size = Vector2(409, 4000)
 
-[node name="FaseFinal" type="Node2D"]
+[node name="FaseFinal" type="Node2D" unique_id=1710391583]
 script = ExtResource("1_4t8cq")
 
-[node name="Boss" type="Node2D" parent="."]
+[node name="Boss" type="Node2D" parent="." unique_id=1941977976]
 
-[node name="poluizao" parent="Boss" instance=ExtResource("1_iejbd")]
+[node name="poluizao" parent="Boss" unique_id=189927084 instance=ExtResource("1_iejbd")]
 
-[node name="cabeca_adm" parent="Boss" instance=ExtResource("5_17pks")]
+[node name="cabeca_adm" parent="Boss" unique_id=1305741187 instance=ExtResource("5_17pks")]
 process_mode = 4
 position = Vector2(-174, 39)
 
-[node name="cabeca_atira" parent="Boss" instance=ExtResource("6_lsimd")]
+[node name="cabeca_atira" parent="Boss" unique_id=1548779564 instance=ExtResource("6_lsimd")]
 position = Vector2(-261, -46)
 
-[node name="plataformas" type="Node2D" parent="."]
+[node name="plataformas" type="Node2D" parent="." unique_id=1189929843]
 
-[node name="plataform_movel_D2" parent="plataformas" instance=ExtResource("2_d5b30")]
+[node name="plataform_movel_D2" parent="plataformas" unique_id=26090504 instance=ExtResource("2_d5b30")]
 position = Vector2(-1132, 257)
 move_speed = 5.0
 move_horizontal = false
 
-[node name="plataform_movel_D3" parent="plataformas" instance=ExtResource("2_d5b30")]
+[node name="plataform_movel_D3" parent="plataformas" unique_id=765252845 instance=ExtResource("2_d5b30")]
 position = Vector2(-806, 257)
 move_speed = 5.5
 move_horizontal = false
 
-[node name="plataform_movel_D" parent="plataformas" instance=ExtResource("2_d5b30")]
+[node name="plataform_movel_D" parent="plataformas" unique_id=1849711781 instance=ExtResource("2_d5b30")]
 position = Vector2(-479, 257)
 move_speed = 6.0
 move_horizontal = false
 
-[node name="pilares" type="Node2D" parent="."]
+[node name="pilares" type="Node2D" parent="." unique_id=1078082444]
 
-[node name="pilar" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
+[node name="pilar" parent="pilares" unique_id=1114742297 groups=["pilar"] instance=ExtResource("4_1ps3k")]
 position = Vector2(-810, 653)
 move_speed = 150.0
 distance = 500
 flash_duration = 6.0
 flash_frequency = 0.08
 
-[node name="pilar2" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
+[node name="pilar2" parent="pilares" unique_id=1208025631 groups=["pilar"] instance=ExtResource("4_1ps3k")]
 position = Vector2(-1184, 639)
 move_speed = 150.0
 distance = 500
 flash_duration = 6.0
 flash_frequency = 0.08
 
-[node name="pilar3" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
+[node name="pilar3" parent="pilares" unique_id=1613170401 groups=["pilar"] instance=ExtResource("4_1ps3k")]
 position = Vector2(-425, 653)
 move_speed = 150.0
 distance = 500
 flash_duration = 6.0
 flash_frequency = 0.08
 
-[node name="pilar6" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
+[node name="pilar6" parent="pilares" unique_id=1281183434 groups=["pilar"] instance=ExtResource("4_1ps3k")]
 position = Vector2(-829, 530)
 rotation = 1.5707964
 move_speed = 150.0
 flash_duration = 6.0
 
-[node name="pilar4" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
+[node name="pilar4" parent="pilares" unique_id=1974666216 groups=["pilar"] instance=ExtResource("4_1ps3k")]
 position = Vector2(-1216, 533)
 rotation = 1.5707964
 move_speed = 150.0
 flash_duration = 6.0
 
-[node name="pilar5" parent="pilares" groups=["pilar"] instance=ExtResource("4_1ps3k")]
+[node name="pilar5" parent="pilares" unique_id=1362853402 groups=["pilar"] instance=ExtResource("4_1ps3k")]
 position = Vector2(-422, 533)
 rotation = 1.5707964
 move_speed = 150.0
 flash_duration = 6.0
 
-[node name="player" parent="." instance=ExtResource("3_1qmov")]
+[node name="player" parent="." unique_id=2115830098 instance=ExtResource("3_1qmov")]
 position = Vector2(-1128, 45)
+SPEED = 500.0
 
-[node name="gravity" type="Area2D" parent="."]
+[node name="gravity" type="Area2D" parent="." unique_id=966297702]
 visible = false
 position = Vector2(2176, 1390)
 monitorable = false
 gravity_space_override = 3
 gravity = 900.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="gravity"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gravity" unique_id=1511871638]
 position = Vector2(-2282, -967)
 shape = SubResource("RectangleShape2D_lsimd")
 debug_color = Color(0.38255185, 0.49931693, 0.9285554, 0.41960785)
 
-[node name="boss_music" type="AudioStreamPlayer" parent="."]
+[node name="boss_music" type="AudioStreamPlayer" parent="." unique_id=1443432073]
 stream = ExtResource("7_gden0")
 autoplay = true
 parameters/looping = true
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=40891754]
 
-[node name="7" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="7" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1925311964]
 position = Vector2(-693, -80)
 scale = Vector2(3, 2)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/7"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/7" unique_id=214369710]
 texture = ExtResource("8_s4ohf")
 
-[node name="6" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="6" type="ParallaxLayer" parent="ParallaxBackground" unique_id=78983574]
 position = Vector2(-1167, -335)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/6"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/6" unique_id=335269215]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_4t8cq")
 position = Vector2(191, 216)
 scale = Vector2(1.6, 0.738)
 texture = ExtResource("9_vntbv")
 
-[node name="5" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="5" type="ParallaxLayer" parent="ParallaxBackground" unique_id=878230634]
 position = Vector2(-816, 157)
 scale = Vector2(2, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/5"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/5" unique_id=1456293162]
 texture = ExtResource("10_gh4e1")
 
-[node name="4" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="4" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1124388738]
 position = Vector2(-828, 180)
 scale = Vector2(2, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/4"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/4" unique_id=1950270081]
 texture = ExtResource("11_4t8cq")
 
-[node name="3" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="3" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1759129799]
 position = Vector2(-821, 197)
 scale = Vector2(2, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/3"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/3" unique_id=1498921817]
 texture = ExtResource("12_n7628")
 
-[node name="2" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=814616700]
 position = Vector2(-817, 218)
 scale = Vector2(2, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/2"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/2" unique_id=1984252412]
 texture = ExtResource("13_voop0")
 
-[node name="1" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="1" type="ParallaxLayer" parent="ParallaxBackground" unique_id=220602139]
 position = Vector2(-676, 502)
 scale = Vector2(3, 1.5)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/1"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/1" unique_id=608955974]
 texture = ExtResource("14_hyne0")
 
-[node name="teste" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="teste" type="ParallaxLayer" parent="ParallaxBackground" unique_id=581841105]
 position = Vector2(-890, 1078)
 rotation = 3.1415927
 scale = Vector2(3, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/teste"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/teste" unique_id=1587733032]
 texture_repeat = 1
 position = Vector2(-53.333332, 767.3334)
 texture = ExtResource("15_vntbv")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1603502803]
 zoom = Vector2(0.87, 0.87)
 limit_enabled = false
 limit_left = -750
@@ -192,42 +193,42 @@ limit_top = 3600
 limit_right = 5500
 limit_bottom = 7300
 
-[node name="limites_mapa" type="Node2D" parent="."]
+[node name="limites_mapa" type="Node2D" parent="." unique_id=1245768072]
 
-[node name="esquerda" type="StaticBody2D" parent="limites_mapa" groups=["limites"]]
+[node name="esquerda" type="StaticBody2D" parent="limites_mapa" unique_id=1302602564 groups=["limites"]]
 position = Vector2(-1511, -4868)
 collision_layer = 16
 collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda" unique_id=1748983238]
 position = Vector2(-214.5, 5140)
 shape = SubResource("RectangleShape2D_voop0")
 
-[node name="esquerda2" type="StaticBody2D" parent="limites_mapa" groups=["limites"]]
+[node name="esquerda2" type="StaticBody2D" parent="limites_mapa" unique_id=1576819380 groups=["limites"]]
 position = Vector2(290, -4811)
 collision_layer = 16
 collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda2" unique_id=637551327]
 position = Vector2(-214.5, 5140)
 shape = SubResource("RectangleShape2D_voop0")
 
-[node name="esquerda3" type="StaticBody2D" parent="limites_mapa" groups=["limites"]]
+[node name="esquerda3" type="StaticBody2D" parent="limites_mapa" unique_id=1439747987 groups=["limites"]]
 position = Vector2(4400, 927)
 rotation = 1.5707964
 collision_layer = 16
 collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda3" unique_id=656868755]
 position = Vector2(-214.5, 5140)
 shape = SubResource("RectangleShape2D_voop0")
 
-[node name="esquerda4" type="StaticBody2D" parent="limites_mapa" groups=["limites"]]
+[node name="esquerda4" type="StaticBody2D" parent="limites_mapa" unique_id=1309656842 groups=["limites"]]
 position = Vector2(4207, -960)
 rotation = 1.5707964
 collision_layer = 16
 collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limites_mapa/esquerda4" unique_id=338739118]
 position = Vector2(-214.5, 5140)
 shape = SubResource("RectangleShape2D_voop0")

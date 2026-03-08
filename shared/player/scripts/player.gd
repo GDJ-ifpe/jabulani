@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # MUITO CUIDADO AO MEXER NAS CONSTANTES PODE OCASIONAR BUGS DE GRAVIDADE
-const SPEED = 250.0
+@export var SPEED = 250.0
 const air_friction := 1
 
 var jabusintese := preload("res://shared/player/scenes/powerups/jabusintese.tscn") # preload para power up

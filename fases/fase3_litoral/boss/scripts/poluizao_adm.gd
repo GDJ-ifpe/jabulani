@@ -24,17 +24,17 @@ func _on_timer_timeout() -> void: # gerenciamento dos ataques do pilar
 	pilarP2 = pilar[1]
 
 	if pilarP1 == 0 or pilarP2 == 0:
-		$"../pilar".start_flash()
+		$"../../pilares/pilar".start_flash()
 		await get_tree().create_timer(2.0).timeout
-		$"../pilar".move_platform()
+		$"../../pilares/pilar".move_platform()
 	if pilarP1 == 1 or pilarP2 == 1:
-		$"../pilar2".start_flash()
+		$"../../pilares/pilar2".start_flash()
 		await get_tree().create_timer(2.0).timeout
-		$"../pilar2".move_platform()
+		$"../../pilares/pilar2".move_platform()
 	if pilarP1 == 2 or pilarP2 == 2:
-		$"../pilar3".start_flash()
+		$"../../pilares/pilar3".start_flash()
 		await get_tree().create_timer(2.0).timeout
-		$"../pilar3".move_platform()
+		$"../../pilares/pilar3".move_platform()
 	SceneManagerLitoral.olhos = false
 	await get_tree().create_timer(3.0).timeout
 	_on_timer_timeout()
