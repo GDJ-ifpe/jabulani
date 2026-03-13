@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bgvhnwhmemq31" path="res://shared/player/sprites/Running/Running.png" id="4_0gcbb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejjm8"]
-size = Vector2(78, 73)
+size = Vector2(13, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7r5ry"]
 atlas = ExtResource("2_ejjm8")
@@ -68,18 +68,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=2024786376]
-position = Vector2(-36, 9)
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=2024786376 groups=["Player"]]
+position = Vector2(32, 22)
 script = ExtResource("1_odcdu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=204433449]
-position = Vector2(2, 3.5)
+position = Vector2(-5.5, 2)
 shape = SubResource("RectangleShape2D_ejjm8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1752632246]
 position = Vector2(-6.3280373, 1.0439215)
-scale = Vector2(0.4223707, 0.40426844)
+scale = Vector2(0.064, 0.062)
 sprite_frames = SubResource("SpriteFrames_jpmhp")
-animation = &"walk"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.47278804
