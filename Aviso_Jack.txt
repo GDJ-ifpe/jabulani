@@ -1,0 +1,19 @@
+Vamos la, esse "tutorial" vai ser extenso então separarei por partes.
+
+Lembrando sempre de verificar coisas como a camada de colisão ao criar chão e afins.
+
+player:
+para usar o player, instancie a cena player, depois como um no filho do player, adicione uma camera 2d, defina o zoom para 0.87 e centralize arrastando a camera para o centro do player, desative o 'limit' e pronto, ele ja esta funcional.
+
+transição:
+instancie a cena de transição e posicione onde desejar, vá ate o arquivo .tscn da fase que quer transportar o personagem e clicando com o botao direito, selecione a opção "copiar caminho". volte até a cena de transição que instanciou e cole no campo "next level", lembrando que é preciso que na cena onde o player ira aparecer ja tenha a cena do player la, pois isso não realmente transporta o personagem, e sim fecha a cena atual e inicia a proxima.
+
+hitbox:
+apertando o botao direito no inimigo, de preferencia no nó principal dele. instancie uma cena filha e selecione a cena hitbox, apos isso dentro da cena hitbox coloque um no 'colision shape 2d' e deixe da forma que quiser, lembrando que é importante verificar coisas como qual camada de colisao está, todas estão nomeadas, existe uma camada para inimigos e outra para hitbox, pois na teoria o player nao deve colidir com a hitbox, mas sim com o inimigo, a hitbox tambem deve ser consideravelmente maior que a colisao do inimigo, um pouquinho maior que a sprite do inimigo ja serve, para não acontecer de por uns milisegundos o player entrar no inimigo.
+
+extras:
+coisas como moeda ou os powerups é só instanciar a cena. funcionarao normal
+
+
+duvidas só chamar.
+- Carinhosamente, jack

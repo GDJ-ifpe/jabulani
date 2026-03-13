@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kkqphuprklax"
-path="res://.godot/imported/Basic_Attack.png-06fd2cd07ec8a4df33c54aa17aeaef71.ctex"
+uid="uid://cuff4qhwmtk70"
+path="res://.godot/imported/Fill_00.png-4169296a47ad5d0068f0d1b1f68c120b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://shared/player/sprites/Ataque/Basic_Attack.png"
-dest_files=["res://.godot/imported/Basic_Attack.png-06fd2cd07ec8a4df33c54aa17aeaef71.ctex"]
+source_file="res://shared/ui/ui_sprites/BlackMithUturtle/Fill_00.png"
+dest_files=["res://.godot/imported/Fill_00.png-4169296a47ad5d0068f0d1b1f68c120b.ctex"]
 
 [params]
 

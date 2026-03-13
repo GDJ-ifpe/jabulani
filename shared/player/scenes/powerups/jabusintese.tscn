@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://dt1tt4hquk1vi"]
+
+[ext_resource type="Script" uid="uid://crvgfw2f1uhui" path="res://scripts/fase_litoral/inimigos/jabusintese.gd" id="1_iuxw1"]
+[ext_resource type="Texture2D" uid="uid://bk28cei8vppih" path="res://assets/Jabulane/Efects/Jabussintese.png" id="2_10lmk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqkj4"]
+size = Vector2(71, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lj7cv"]
+size = Vector2(112, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0t84"]
+atlas = ExtResource("2_10lmk")
+region = Rect2(1118, 0, 40, 91)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m1nc"]
+atlas = ExtResource("2_10lmk")
+region = Rect2(1021, 0, 41, 91)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m38rg"]
+atlas = ExtResource("2_10lmk")
+region = Rect2(894, 0, 51, 91)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyhgr"]
+atlas = ExtResource("2_10lmk")
+region = Rect2(753, 0, 64, 91)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grh85"]
+atlas = ExtResource("2_10lmk")
+region = Rect2(635, 0, 70, 91)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_td21h"]
+atlas = ExtResource("2_10lmk")
+region = Rect2(509, 0, 82, 91)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhinw"]
+atlas = ExtResource("2_10lmk")
+region = Rect2(351, 0, 88, 91)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u47e4"]
+atlas = ExtResource("2_10lmk")
+region = Rect2(205, 0, 73, 91)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0os7g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0t84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8m1nc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m38rg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyhgr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grh85")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_td21h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhinw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u47e4")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 10.0
+}]
+
+[node name="jabusintese" type="CharacterBody2D"]
+collision_mask = 22
+script = ExtResource("1_iuxw1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, -3)
+shape = SubResource("RectangleShape2D_aqkj4")
+
+[node name="ataque" type="Area2D" parent="."]
+collision_mask = 22
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ataque"]
+position = Vector2(-3, -9.5)
+shape = SubResource("RectangleShape2D_lj7cv")
+debug_color = Color(0.8375523, 0.3027419, 0.6174119, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0os7g")
+animation = &"spawn"
+autoplay = "spawn"
+frame = 7
+frame_progress = 1.0
