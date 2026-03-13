@@ -76,7 +76,7 @@ func _on_hurtbox_body_entered(body: Node2D) -> void: # sistema de knockback pers
 			take_damage(Vector2(-1200, -1200))
 		elif ray_e.is_colliding():
 			take_damage(Vector2(1200, -1200))
-		elif $RayCast2D_B.is_colliding() and !SceneManagerLitoral.boss:
+		elif $RayCast2D_B.is_colliding(): #and !SceneManagerLitoral.boss:
 			take_damage(Vector2(0, -1200))
 		elif $RayCast2D_C.is_colliding():
 			take_damage(Vector2(1200, -1200))
@@ -86,14 +86,14 @@ func ataque():
 	for area in porradao: # dano em inimigos
 		var parent = area.get_parent()
 		parent.vida -= 1
-		if parent.nome == "boss": # controle de visualização de hit em inimigos
-			SceneManagerLitoral.anim.modulate = Color(1,0,0,1)
-			await get_tree().create_timer(0.02).timeout
-			SceneManagerLitoral.anim.modulate = Color(1,1,1,1)
-		else:
-			parent.anim.modulate = Color(1,0,0,1)
-			await get_tree().create_timer(0.05).timeout
-			parent.anim.modulate = Color(1,1,1,1)
+		#if parent.nome == "boss": # controle de visualização de hit em inimigos
+			#SceneManagerLitoral.anim.modulate = Color(1,0,0,1)
+			#await get_tree().create_timer(0.02).timeout
+			#SceneManagerLitoral.anim.modulate = Color(1,1,1,1) # Consertar depois tornando global.
+		
+		parent.anim.modulate = Color(1,0,0,1)
+		await get_tree().create_timer(0.05).timeout
+		parent.anim.modulate = Color(1,1,1,1)
 	atacando = true
 	anim.play("ataque")
 
@@ -119,8 +119,8 @@ func _set_state(): # controle de animação do player
 	else:
 		if !atacando:
 			var state = "idle-pre-ataque"
-			if SceneManagerLitoral.boss:
-				state = "idle-pos-ataque"
+			#if SceneManagerLitoral.boss: # Consertar depois, tornar pose global
+				#state = "idle-pos-ataque"
 			if !is_on_floor():
 				state = "salto"
 			elif direction != 0 and is_on_floor():

@@ -2,12 +2,18 @@
 
 [ext_resource type="Script" uid="uid://uykjgak5xo0a" path="res://shared/player/scripts/player.gd" id="1_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cix8eoeiylwjy" path="res://shared/player/sprites/Crouch/Abaixar.png" id="2_smehm"]
+[ext_resource type="Texture2D" uid="uid://ce6y50wfwcoyf" path="res://shared/player/sprites/Ataque/ataque basico/quadro0000.png" id="3_7uoqr"]
 [ext_resource type="Texture2D" uid="uid://bgvhnwhmemq31" path="res://shared/player/sprites/Running/Running.png" id="3_ur7pv"]
-[ext_resource type="Texture2D" uid="uid://kkqphuprklax" path="res://shared/player/sprites/Ataque/Basic_Attack.png" id="4_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://ck7l7iyqgqkrw" path="res://shared/player/sprites/Ataque/ataque basico/quadro0001.png" id="4_tb4gx"]
 [ext_resource type="Texture2D" uid="uid://6afwj01jip6o" path="res://shared/player/sprites/Hit and Dead/hit_dead.png" id="4_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://dk5qvy3n6jduf" path="res://shared/player/sprites/Idle/idle.png" id="5_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://phu2oiflh2ll" path="res://shared/player/sprites/Ataque/ataque basico/quadro0002.png" id="5_mx2r5"]
 [ext_resource type="Texture2D" uid="uid://2ng0rrwq7r4l" path="res://shared/player/sprites/Hit and Dead/Death.png" id="6_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://clogcj5ef60bv" path="res://shared/player/sprites/Ataque/ataque basico/quadro0003.png" id="6_qqyg6"]
 [ext_resource type="Texture2D" uid="uid://cd6ngpyh3kjst" path="res://shared/player/sprites/Jump/Pulo.png" id="7_jej6c"]
+[ext_resource type="Texture2D" uid="uid://r3fo88duanhn" path="res://shared/player/sprites/Ataque/ataque basico/quadro0004.png" id="7_xwjcf"]
+[ext_resource type="Texture2D" uid="uid://dkpemrfdrm5iq" path="res://shared/player/sprites/Ataque/ataque basico/quadro0005.png" id="8_7746i"]
+[ext_resource type="Texture2D" uid="uid://buw0eakms0bjj" path="res://shared/player/sprites/Ataque/ataque basico/quadro0006.png" id="9_cpbj8"]
 [ext_resource type="PackedScene" uid="uid://bmoljl2nm2vvg" path="res://shared/ui/ui_scenes/HUD.tscn" id="9_ur7pv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
@@ -32,34 +38,6 @@ region = Rect2(190, 0, 126, 181)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
 atlas = ExtResource("2_smehm")
 region = Rect2(0, 0, 136, 181)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
-atlas = ExtResource("4_ur7pv")
-region = Rect2(0, 0, 110, 232)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
-atlas = ExtResource("4_ur7pv")
-region = Rect2(230, 0, 296, 232)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
-atlas = ExtResource("4_ur7pv")
-region = Rect2(606, 0, 240, 232)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
-atlas = ExtResource("4_ur7pv")
-region = Rect2(945, 0, 254, 232)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hax0n"]
-atlas = ExtResource("4_ur7pv")
-region = Rect2(1300, 0, 219, 232)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cs1tg"]
-atlas = ExtResource("4_ur7pv")
-region = Rect2(1602, 0, 110, 232)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2dvfe"]
-atlas = ExtResource("4_ur7pv")
-region = Rect2(1751, 0, 180, 232)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
 atlas = ExtResource("3_ur7pv")
@@ -165,25 +143,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y4r1p")
+"texture": ExtResource("3_7uoqr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d2wvv")
+"texture": ExtResource("4_tb4gx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3v2ag")
+"texture": ExtResource("5_mx2r5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jej6c")
+"texture": ExtResource("6_qqyg6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hax0n")
+"texture": ExtResource("7_xwjcf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cs1tg")
+"texture": ExtResource("8_7746i")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2dvfe")
+"texture": ExtResource("9_cpbj8")
 }],
 "loop": false,
 "name": &"ataque",
@@ -300,7 +278,6 @@ shape = SubResource("RectangleShape2D_u8vuu")
 [node name="anim" type="AnimatedSprite2D" parent="." unique_id=2064592948]
 sprite_frames = SubResource("SpriteFrames_2dvfe")
 animation = &"ataque"
-frame = 6
 frame_progress = 1.0
 flip_h = true
 
