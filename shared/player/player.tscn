@@ -68,7 +68,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=2024786376 groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=2024786376 groups=["Player"]]
 position = Vector2(32, 22)
 script = ExtResource("1_odcdu")
 
