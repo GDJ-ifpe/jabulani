@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 const SPEED = 280.0 # velocidade horizontal normal
 const SPEED_CROUCH = 120.0 # velocidade ao agachar
-const JUMP_VELOCITY = -430.0 # força do pulo (negativo = sobe)
+const JUMP_VELOCITY = -650.0 # força do pulo (negativo = sobe)
 const DASH_SPEED = 700.0 # velocidade do dash
 const DASH_DURATION = 0.18 # duração do dash (segundos)
 const DASH_COOLDOWN = 0.9 # cooldown do dash
