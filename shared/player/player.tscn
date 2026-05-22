@@ -82,3 +82,6 @@ scale = Vector2(0.064, 0.062)
 sprite_frames = SubResource("SpriteFrames_jpmhp")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.47278804
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=73920325]
