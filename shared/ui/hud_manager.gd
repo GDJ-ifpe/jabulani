@@ -8,12 +8,12 @@ extends Control
 @onready var texture_rect_6: TextureRect = $MarginContainer/VBoxContainer/status_coluna/HBoxContainer/TextureRect6
 @onready var texture_rect_3: TextureRect = $MarginContainer/VBoxContainer/status_coluna/HBoxContainer/TextureRect3
 
-@onready var powerup: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup
-@onready var powerup_2: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup2
-@onready var powerup_3: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup3
-@onready var powerup_4: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup4
-@onready var powerup_5: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup5
-@onready var powerup_6: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup6
+#@onready var powerup: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup
+#@onready var powerup_2: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup2
+#@onready var powerup_3: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup3
+#@onready var powerup_4: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup4
+#@onready var powerup_5: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup5
+#@onready var powerup_6: TextureRect = $MarginContainer/VBoxContainer/status_coluna2/HBoxContainer/powerup6
 
 @onready var vidas_icon: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon
 @onready var vidas_icon_2: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2
@@ -24,36 +24,36 @@ extends Control
 
 
 func _ready():
-	contador_pontos.text = str("%05d" % PlayerManager.pontos)
+	contador_pontos.text = str("%05d" % Player.pontos)
 
 func _process(_delta: float) -> void:
-	contador_pontos.text = str("%05d" % PlayerManager.pontos)
-	if PlayerManager.player_life <= 0:
+	contador_pontos.text = str("%05d" % Player.pontos)
+	if Player.hp <= 0:
 		texture_rect.visible = false
 		vidas_icon_6.visible = true
-	if PlayerManager.player_life <= 5:
+	if Player.hp <= 5:
 		texture_rect_6.visible = false
-	if PlayerManager.player_life <= 4:
+	if Player.hp <= 4:
 		texture_rect_5.visible = false
 		vidas_icon_2.visible = true
-	if PlayerManager.player_life <= 3:
+	if Player.hp <= 3:
 		texture_rect_4.visible = false
 		vidas_icon_3.visible = true
-	if PlayerManager.player_life <= 2:
+	if Player.hp <= 2:
 		texture_rect_3.visible = false
 		vidas_icon_4.visible = true
-	if PlayerManager.player_life <= 1:
+	if Player.hp <= 1:
 		texture_rect_2.visible = false
 		vidas_icon_5.visible = true
-	if PlayerManager.player_power == 6:
-		powerup_6.visible = false
-	if PlayerManager.player_power == 5:
-		powerup.visible = false
-	if PlayerManager.player_power == 4:
-		powerup_2.visible = false
-	if PlayerManager.player_power == 3:
-		powerup_3.visible = false
-	if PlayerManager.player_power == 2:
-		powerup_4.visible = false
-	if PlayerManager.player_power == 1:
-		powerup_5.visible = false
+	#if Player.player_power == 6:
+	#	powerup_6.visible = false
+	#if Player.player_power == 5:
+#		powerup.visible = false
+#	if Player.player_power == 4:
+#		powerup_2.visible = false
+#	if Player.player_power == 3:
+#		powerup_3.visible = false
+#	if Player.player_power == 2:
+#		powerup_4.visible = false
+#	if Player.player_power == 1:
+#		powerup_5.visible = false
