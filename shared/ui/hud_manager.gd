@@ -24,36 +24,36 @@ extends Control
 
 
 func _ready():
-	contador_pontos.text = str("%05d" % Player.pontos)
+	contador_pontos.text = str("%05d" % PlayerData.pontos)
 
 func _process(_delta: float) -> void:
-	contador_pontos.text = str("%05d" % Player.pontos)
-	if Player.hp <= 0:
+	contador_pontos.text = str("%05d" % PlayerData.pontos)
+	if PlayerData.hp <= 0:
 		texture_rect.visible = false
 		vidas_icon_6.visible = true
-	if Player.hp <= 5:
+	if PlayerData.hp <= 5:
 		texture_rect_6.visible = false
-	if Player.hp <= 4:
+	if PlayerData.hp <= 4:
 		texture_rect_5.visible = false
 		vidas_icon_2.visible = true
-	if Player.hp <= 3:
+	if PlayerData.hp <= 3:
 		texture_rect_4.visible = false
 		vidas_icon_3.visible = true
-	if Player.hp <= 2:
+	if PlayerData.hp <= 2:
 		texture_rect_3.visible = false
 		vidas_icon_4.visible = true
-	if Player.hp <= 1:
+	if PlayerData.hp <= 1:
 		texture_rect_2.visible = false
 		vidas_icon_5.visible = true
-	if Player.player_power == 6:
+	if PlayerData.power_points == 6:
 		powerup_6.visible = false
-	if Player.player_power == 5:
+	if PlayerData.power_points == 5:
 		powerup.visible = false
-	if Player.player_power == 4:
+	if PlayerData.power_points == 4:
 		powerup_2.visible = false
-	if Player.player_power == 3:
+	if PlayerData.power_points == 3:
 		powerup_3.visible = false
-	if Player.player_power == 2:
+	if PlayerData.power_points == 2:
 		powerup_4.visible = false
-	if Player.player_power == 1:
+	if PlayerData.power_points == 1:
 		powerup_5.visible = false
