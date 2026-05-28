@@ -4,6 +4,8 @@ signal hp_changed(novo_hp: int)
 signal player_died
 
 var max_hp: int = 5
+var pontos := 0
+var power_points := 6
 
 var hp: int = max_hp:
 	set(value):
