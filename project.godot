@@ -22,7 +22,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlayerData="*uid://bc4b6da5f678t"
-Player="*uid://dlqtu20lkdett"
 
 [display]
 

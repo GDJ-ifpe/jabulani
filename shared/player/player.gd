@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @export var anim: AnimatedSprite2D
 
-const SPEED = 280.0 # velocidade horizontal normal
+const SPEED = 150.0 # velocidade horizontal normal
 const SPEED_CROUCH = 120.0 # velocidade ao agachar
 const JUMP_VELOCITY = -650.0 # força do pulo (negativo = sobe)
 const DASH_SPEED = 700.0 # velocidade do dash
@@ -182,6 +182,10 @@ func _processar_pulo() -> void:
 		velocity.y *= 0.5
 
 func _processar_movimento() -> void:
+	if state == State.HIT:
+		velocity.x = move_toward(velocity.x, 0, 4.0)
+		return
+
 	var direction := Input.get_axis("left", "right")
 	var speed_atual = SPEED_CROUCH if state == State.CROUCHING else SPEED
 
@@ -252,12 +256,14 @@ func _aplicar_hit() -> void:
 	_invincibility_timer = INVINCIBILITY_DURATION
 	_play_anim("hit")
 
+	velocity = Vector2.ZERO 
+
+	velocity.x = -50.0 if facing_right else 50.0
+	velocity.y = -50.0
+
 	var tween = create_tween().set_loops(5)
 	tween.tween_property(anim, "modulate:a", 0.3, 0.06)
 	tween.tween_property(anim, "modulate:a", 1.0, 0.06)
-
-	velocity.x = -150.0 if facing_right else 300.0
-	velocity.y = -100.0
 
 	await get_tree().create_timer(0.4).timeout
 	if state == State.HIT:

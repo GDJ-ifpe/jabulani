@@ -41,6 +41,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhvmd"]
+size = Vector2(22, 22)
 
 [node name="Game" type="Node2D" unique_id=1490505763]
 
