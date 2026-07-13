@@ -14,9 +14,6 @@ const INVINCIBILITY_DURATION = 0.6 # frames de invencibilidade ao levar dano
 const COYOTE_TIME = 0.12 # janela de pulo após sair da plataforma
 const JUMP_BUFFER = 0.10 # janela de input antes de pousar
 
-@export var max_hp: int = 5
-@export var hp: int
-
 enum State { IDLE, RUNNING, JUMPING, FALLING, CROUCHING, DASHING, ATTACKING, HIT, DEAD }
 var state: State = State.IDLE
 
@@ -35,11 +32,7 @@ var _invincibility_timer: float = 0.0
 var _was_on_floor: bool = false
 var attack_area: Area2D
 
-signal player_died
-signal player_hit(hp_restante: int)
-
 func _ready() -> void:
-	hp = max_hp
 	_criar_hitbox_ataque()
 
 func _criar_hitbox_ataque() -> void:
@@ -240,12 +233,9 @@ func receber_dano(quantidade: int) -> void:
 	if is_invincible or is_dead:
 		return
 
-	hp -= quantidade
-	hp = max(hp, 0)
-	print("Sofreu dano HP atual: ", hp, "/", max_hp)
-	emit_signal("player_hit", hp)
+	PlayerData.hp -= quantidade 
 
-	if hp <= 0:
+	if PlayerData.hp <= 0:
 		_morrer()
 	else:
 		_aplicar_hit()

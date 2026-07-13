@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bt31i12fhxost"
-path="res://.godot/imported/Jabulane_Dash.png-7ea66518b82ee83c7320e64e9fe03faa.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/player/sprites/Dash/Jabulane_Dash.png"
-dest_files=["res://.godot/imported/Jabulane_Dash.png-7ea66518b82ee83c7320e64e9fe03faa.ctex"]
 
 [params]
 

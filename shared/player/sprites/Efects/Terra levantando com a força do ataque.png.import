@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0wrfnfdethl2"
-path="res://.godot/imported/Terra levantando com a força do ataque.png-d6c26f1eaee9d2fd89b6e8e2f6c70dee.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/player/sprites/Efects/Terra levantando com a força do ataque.png"
-dest_files=["res://.godot/imported/Terra levantando com a força do ataque.png-d6c26f1eaee9d2fd89b6e8e2f6c70dee.ctex"]
 
 [params]
 
