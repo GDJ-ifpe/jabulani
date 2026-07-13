@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bly34y0ln7w8x"
-path="res://.godot/imported/StoneSkin.png-18dc0376e9e32411d9b3d3bdeb5b55b8.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/ui/ui_sprites/Elements/StoneSkin.png"
-dest_files=["res://.godot/imported/StoneSkin.png-18dc0376e9e32411d9b3d3bdeb5b55b8.ctex"]
 
 [params]
 

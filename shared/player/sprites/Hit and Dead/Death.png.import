@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2ng0rrwq7r4l"
-path="res://.godot/imported/Death.png-ca78ce75d7810ebe81e7c313e3cfca0f.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/player/sprites/Hit and Dead/Death.png"
-dest_files=["res://.godot/imported/Death.png-ca78ce75d7810ebe81e7c313e3cfca0f.ctex"]
 
 [params]
 

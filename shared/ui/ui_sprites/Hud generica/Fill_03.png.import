@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ciepoqqjtqc2a"
-path="res://.godot/imported/Fill_03.png-bbc039741a59a9e3faaee069cf621fec.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/ui/ui_sprites/Hud generica/Fill_03.png"
-dest_files=["res://.godot/imported/Fill_03.png-bbc039741a59a9e3faaee069cf621fec.ctex"]
 
 [params]
 

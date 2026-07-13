@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://55egdfh02vdc"
-path="res://.godot/imported/Background.png-caaba38f15f5437d4f042ebcf5699030.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/ui/ui_sprites/ToddynhoTurtle/Background.png"
-dest_files=["res://.godot/imported/Background.png-caaba38f15f5437d4f042ebcf5699030.ctex"]
 
 [params]
 

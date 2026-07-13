@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0covhdp8kxlk"
-path="res://.godot/imported/Life.png-42daaf4553920084537448e298ed8a32.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/ui/ui_sprites/Elements/Life.png"
-dest_files=["res://.godot/imported/Life.png-42daaf4553920084537448e298ed8a32.ctex"]
 
 [params]
 

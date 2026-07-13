@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bk28cei8vppih"
-path="res://.godot/imported/Jabussintese.png-d524764a3a7354e773310b19bde577ec.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/player/sprites/Efects/Jabussintese.png"
-dest_files=["res://.godot/imported/Jabussintese.png-d524764a3a7354e773310b19bde577ec.ctex"]
 
 [params]
 

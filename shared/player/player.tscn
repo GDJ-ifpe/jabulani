@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cp1kteqky157e"]
 
-[ext_resource type="Script" uid="uid://dlqtu20lkdett" path="res://shared/player/player.gd" id="1_jpmhp"]
-[ext_resource type="Texture2D" uid="uid://dk5qvy3n6jduf" path="res://shared/player/sprites/Idle/idle.png" id="2_ejjm8"]
-[ext_resource type="Texture2D" uid="uid://cd6ngpyh3kjst" path="res://shared/player/sprites/Jump/Pulo.png" id="3_7r5ry"]
-[ext_resource type="Texture2D" uid="uid://bgvhnwhmemq31" path="res://shared/player/sprites/Running/Running.png" id="4_0gcbb"]
-[ext_resource type="PackedScene" uid="uid://bmoljl2nm2vvg" path="res://shared/ui/ui_scenes/HUD.tscn" id="5_jpmhp"]
+[ext_resource type="Script" path="res://shared/player/player.gd" id="1_jpmhp"]
+[ext_resource type="Texture2D" path="res://shared/player/sprites/Idle/idle.png" id="2_ejjm8"]
+[ext_resource type="Texture2D" path="res://shared/player/sprites/Jump/Pulo.png" id="3_7r5ry"]
+[ext_resource type="Texture2D" path="res://shared/player/sprites/Running/Running.png" id="4_0gcbb"]
+[ext_resource type="PackedScene" path="res://shared/ui/ui_scenes/HUD.tscn" id="5_jpmhp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejjm8"]
 size = Vector2(13, 12)

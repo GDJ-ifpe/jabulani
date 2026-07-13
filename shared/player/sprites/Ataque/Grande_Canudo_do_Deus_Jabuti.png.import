@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dpn18520qydsr"
-path="res://.godot/imported/Grande_Canudo_do_Deus_Jabuti.png-6602eef22276045cf3eb1d804d04f0da.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/player/sprites/Ataque/Grande_Canudo_do_Deus_Jabuti.png"
-dest_files=["res://.godot/imported/Grande_Canudo_do_Deus_Jabuti.png-6602eef22276045cf3eb1d804d04f0da.ctex"]
 
 [params]
 

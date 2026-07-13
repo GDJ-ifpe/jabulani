@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://y2qyg7ltx7n3"
-path="res://.godot/imported/Face_01.png-38a7e74cd4033ac05342b81927e5620f.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/ui/ui_sprites/DoomTurtle/Face_01.png"
-dest_files=["res://.godot/imported/Face_01.png-38a7e74cd4033ac05342b81927e5620f.ctex"]
 
 [params]
 
