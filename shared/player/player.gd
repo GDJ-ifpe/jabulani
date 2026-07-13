@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@export var anim: AnimatedSprite2D
 
 const SPEED = 280.0 # velocidade horizontal normal
 const SPEED_CROUCH = 120.0 # velocidade ao agachar
@@ -15,7 +15,7 @@ const COYOTE_TIME = 0.12 # janela de pulo após sair da plataforma
 const JUMP_BUFFER = 0.10 # janela de input antes de pousar
 
 @export var max_hp: int = 5
-var hp: int
+@export var hp: int
 
 enum State { IDLE, RUNNING, JUMPING, FALLING, CROUCHING, DASHING, ATTACKING, HIT, DEAD }
 var state: State = State.IDLE
@@ -186,17 +186,20 @@ func _processar_movimento() -> void:
 	var speed_atual = SPEED_CROUCH if state == State.CROUCHING else SPEED
 
 	if direction != 0:
-		velocity.x = direction * speed_atual
+			velocity.x = direction * speed_atual
 
-		if direction > 0:
-			facing_right = true
-			anim.flip_h = true
-		else:
-			facing_right = false
-			anim.flip_h = false
+			if direction > 0:
+				facing_right = true
+				if anim != null:
+					anim.flip_h = true
+			else:
+				facing_right = false
+				if anim != null:
+					anim.flip_h = false
 
-		if state == State.IDLE:
-			state = State.RUNNING
+			if state == State.IDLE:
+				state = State.RUNNING
+			
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed_atual * 1.5)
 		if is_on_floor() and state == State.RUNNING:
@@ -235,6 +238,7 @@ func receber_dano(quantidade: int) -> void:
 
 	hp -= quantidade
 	hp = max(hp, 0)
+	print("Sofreu dano HP atual: ", hp, "/", max_hp)
 	emit_signal("player_hit", hp)
 
 	if hp <= 0:
@@ -252,8 +256,8 @@ func _aplicar_hit() -> void:
 	tween.tween_property(anim, "modulate:a", 0.3, 0.06)
 	tween.tween_property(anim, "modulate:a", 1.0, 0.06)
 
-	velocity.x = -300.0 if facing_right else 300.0
-	velocity.y = -150.0
+	velocity.x = -150.0 if facing_right else 300.0
+	velocity.y = -100.0
 
 	await get_tree().create_timer(0.4).timeout
 	if state == State.HIT:
@@ -287,4 +291,6 @@ func _play_anim(nome: String) -> void:
 		anim.play(nome)
 
 func _tem_anim(nome: String) -> bool:
+	if anim == null or anim.sprite_frames == null:
+		return false
 	return anim.sprite_frames != null and anim.sprite_frames.has_animation(nome)

@@ -15,12 +15,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="jabulani"
-run/main_scene="uid://cp1kteqky157e"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+run/main_scene="uid://2ydln7lfdf2v"
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
+PlayerData="*uid://bc4b6da5f678t"
 Player="*uid://dlqtu20lkdett"
 
 [display]
@@ -33,6 +34,7 @@ window/stretch/mode="canvas_items"
 [global_group]
 
 Player=""
+player=""
 
 [input]
 
