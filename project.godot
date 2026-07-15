@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="jabulani"
-run/main_scene="uid://2ydln7lfdf2v"
+run/main_scene="uid://cp1kteqky157e"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 

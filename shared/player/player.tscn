@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cp1kteqky157e"]
 
-[ext_resource type="Script" uid="uid://dlqtu20lkdett" path="res://shared/player/player.gd" id="1_odcdu"]
-[ext_resource type="Texture2D" uid="uid://dk5qvy3n6jduf" path="res://shared/player/sprites/Idle/idle.png" id="2_ejjm8"]
-[ext_resource type="Texture2D" uid="uid://cd6ngpyh3kjst" path="res://shared/player/sprites/Jump/Pulo.png" id="3_7r5ry"]
-[ext_resource type="Texture2D" uid="uid://bgvhnwhmemq31" path="res://shared/player/sprites/Running/Running.png" id="4_0gcbb"]
+[ext_resource type="Script" path="res://shared/player/player.gd" id="1_jpmhp"]
+[ext_resource type="Texture2D" path="res://shared/player/sprites/Idle/idle.png" id="2_ejjm8"]
+[ext_resource type="Texture2D" path="res://shared/player/sprites/Jump/Pulo.png" id="3_7r5ry"]
+[ext_resource type="Texture2D" path="res://shared/player/sprites/Running/Running.png" id="4_0gcbb"]
+[ext_resource type="PackedScene" path="res://shared/ui/ui_scenes/HUD.tscn" id="5_jpmhp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejjm8"]
 size = Vector2(13, 12)
@@ -70,8 +71,7 @@ animations = [{
 
 [node name="player" type="CharacterBody2D" unique_id=2024786376 node_paths=PackedStringArray("anim") groups=["player"]]
 position = Vector2(32, 22)
-script = ExtResource("1_odcdu")
-anim = NodePath("AnimatedSprite2D")
+script = ExtResource("1_jpmhp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=204433449]
 position = Vector2(-5.5, 2)
@@ -87,3 +87,15 @@ autoplay = "idle"
 frame_progress = 0.47278804
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=73920325]
+
+[node name="Hud" parent="." unique_id=156354739 instance=ExtResource("5_jpmhp")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -53.999996
+offset_top = -30.999998
+offset_right = -53.999996
+offset_bottom = -30.999998
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.08, 0.08)

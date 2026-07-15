@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cix8eoeiylwjy"
-path="res://.godot/imported/Abaixar.png-3e40a09719961b4b53b9c851070c96ff.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/player/sprites/Crouch/Abaixar.png"
-dest_files=["res://.godot/imported/Abaixar.png-3e40a09719961b4b53b9c851070c96ff.ctex"]
 
 [params]
 
