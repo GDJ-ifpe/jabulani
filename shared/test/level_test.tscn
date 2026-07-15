@@ -60,6 +60,7 @@ position = Vector2(58, 36)
 shape = SubResource("RectangleShape2D_k3776")
 
 [node name="InimigoTeste" type="CharacterBody2D" parent="." unique_id=1287471050]
+position = Vector2(90, 51)
 script = ExtResource("3_1fh4e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="InimigoTeste" unique_id=1940297625]

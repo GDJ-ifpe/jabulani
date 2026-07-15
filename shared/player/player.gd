@@ -261,9 +261,10 @@ func _aplicar_hit() -> void:
 	velocity.x = -50.0 if facing_right else 50.0
 	velocity.y = -50.0
 
-	var tween = create_tween().set_loops(5)
-	tween.tween_property(anim, "modulate:a", 0.3, 0.06)
-	tween.tween_property(anim, "modulate:a", 1.0, 0.06)
+	if anim != null:
+		var tween = create_tween().set_loops(5)
+		tween.tween_property(anim, "modulate:a", 0.3, 0.06)
+		tween.tween_property(anim, "modulate:a", 1.0, 0.06)
 
 	await get_tree().create_timer(0.4).timeout
 	if state == State.HIT:
