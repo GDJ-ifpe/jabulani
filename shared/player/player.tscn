@@ -72,6 +72,7 @@ animations = [{
 [node name="player" type="CharacterBody2D" unique_id=2024786376 node_paths=PackedStringArray("anim") groups=["player"]]
 position = Vector2(32, 22)
 script = ExtResource("1_jpmhp")
+anim = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=204433449]
 position = Vector2(-5.5, 2)
