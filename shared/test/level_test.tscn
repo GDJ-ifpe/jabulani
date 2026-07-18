@@ -1,29 +1,78 @@
 [gd_scene format=3 uid="uid://2ydln7lfdf2v"]
 
 [ext_resource type="PackedScene" uid="uid://cp1kteqky157e" path="res://shared/player/player.tscn" id="1_t25hi"]
-[ext_resource type="PackedScene" uid="uid://iltqufc23d4v" path="res://shared/camera/camera.tscn" id="2_3v8w5"]
+[ext_resource type="Script" uid="uid://c15vmqjs0qdsm" path="res://shared/base_scenes/base_enemy.gd" id="3_1fh4e"]
+[ext_resource type="Texture2D" uid="uid://cfaen6tvtpreo" path="res://shared/ui/ui_sprites/DoomTurtle/Face_14.png" id="4_5ofvh"]
+[ext_resource type="Texture2D" uid="uid://c6ps568u3eere" path="res://shared/ui/ui_sprites/DoomTurtle/Face_11.png" id="4_rk5g7"]
+[ext_resource type="Texture2D" uid="uid://b7arlscj4tbwx" path="res://shared/ui/ui_sprites/DoomTurtle/Face_02.png" id="5_rk5g7"]
+[ext_resource type="Texture2D" uid="uid://bt0tk10j0a1dv" path="res://shared/ui/ui_sprites/DoomTurtle/Face_05.png" id="6_ko4wd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3776"]
-size = Vector2(23.984375, 5.09375)
+size = Vector2(65.49609, 5.09375)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fhvmd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_rk5g7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5ofvh")
+}],
+"loop": 1,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_rk5g7")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ko4wd")
+}],
+"loop": 1,
+"name": &"hit",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhvmd"]
+size = Vector2(22, 22)
 
 [node name="Game" type="Node2D" unique_id=1490505763]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1269931279]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1886032767]
-position = Vector2(18, 63)
+position = Vector2(-7.748047, 63)
 shape = SubResource("RectangleShape2D_k3776")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=1601495979]
-position = Vector2(48, 64)
+position = Vector2(58, 64)
 shape = SubResource("RectangleShape2D_k3776")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1463725672]
-position = Vector2(76, 57)
+position = Vector2(58, 36)
 shape = SubResource("RectangleShape2D_k3776")
 
-[node name="CharacterBody2D" parent="." unique_id=2024786376 instance=ExtResource("1_t25hi")]
-position = Vector2(27, 30)
+[node name="InimigoTeste" type="CharacterBody2D" parent="." unique_id=1287471050]
+position = Vector2(90, 51)
+script = ExtResource("3_1fh4e")
 
-[node name="Camera2D" parent="." unique_id=430811005 instance=ExtResource("2_3v8w5")]
-position_smoothing_enabled = false
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="InimigoTeste" unique_id=1940297625]
+position = Vector2(46, 51)
+scale = Vector2(0.35087714, 0.46511638)
+sprite_frames = SubResource("SpriteFrames_fhvmd")
+animation = &"death"
+frame_progress = 0.13523926
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InimigoTeste" unique_id=912840333]
+position = Vector2(46, 51)
+shape = SubResource("RectangleShape2D_fhvmd")
+
+[node name="player" parent="." unique_id=2024786376 instance=ExtResource("1_t25hi")]
+position = Vector2(23, 53)

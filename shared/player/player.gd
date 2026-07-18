@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@export var anim: AnimatedSprite2D
 
-const SPEED = 280.0 # velocidade horizontal normal
+const SPEED = 150.0 # velocidade horizontal normal
 const SPEED_CROUCH = 120.0 # velocidade ao agachar
 const JUMP_VELOCITY = -650.0 # força do pulo (negativo = sobe)
 const DASH_SPEED = 700.0 # velocidade do dash
@@ -13,6 +13,9 @@ const ATTACK_DURATION = 0.35 # duração da animação de ataque
 const INVINCIBILITY_DURATION = 0.6 # frames de invencibilidade ao levar dano
 const COYOTE_TIME = 0.12 # janela de pulo após sair da plataforma
 const JUMP_BUFFER = 0.10 # janela de input antes de pousar
+
+@export var max_hp: int = 5
+@export var hp: int
 
 enum State { IDLE, RUNNING, JUMPING, FALLING, CROUCHING, DASHING, ATTACKING, HIT, DEAD }
 var state: State = State.IDLE
@@ -32,7 +35,11 @@ var _invincibility_timer: float = 0.0
 var _was_on_floor: bool = false
 var attack_area: Area2D
 
+signal player_died
+signal player_hit(hp_restante: int)
+
 func _ready() -> void:
+	hp = max_hp
 	_criar_hitbox_ataque()
 
 func _criar_hitbox_ataque() -> void:
@@ -175,21 +182,28 @@ func _processar_pulo() -> void:
 		velocity.y *= 0.5
 
 func _processar_movimento() -> void:
+	if state == State.HIT:
+		velocity.x = move_toward(velocity.x, 0, 4.0)
+		return
+
 	var direction := Input.get_axis("left", "right")
 	var speed_atual = SPEED_CROUCH if state == State.CROUCHING else SPEED
 
 	if direction != 0:
-		velocity.x = direction * speed_atual
+			velocity.x = direction * speed_atual
 
-		if direction > 0:
-			facing_right = true
-			anim.flip_h = true
-		else:
-			facing_right = false
-			anim.flip_h = false
+			if direction > 0:
+				facing_right = true
+				if anim != null:
+					anim.flip_h = true
+			else:
+				facing_right = false
+				if anim != null:
+					anim.flip_h = false
 
-		if state == State.IDLE:
-			state = State.RUNNING
+			if state == State.IDLE:
+				state = State.RUNNING
+			
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed_atual * 1.5)
 		if is_on_floor() and state == State.RUNNING:
@@ -226,9 +240,12 @@ func receber_dano(quantidade: int) -> void:
 	if is_invincible or is_dead:
 		return
 
-	PlayerData.hp -= quantidade 
+	hp -= quantidade
+	hp = max(hp, 0)
+	print("Sofreu dano HP atual: ", hp, "/", max_hp)
+	emit_signal("player_hit", hp)
 
-	if PlayerData.hp <= 0:
+	if hp <= 0:
 		_morrer()
 	else:
 		_aplicar_hit()
@@ -239,12 +256,15 @@ func _aplicar_hit() -> void:
 	_invincibility_timer = INVINCIBILITY_DURATION
 	_play_anim("hit")
 
-	var tween = create_tween().set_loops(5)
-	tween.tween_property(anim, "modulate:a", 0.3, 0.06)
-	tween.tween_property(anim, "modulate:a", 1.0, 0.06)
+	velocity = Vector2.ZERO 
 
-	velocity.x = -300.0 if facing_right else 300.0
-	velocity.y = -150.0
+	velocity.x = -50.0 if facing_right else 50.0
+	velocity.y = -50.0
+
+	if anim != null:
+		var tween = create_tween().set_loops(5)
+		tween.tween_property(anim, "modulate:a", 0.3, 0.06)
+		tween.tween_property(anim, "modulate:a", 1.0, 0.06)
 
 	await get_tree().create_timer(0.4).timeout
 	if state == State.HIT:
@@ -278,4 +298,6 @@ func _play_anim(nome: String) -> void:
 		anim.play(nome)
 
 func _tem_anim(nome: String) -> bool:
+	if anim == null or anim.sprite_frames == null:
+		return false
 	return anim.sprite_frames != null and anim.sprite_frames.has_animation(nome)

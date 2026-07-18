@@ -42,7 +42,7 @@ animations = [{
 "duration": 2.5,
 "texture": SubResource("AtlasTexture_0gcbb")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -50,7 +50,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jpmhp")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -64,20 +64,22 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_41573")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=2024786376 groups=["Player"]]
+[node name="player" type="CharacterBody2D" unique_id=2024786376 node_paths=PackedStringArray("anim") groups=["player"]]
 position = Vector2(32, 22)
 script = ExtResource("1_jpmhp")
+anim = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=204433449]
 position = Vector2(-5.5, 2)
 shape = SubResource("RectangleShape2D_ejjm8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1752632246]
+unique_name_in_owner = true
 position = Vector2(-6.3280373, 1.0439215)
 scale = Vector2(0.064, 0.062)
 sprite_frames = SubResource("SpriteFrames_jpmhp")
