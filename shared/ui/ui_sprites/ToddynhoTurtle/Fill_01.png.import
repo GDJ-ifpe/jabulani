@@ -3,11 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://irimw8dadche"
-valid=false
+path="res://.godot/imported/Fill_01.png-373fdf8ce695c9e1ab1bd4d4ad7a84cc.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://shared/ui/ui_sprites/ToddynhoTurtle/Fill_01.png"
+dest_files=["res://.godot/imported/Fill_01.png-373fdf8ce695c9e1ab1bd4d4ad7a84cc.ctex"]
 
 [params]
 

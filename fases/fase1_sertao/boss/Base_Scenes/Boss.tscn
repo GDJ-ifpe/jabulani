@@ -1,7 +1,133 @@
 [gd_scene format=3 uid="uid://rcy0ows2fa7y"]
 
-[node name="Boss" type="Node2D" unique_id=1876324627]
+[ext_resource type="Script" uid="uid://bfo16te22nbry" path="res://fases/fase1_sertao/boss/Base_Scenes/boss_passaro.gd" id="1_8h2m4"]
+[ext_resource type="Texture2D" uid="uid://s1lmgg8u80dh" path="res://fases/fase1_sertao/boss/Sprites/Carlito/Idle/Carlito idle.png" id="2_j3ao4"]
+[ext_resource type="Texture2D" uid="uid://vynfe0orstlm" path="res://fases/fase1_sertao/boss/Sprites/Carlito/Voando/Voando.png" id="3_rdkkd"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=117851878]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdkkd"]
+atlas = ExtResource("2_j3ao4")
+region = Rect2(0, 0, 762, 1240)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=2027421099]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lejij"]
+atlas = ExtResource("2_j3ao4")
+region = Rect2(762, 0, 762, 1240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hap5k"]
+atlas = ExtResource("2_j3ao4")
+region = Rect2(1524, 0, 762, 1240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_662hu"]
+atlas = ExtResource("3_rdkkd")
+region = Rect2(0, 0, 2506, 2197)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hivow"]
+atlas = ExtResource("3_rdkkd")
+region = Rect2(2517, 0, 1588, 2197)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r74to"]
+atlas = ExtResource("3_rdkkd")
+region = Rect2(4065, 0, 2708, 2197)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ja23m"]
+atlas = ExtResource("3_rdkkd")
+region = Rect2(6780, 0, 2414, 2197)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlujg"]
+atlas = ExtResource("3_rdkkd")
+region = Rect2(9208, 0, 2250, 2197)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqx8a"]
+atlas = ExtResource("3_rdkkd")
+region = Rect2(11460, 0, 2542, 2197)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0onjy"]
+atlas = ExtResource("3_rdkkd")
+region = Rect2(14023, 0, 1565, 2197)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0wp7r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdkkd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lejij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hap5k")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_662hu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hivow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r74to")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ja23m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlujg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqx8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0onjy")
+}],
+"loop": 1,
+"name": &"voando",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(50, 60)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(50, 60)
+
+[sub_resource type="Curve2D" id="Curve2D_rdkkd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 11, 25, 0, 0, 0, 0, 44, 36, 0, 0, 0, 0, 82, 34, 0, 0, 0, 0, 108, 28, 0, 0, 0, 0, 124, 19)
+}
+point_count = 5
+
+[node name="Boss" type="CharacterBody2D" unique_id=713586340]
+collision_layer = 12
+script = ExtResource("1_8h2m4")
+velocidade_voo = 300.0
+velocidade_pena = 120.0
+tempo_retorno_penas = 3.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=976602540]
+position = Vector2(0, -2.861023e-06)
+scale = Vector2(0.022222223, 0.027309969)
+sprite_frames = SubResource("SpriteFrames_0wp7r")
+animation = &"voando"
+autoplay = "voando"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=583406048]
+shape = SubResource("1")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1006601152]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1179819469]
+shape = SubResource("2")
+
+[node name="SpawnPenas" type="Marker2D" parent="." unique_id=1678703672]
+position = Vector2(30, -10)
+
+[node name="Path2D" type="Path2D" parent="." unique_id=626366579]
+curve = SubResource("Curve2D_rdkkd")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1539600313]
+position = Vector2(11, 25)
+rotation = 0.32175055

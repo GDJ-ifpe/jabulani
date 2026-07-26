@@ -3,11 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7wux82ij1g0t"
-valid=false
+path="res://.godot/imported/Fill_00.png-afb5e3c5949bceb839ad203bb0ea857f.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://shared/ui/ui_sprites/GodofTurle/Fill_00.png"
+dest_files=["res://.godot/imported/Fill_00.png-afb5e3c5949bceb839ad203bb0ea857f.ctex"]
 
 [params]
 

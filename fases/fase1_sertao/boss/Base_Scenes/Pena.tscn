@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://d2r0k7vb4hjn5"]
+
+[ext_resource type="Script" uid="uid://0p3ce85pjoih" path="res://fases/fase1_sertao/boss/Base_Scenes/pena.gd" id="1_8m2eq"]
+[ext_resource type="Texture2D" uid="uid://2ng0rrwq7r4l" path="res://shared/player/sprites/Hit and Dead/Death.png" id="2_wiqsa"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(4, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2j07"]
+atlas = ExtResource("2_wiqsa")
+region = Rect2(374, 128, 135, 74)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_noyvj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2j07")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Pena" type="Node2D" unique_id=137999324]
+script = ExtResource("1_8m2eq")
+
+[node name="AreaDano" type="Area2D" parent="." unique_id=428963758]
+collision_layer = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDano" unique_id=117624088]
+position = Vector2(0, -0.5)
+shape = SubResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=574346845]
+position = Vector2(-5.9604645e-07, -1.8626451e-09)
+rotation = 1.5707964
+scale = Vector2(0.064, 0.059)
+sprite_frames = SubResource("SpriteFrames_noyvj")
