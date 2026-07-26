@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://1ig5mbuoyrv5"
-path="res://.godot/imported/quadro0005.png-ef6fc40097ec8f7d70d7317f322a8580.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/player/sprites/Ataque_basico/quadro0005.png"
-dest_files=["res://.godot/imported/quadro0005.png-ef6fc40097ec8f7d70d7317f322a8580.ctex"]
 
 [params]
 

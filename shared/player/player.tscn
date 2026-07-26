@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cp1kteqky157e"]
 
-[ext_resource type="Script" uid="uid://dlqtu20lkdett" path="res://shared/player/player.gd" id="1_jpmhp"]
-[ext_resource type="Texture2D" uid="uid://dk5qvy3n6jduf" path="res://shared/player/sprites/Idle/idle.png" id="2_ejjm8"]
-[ext_resource type="Texture2D" uid="uid://cd6ngpyh3kjst" path="res://shared/player/sprites/Jump/Pulo.png" id="3_7r5ry"]
-[ext_resource type="Texture2D" uid="uid://bgvhnwhmemq31" path="res://shared/player/sprites/Running/Running.png" id="4_0gcbb"]
-[ext_resource type="PackedScene" uid="uid://bmoljl2nm2vvg" path="res://shared/ui/ui_scenes/HUD.tscn" id="5_jpmhp"]
+[ext_resource type="Script" path="res://shared/player/player.gd" id="1_jpmhp"]
+[ext_resource type="Texture2D" path="res://shared/player/sprites/Idle/idle.png" id="2_ejjm8"]
+[ext_resource type="Texture2D" path="res://shared/player/sprites/Jump/Pulo.png" id="3_7r5ry"]
+[ext_resource type="Texture2D" path="res://shared/player/sprites/Running/Running.png" id="4_0gcbb"]
+[ext_resource type="PackedScene" path="res://shared/ui/ui_scenes/HUD.tscn" id="5_jpmhp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejjm8"]
 size = Vector2(13, 12)
@@ -42,7 +42,7 @@ animations = [{
 "duration": 2.5,
 "texture": SubResource("AtlasTexture_0gcbb")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -50,7 +50,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jpmhp")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -64,20 +64,22 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_41573")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=2024786376 groups=["Player"]]
+[node name="player" type="CharacterBody2D" unique_id=2024786376 node_paths=PackedStringArray("anim") groups=["player"]]
 position = Vector2(32, 22)
 script = ExtResource("1_jpmhp")
+anim = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=204433449]
 position = Vector2(-5.5, 2)
 shape = SubResource("RectangleShape2D_ejjm8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1752632246]
+unique_name_in_owner = true
 position = Vector2(-6.3280373, 1.0439215)
 scale = Vector2(0.064, 0.062)
 sprite_frames = SubResource("SpriteFrames_jpmhp")

@@ -23,6 +23,7 @@ func _ready() -> void:
 	_configurar_hitbox_dano()
 	_encontrar_player()
 	_inicializar()
+	print("[SISTEMA] Inimigo instanciado. O Player não é null? ", player != null)
 
 func _encontrar_player() -> void:
 	player = get_tree().get_first_node_in_group("player")
@@ -97,7 +98,7 @@ func _atualizar_flip() -> void:
 	anim.flip_h = direcao < 0
 
 func _play_anim(nome: String) -> void:
-	if anim == null:
+	if not is_instance_valid(anim):
 		return
 	if anim.sprite_frames and anim.sprite_frames.has_animation(nome):
 		if anim.animation != nome:

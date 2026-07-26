@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bl4tpjyju5vb4"
-path="res://.godot/imported/Background.png-ff7195839726e3c92cdfe8c442f31fd4.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://shared/ui/ui_sprites/BlackMithUturtle/Background.png"
-dest_files=["res://.godot/imported/Background.png-ff7195839726e3c92cdfe8c442f31fd4.ctex"]
 
 [params]
 
