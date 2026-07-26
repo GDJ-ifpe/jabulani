@@ -89,7 +89,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(10, 6)
+size = Vector2(8, 4)
 
 [node name="Urubu" type="CharacterBody2D" unique_id=757913203]
 collision_layer = 12
@@ -107,4 +107,5 @@ frame_progress = 0.20359512
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDano" unique_id=221476530]
+position = Vector2(-1, -1)
 shape = SubResource("1")

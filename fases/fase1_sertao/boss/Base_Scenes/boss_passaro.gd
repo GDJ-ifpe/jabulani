@@ -3,11 +3,9 @@ extends CharacterBody2D
 class_name BossPassaro
 
 ## SISTEMA DE MOVIMENTAÇÃO VIA PATH2D
-## Para customizar a trajetória do boss:
-## 1. Selecione o nó Path2D como filho do Boss
-## 2. Adicione curvas de movimento (clicando + no editor de curva)
-## 3. O boss seguirá automaticamente o caminho definido
-## Se não houver Path2D, usa movimento senoidal como fallback
+## O boss deve ser filho de um PathFollow2D na cena da fase.
+## O PathFollow2D controla a posição do boss ao longo do Path2D.
+## Se não houver PathFollow2D como pai, usa movimento senoidal como fallback.
 
 signal boss_died
 
@@ -15,7 +13,6 @@ signal boss_died
 @export var velocidade_voo: float = 40.0
 @export var amplitude_senoidal: float = 50.0
 @export var frequencia_senoidal: float = 1.5
-@export var altura_voo: float = -150.0  # altura relativa ao chão
 
 # ---------- COMBATE ----------
 @export var max_hp: int = 8
@@ -23,7 +20,7 @@ signal boss_died
 
 # ---------- ATAQUE PENAS ----------
 @export var penas_por_leque: int = 10
-@export var angulo_leque: float = 120.0  # graus totais do leque
+@export var angulo_leque: float = 60.0  # graus totais do leque
 @export var velocidade_pena: float = 250.0
 @export var distancia_pena_max: float = 300.0
 @export var tempo_retorno_penas: float = 1.5  # segundos até puxar de volta
@@ -42,8 +39,6 @@ signal boss_died
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var damage_area: Area2D = $DamageArea
 @onready var spawn_penas: Marker2D = $SpawnPenas
-@onready var path_follow: PathFollow2D = $Path2D/PathFollow2D if has_node("Path2D/PathFollow2D") else null
-@onready var path2d_node: Path2D = $Path2D if has_node("Path2D") else null
 
 var hp: int
 var is_dead: bool = false
@@ -58,11 +53,11 @@ var state: BossState = BossState.IDLE
 var tempo_voo: float = 0.0
 var base_y: float = 0.0
 var usar_path: bool = false
+var path_follow_ref: PathFollow2D = null
 
 # Ciclo de ataques
 var ataques_penas_realizados: int = 0
 var timer_ataque: float = 0.0
-var ciclo_modo_penas: bool = true
 var is_in_attack: bool = false
 
 # Penas ativas (para puxar de volta)
@@ -78,13 +73,14 @@ func _ready() -> void:
 	state = BossState.VOANDO
 
 func _configurar_movimentacao() -> void:
-	"""Configura se usa Path2D ou movimento senoidal"""
-	usar_path = path2d_node != null and path_follow != null
+	"""Tenta encontrar PathFollow2D como pai, senão usa senoidal"""
+	path_follow_ref = get_parent() as PathFollow2D
+	usar_path = path_follow_ref != null
 	if not usar_path:
 		base_y = global_position.y
-		print("[BOSS] Sem Path2D encontrado. Usando movimento senoidal.")
+		print("[BOSS] Sem PathFollow2D como pai. Usando movimento senoidal.")
 	else:
-		print("[BOSS] Path2D encontrado. Seguindo caminho definido.")
+		print("[BOSS] PathFollow2D encontrado como pai. Seguindo caminho.")
 
 func _configurar_damage_area() -> void:
 	damage_area.add_to_group("enemy_hitbox")
@@ -104,6 +100,8 @@ func _physics_process(delta: float) -> void:
 	
 	_processar_movimento(delta)
 	_processar_ciclo_ataque(delta)
+	_atualizar_animacao()
+	_olhar_para_player()
 	
 	move_and_slide()
 
@@ -112,38 +110,53 @@ func _processar_movimento(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 	
-	if state == BossState.IDLE or state == BossState.RECUO:
-		# Parado durante ataques
+	# Durante o canto, o boss fica parado
+	if state == BossState.CANTANDO or state == BossState.RECUO:
 		velocity.x = move_toward(velocity.x, 0, velocidade_voo * 2 * delta)
+		velocity.y = move_toward(velocity.y, 0, velocidade_voo * 2 * delta)
 		return
 	
+	# Durante ataque de penas, boss continua se movendo
 	if usar_path:
-		# Segue o caminho Path2D
-		path_follow.progress += velocidade_voo * delta
-		
-		var target_pos = path_follow.global_position
-		var diff = target_pos - global_position
-		velocity = diff * 10 * delta
-		
-		# Atualiza flip baseado na direção do caminho
-		_atualizar_flip_pela_direcao(velocity.x)
+		_processar_path_movement(delta)
 	else:
-		# Movimento senoidal (fallback)
-		tempo_voo += delta
-		
-		# Fica parado no X, oscila no Y
-		var seno_y = sin(tempo_voo * frequencia_senoidal * TAU) * amplitude_senoidal
-		var target_y = base_y + seno_y
-		
-		var diff_y = target_y - global_position.y
-		velocity.y = diff_y * 5 * delta
-		velocity.x = move_toward(velocity.x, 0, velocidade_voo * 2 * delta)
+		_processar_senoidal_movement(delta)
 
-func _atualizar_flip_pela_direcao(dir_x: float) -> void:
-	if dir_x > 5:
-		anim.flip_h = false
-	elif dir_x < -5:
+func _processar_path_movement(delta: float) -> void:
+	# Move o PathFollow2D pai ao longo do Path2D
+	# O boss é filho do PathFollow2D, então se move junto automaticamente
+	path_follow_ref.progress += velocidade_voo * delta
+	
+	# Para a velocity do CharacterBody2D (não precisa se mover por conta própria)
+	velocity = Vector2.ZERO
+	
+	# Se passou do fim do path, volta ao início (loop)
+	if path_follow_ref.progress_ratio >= 1.0:
+		path_follow_ref.progress = 0.0
+
+func _processar_senoidal_movement(delta: float) -> void:
+	# Movimento senoidal (fallback)
+	tempo_voo += delta
+	
+	# Fica parado no X, oscila no Y
+	var seno_y = sin(tempo_voo * frequencia_senoidal * TAU) * amplitude_senoidal
+	var target_y = base_y + seno_y
+	
+	var diff_y = target_y - global_position.y
+	velocity.y = diff_y * 5 * delta
+	velocity.x = move_toward(velocity.x, 0, velocidade_voo * 2 * delta)
+
+func _olhar_para_player() -> void:
+	if player == null:
+		return
+	# Boss sempre vira para o player
+	# A sprite está virada para a esquerda por padrão (flip_h = false)
+	# Quando o player está à direita, flip_h = true para virar para a direita
+	var diff_x = player.global_position.x - global_position.x
+	if diff_x > 0:
 		anim.flip_h = true
+	elif diff_x < 0:
+		anim.flip_h = false
 
 func _processar_ciclo_ataque(delta: float) -> void:
 	if is_dead or state == BossState.RECUO or is_in_attack:
@@ -167,12 +180,11 @@ func _executar_proximo_ataque() -> void:
 func _iniciar_ataque_penas() -> void:
 	is_in_attack = true
 	state = BossState.ATACANDO_PENAS
-	_play_anim("attack_feather")
 	
 	print("[BOSS] Ataque de penas!")
 	
-	# Dispara penas em leque
-	_disparar_penas_em_leque()
+	# Dispara penas em direção ao player (boss continua se movendo)
+	_disparar_penas_para_player()
 	
 	# Aguarda o tempo de retorno e puxa as penas
 	await get_tree().create_timer(tempo_retorno_penas).timeout
@@ -185,31 +197,34 @@ func _iniciar_ataque_penas() -> void:
 	if not is_dead:
 		_terminar_ataque()
 
-func _disparar_penas_em_leque() -> void:
+func _disparar_penas_para_player() -> void:
 	var pena_scene = preload("res://fases/fase1_sertao/boss/Base_Scenes/Pena.tscn")
 	if not pena_scene:
 		push_error("[BOSS] Cena Pena.tscn não encontrada!")
 		return
 	
+	if player == null:
+		_encontrar_player()
+	if player == null:
+		return
+	
+	# Calcula direção base para o player
+	var dir_base = (player.global_position - spawn_penas.global_position).normalized()
+	var angulo_base = dir_base.angle()
+	
 	var angulo_inicial = -angulo_leque / 2.0
 	var passo_angulo = angulo_leque / float(penas_por_leque - 1) if penas_por_leque > 1 else 0
-	
-	var facing = -1.0 if anim.flip_h else 1.0
 	
 	for i in range(penas_por_leque):
 		var pena: Node2D = pena_scene.instantiate()
 		pena.global_position = spawn_penas.global_position
 		
-		# Calcula direção do leque
-		var angulo_rad = deg_to_rad(angulo_inicial + passo_angulo * i)
-		# Ajusta direção baseado no flip do boss
-		if facing < 0:
-			angulo_rad = PI - angulo_rad
-		
+		# Calcula direção do leque centrado no player
+		var angulo_rad = angulo_base + deg_to_rad(angulo_inicial + passo_angulo * i)
 		var direcao = Vector2(cos(angulo_rad), sin(angulo_rad)).normalized()
 		pena.iniciar(direcao, velocidade_pena, distancia_pena_max, self)
 		
-		get_parent().add_child(pena)
+		get_tree().current_scene.add_child(pena)
 		penas_ativas.append(pena)
 		
 		# Pequeno delay entre cada pena
@@ -247,29 +262,50 @@ func _spawnar_urubu() -> void:
 		push_error("[BOSS] Cena Urubu.tscn não encontrada!")
 		return
 	
-	# Spawna à direita da tela, em altura aleatória
-	var viewport_size = get_viewport_rect().size
-	var spawn_x = viewport_size.x + 50
-	var altura_random = randf_range(100, viewport_size.y - 100)
-	var spawn_pos = Vector2(spawn_x, altura_random)
+	if player == null:
+		_encontrar_player()
+	
+	# Calcula posição de spawn baseada na altura do player
+	var spawn_x: float
+	if player != null:
+		# Spawna à direita da tela, na altura do player com variação
+		var viewport_size = get_viewport_rect().size
+		spawn_x = max(global_position.x + 200, player.global_position.x + 400)
+	else:
+		spawn_x = global_position.x + 400
+	
+	# Spawna na altura do player (com pequena variação)
+	var altura_player = player.global_position.y if player != null else global_position.y
+	var altura_spawn = altura_player + randf_range(-20, 20)
+	
+	var spawn_pos = Vector2(spawn_x, altura_spawn)
 	
 	var urubu: Node2D = urubu_scene.instantiate()
 	urubu.global_position = spawn_pos
 	urubu.velocidade_base = velocidade_urubu
 	
-	get_parent().add_child(urubu)
+	get_tree().current_scene.add_child(urubu)
 
 func _terminar_ataque() -> void:
 	is_in_attack = false
 	state = BossState.VOANDO
 	timer_ataque = intervalo_penas
 
-func _ajustar_direcao_para_player() -> void:
-	if player == null:
+func _atualizar_animacao() -> void:
+	if is_dead:
 		return
 	
-	var diff_x = player.global_position.x - global_position.x
-	_atualizar_flip_pela_direcao(diff_x)
+	match state:
+		BossState.VOANDO, BossState.ATACANDO_PENAS:
+			_play_anim("voando")
+		BossState.CANTANDO:
+			_play_anim("sing")
+		BossState.RECUO:
+			_play_anim("hit")
+		BossState.MORRENDO:
+			_play_anim("death")
+		_:
+			_play_anim("idle")
 
 func receber_dano(quantidade: int) -> void:
 	if is_dead or is_hurt:

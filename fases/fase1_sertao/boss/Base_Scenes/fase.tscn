@@ -3,6 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://rcy0ows2fa7y" path="res://fases/fase1_sertao/boss/Base_Scenes/Boss.tscn" id="1_x3c6p"]
 [ext_resource type="PackedScene" uid="uid://cp1kteqky157e" path="res://shared/player/player.tscn" id="2_jpr82"]
 
+[sub_resource type="Curve2D" id="Curve2D_jpr82"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -15, 14, 0, 0, 0, 0, -1, 25, 0, 0, 0, 0, 8, 30, 0, 0, 0, 0, 27, 32, 0, 0, 0, 0, 50, 30, 0, 0, 0, 0, 66, 27, 0, 0, 0, 0, 83, 21, 0, 0, 0, 0, 91, 15, 0, 0, 0, 0, 84, 18, 0, 0, 0, 0, 64, 24, 0, 0, 0, 0, 49, 27, 0, 0, 0, 0, 28, 27, 0, 0, 0, 0, 10, 26, 0, 0, 0, 0, 3, 22, 0, 0, 0, 0, -11, 13, 0, 0, 0, 0, -15, 14)
+}
+point_count = 16
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7i4tb"]
 size = Vector2(85, 20)
 
@@ -10,9 +16,21 @@ size = Vector2(85, 20)
 
 [node name="Fase" type="Node2D" unique_id=727111984]
 
-[node name="Boss" parent="." unique_id=704353812 instance=ExtResource("1_x3c6p")]
-position = Vector2(-24, -9)
-velocidade_voo = 130.0
+[node name="Path2D" type="Path2D" parent="." unique_id=1292425186]
+curve = SubResource("Curve2D_jpr82")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1494335120]
+position = Vector2(-15, 14)
+rotation = 0.66596925
+rotates = false
+
+[node name="Boss" parent="Path2D/PathFollow2D" unique_id=704353812 instance=ExtResource("1_x3c6p")]
+position = Vector2(-21.286764, -12.524931)
+rotation = -0.66596925
+scale = Vector2(1.0000001, 1.0000001)
+velocidade_voo = 50.0
+velocidade_pena = 40.0
+distancia_pena_max = 100.0
 velocidade_urubu = -80.0
 
 [node name="player" parent="." unique_id=2024786376 instance=ExtResource("2_jpr82")]

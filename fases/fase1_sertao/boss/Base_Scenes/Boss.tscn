@@ -62,6 +62,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_rdkkd")
+}],
+"loop": 1,
+"name": &"sing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_662hu")
 }, {
 "duration": 1.0,
@@ -93,25 +101,21 @@ size = Vector2(50, 60)
 [sub_resource type="RectangleShape2D" id="2"]
 size = Vector2(50, 60)
 
-[sub_resource type="Curve2D" id="Curve2D_rdkkd"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 11, 25, 0, 0, 0, 0, 44, 36, 0, 0, 0, 0, 82, 34, 0, 0, 0, 0, 108, 28, 0, 0, 0, 0, 124, 19)
-}
-point_count = 5
-
 [node name="Boss" type="CharacterBody2D" unique_id=713586340]
 collision_layer = 12
 script = ExtResource("1_8h2m4")
-velocidade_voo = 300.0
-velocidade_pena = 120.0
+velocidade_voo = 500.0
+penas_por_leque = 5
+velocidade_pena = 90.0
 tempo_retorno_penas = 3.0
+velocidade_urubu = -100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=976602540]
 position = Vector2(0, -2.861023e-06)
 scale = Vector2(0.022222223, 0.027309969)
 sprite_frames = SubResource("SpriteFrames_0wp7r")
-animation = &"voando"
-autoplay = "voando"
+animation = &"sing"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=583406048]
 shape = SubResource("1")
@@ -124,10 +128,3 @@ shape = SubResource("2")
 
 [node name="SpawnPenas" type="Marker2D" parent="." unique_id=1678703672]
 position = Vector2(30, -10)
-
-[node name="Path2D" type="Path2D" parent="." unique_id=626366579]
-curve = SubResource("Curve2D_rdkkd")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1539600313]
-position = Vector2(11, 25)
-rotation = 0.32175055
