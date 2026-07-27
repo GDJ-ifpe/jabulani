@@ -9,6 +9,12 @@ class_name BossPassaro
 
 signal boss_died
 
+# ---------- CÂMERA E INTRODUÇÃO ----------
+@export var zoom_intro_boss: Vector2 = Vector2(1.5, 1.5)  # zoom no boss na introdução
+@export var zoom_luta: Vector2 = Vector2(0.7, 0.7)  # zoom durante a luta (mais afastado)
+@export var duracao_transicao_camera: float = 1.5  # duração da transição de câmera
+@export var tempo_intro: float = 2.0  # tempo que mostra o boss antes de voltar ao player
+
 # ---------- MOVIMENTAÇÃO ----------
 @export var velocidade_voo: float = 40.0
 @export var amplitude_senoidal: float = 50.0
@@ -44,6 +50,9 @@ var hp: int
 var is_dead: bool = false
 var is_hurt: bool = false
 var player: CharacterBody2D = null
+var camera_ref: Camera2D = null
+var camera_original_zoom: Vector2 = Vector2(1, 1)
+var camera_esta_no_player: bool = true
 
 # Máquina de estados
 enum BossState { IDLE, VOANDO, ATACANDO_PENAS, CANTANDO, RECUO, MORRENDO }
@@ -67,10 +76,38 @@ func _ready() -> void:
 	hp = max_hp
 	_configurar_damage_area()
 	_encontrar_player()
+	_encontrar_camera()
 	_configurar_movimentacao()
 	
 	print("[BOSS] Boss Pássaro iniciado!")
 	state = BossState.VOANDO
+	
+	# Inicia a sequência de câmera
+	_iniciar_sequencia_camera()
+
+func _iniciar_sequencia_camera() -> void:
+	"""Sequência: zoom no boss -> zoom out na luta -> espera morte"""
+	if not camera_ref:
+		return
+	
+	# 1. Centraliza a câmera no boss com zoom in
+	centralizar_camera_em(global_position, duracao_transicao_camera)
+	aplicar_zoom_camera(zoom_intro_boss, duracao_transicao_camera)
+	
+	# 2. Aguarda o tempo de introdução
+	await get_tree().create_timer(tempo_intro).timeout
+	
+	if is_dead:
+		return
+	
+	# 3. Volta ao player com zoom out (mais afastado que o normal)
+	restaurar_camera_com_zoom(zoom_luta, duracao_transicao_camera)
+	
+	print("[BOSS] Luta iniciada!")
+
+func _on_boss_morrer_ou_player_morrer() -> void:
+	"""Quando o boss ou player morrer, restaura o zoom original"""
+	restaurar_camera_normal(1.0)
 
 func _configurar_movimentacao() -> void:
 	"""Tenta encontrar PathFollow2D como pai, senão usa senoidal"""
@@ -88,6 +125,90 @@ func _configurar_damage_area() -> void:
 
 func _encontrar_player() -> void:
 	player = get_tree().get_first_node_in_group("player")
+
+func _encontrar_camera() -> void:
+	"""Encontra a câmera dentro do player"""
+	if player == null:
+		_encontrar_player()
+	if player == null:
+		return
+	camera_ref = player.get_node("Camera2D") as Camera2D
+	if camera_ref:
+		camera_original_zoom = camera_ref.zoom
+		print("[BOSS] Câmera encontrada!")
+	else:
+		print("[BOSS] Câmera não encontrada no player.")
+
+func aplicar_zoom_camera(zoom_alvo: Vector2, duracao: float = duracao_transicao_camera) -> void:
+	"""Aplica zoom na câmera com transição suave"""
+	if not camera_ref:
+		return
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(camera_ref, "zoom", zoom_alvo, duracao)
+
+func centralizar_camera_em(ponto: Vector2, _duracao: float = duracao_transicao_camera) -> void:
+	"""Centraliza a câmera em um ponto específico (desacopla do player)"""
+	if not camera_ref or not camera_esta_no_player:
+		return
+	
+	# Desabilita o script da câmera para não sobrescrever a posição
+	camera_ref.set_process(false)
+	
+	# Usa call_deferred para evitar erro de "parent node is busy"
+	var camera = camera_ref
+	var cena = get_tree().current_scene
+	
+	# Remove a câmera do player e adiciona na raiz (deferred)
+	if camera.get_parent():
+		camera.get_parent().remove_child(camera)
+	cena.call_deferred("add_child", camera)
+	camera.global_position = ponto
+	camera_esta_no_player = false
+	
+	print("[BOSS] Câmera centralizada em: ", ponto)
+
+func restaurar_camera_com_zoom(zoom_alvo: Vector2, duracao: float = duracao_transicao_camera) -> void:
+	"""Restaura a câmera para o player com um zoom específico (não o original)"""
+	if not camera_ref or camera_esta_no_player:
+		return
+	
+	# Move a câmera de volta para o player
+	if player and camera_ref.get_parent():
+		camera_ref.get_parent().remove_child(camera_ref)
+		player.call_deferred("add_child", camera_ref)
+		camera_ref.position = Vector2.ZERO
+		camera_esta_no_player = true
+	
+	# Reabilita o script da câmera
+	camera_ref.set_process(true)
+	
+	# Aplica o zoom da luta (não o original)
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(camera_ref, "zoom", zoom_alvo, duracao)
+	
+	print("[BOSS] Câmera restaurada ao player com zoom: ", zoom_alvo)
+
+func restaurar_camera_normal(duracao: float = 1.0) -> void:
+	"""Restaura a câmera para o zoom original e seguir o player"""
+	if not camera_ref:
+		return
+	
+	# Se estava fora do player, recoloca
+	if not camera_esta_no_player:
+		if player and camera_ref.get_parent():
+			camera_ref.get_parent().remove_child(camera_ref)
+			player.call_deferred("add_child", camera_ref)
+			camera_ref.position = Vector2.ZERO
+			camera_esta_no_player = true
+		
+		# Reabilita o script da câmera
+		camera_ref.set_process(true)
+	
+	# Restaura o zoom original
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(camera_ref, "zoom", camera_original_zoom, duracao)
+	
+	print("[BOSS] Câmera restaurada ao zoom original: ", camera_original_zoom)
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -269,7 +390,6 @@ func _spawnar_urubu() -> void:
 	var spawn_x: float
 	if player != null:
 		# Spawna à direita da tela, na altura do player com variação
-		var viewport_size = get_viewport_rect().size
 		spawn_x = max(global_position.x + 200, player.global_position.x + 400)
 	else:
 		spawn_x = global_position.x + 400
@@ -350,6 +470,9 @@ func _morrer() -> void:
 		if is_instance_valid(pena):
 			pena.queue_free()
 	penas_ativas.clear()
+	
+	# Restaura o zoom normal ao morrer
+	restaurar_camera_normal(1.0)
 	
 	emit_signal("boss_died", global_position)
 	

@@ -28,6 +28,7 @@ rotates = false
 position = Vector2(-21.286764, -12.524931)
 rotation = -0.66596925
 scale = Vector2(1.0000001, 1.0000001)
+tempo_intro = 0.5
 velocidade_voo = 50.0
 velocidade_pena = 40.0
 distancia_pena_max = 100.0

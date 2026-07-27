@@ -1,4 +1,7 @@
 extends Control
+
+signal vida_alterada(hp_atual: int)
+
 @onready var contador_pontos: Label = $MarginContainer/pontos_coluna/contador_pontos as Label
 @onready var vidas: Label = $MarginContainer/VBoxContainer/status_coluna/vidas_icon as Label
 @onready var texture_rect: TextureRect = $MarginContainer/VBoxContainer/status_coluna/HBoxContainer/TextureRect
@@ -22,38 +25,76 @@ extends Control
 @onready var vidas_icon_5: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4/vidas_icon5
 @onready var vidas_icon_6: TextureRect = $MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4/vidas_icon5/vidas_icon6
 
-
 func _ready():
 	contador_pontos.text = str("%05d" % PlayerData.pontos)
+	atualizar_vidas(PlayerData.hp)
+	atualizar_powerups(PlayerData.power_points)
+	
+	# Conecta ao sinal do player para atualizar quando tomar dano
+	var player = get_tree().get_first_node_in_group("player")
+	if player and player.has_signal("player_hit"):
+		player.player_hit.connect(atualizar_vidas)
 
 func _process(_delta: float) -> void:
 	contador_pontos.text = str("%05d" % PlayerData.pontos)
-	if PlayerData.hp <= 0:
+
+func atualizar_vidas(hp_atual: int) -> void:
+	"""Atualiza a exibição de vidas baseado no HP atual"""
+	# Reseta todas as texturas primeiro
+	texture_rect.visible = true
+	texture_rect_2.visible = true
+	texture_rect_3.visible = true
+	texture_rect_4.visible = true
+	texture_rect_5.visible = true
+	texture_rect_6.visible = true
+	
+	vidas_icon_2.visible = false
+	vidas_icon_3.visible = false
+	vidas_icon_4.visible = false
+	vidas_icon_5.visible = false
+	vidas_icon_6.visible = false
+	
+	# Aplica a lógica baseada no HP
+	if hp_atual <= 0:
 		texture_rect.visible = false
 		vidas_icon_6.visible = true
-	if PlayerData.hp <= 5:
-		texture_rect_6.visible = false
-	if PlayerData.hp <= 4:
-		texture_rect_5.visible = false
-		vidas_icon_2.visible = true
-	if PlayerData.hp <= 3:
-		texture_rect_4.visible = false
-		vidas_icon_3.visible = true
-	if PlayerData.hp <= 2:
-		texture_rect_3.visible = false
-		vidas_icon_4.visible = true
-	if PlayerData.hp <= 1:
+	elif hp_atual <= 1:
 		texture_rect_2.visible = false
 		vidas_icon_5.visible = true
-	if PlayerData.power_points == 6:
-		powerup_6.visible = false
-	if PlayerData.power_points == 5:
-		powerup.visible = false
-	if PlayerData.power_points == 4:
-		powerup_2.visible = false
-	if PlayerData.power_points == 3:
-		powerup_3.visible = false
-	if PlayerData.power_points == 2:
-		powerup_4.visible = false
-	if PlayerData.power_points == 1:
+	elif hp_atual <= 2:
+		texture_rect_3.visible = false
+		vidas_icon_4.visible = true
+	elif hp_atual <= 3:
+		texture_rect_4.visible = false
+		vidas_icon_3.visible = true
+	elif hp_atual <= 4:
+		texture_rect_5.visible = false
+		vidas_icon_2.visible = true
+	elif hp_atual <= 5:
+		texture_rect_6.visible = false
+	
+	emit_signal("vida_alterada", hp_atual)
+
+func atualizar_powerups(power_points: int) -> void:
+	"""Atualiza a exibição de powerups"""
+	# Reseta todos
+	powerup.visible = true
+	powerup_2.visible = true
+	powerup_3.visible = true
+	powerup_4.visible = true
+	powerup_5.visible = true
+	powerup_6.visible = true
+	
+	# Esconde baseado na quantidade
+	if power_points >= 1:
 		powerup_5.visible = false
+	if power_points >= 2:
+		powerup_4.visible = false
+	if power_points >= 3:
+		powerup_3.visible = false
+	if power_points >= 4:
+		powerup_2.visible = false
+	if power_points >= 5:
+		powerup.visible = false
+	if power_points >= 6:
+		powerup_6.visible = false

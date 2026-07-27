@@ -32,7 +32,7 @@ func iniciar(dir: Vector2, vel: float, dist_max: float, boss: Node2D) -> void:
 	boss_ref = boss
 	posicao_origem = global_position
 	
-	# Rotaciona sprite baseado na direção
+	# Rotaciona sprite para apontar na direção do movimento
 	rotation = dir.angle()
 
 func retornar_ao_boss() -> void:
@@ -52,6 +52,9 @@ func _mover_para_frente(delta: float) -> void:
 	var movimento = direcao * velocidade * delta
 	global_position += movimento
 	distancia_percorrida += movimento.length()
+	
+	# Mantém a rotação alinhada com a direção do movimento
+	rotation = direcao.angle()
 	
 	# Se atingiu distância máxima sem retornar, volta automático
 	if distancia_percorrida >= distancia_maxima:
@@ -73,6 +76,7 @@ func _seguir_boss(delta: float) -> void:
 	
 	var direcao_boss = diff.normalized()
 	global_position += direcao_boss * velocidade_retorno * delta
+	# Rotaciona para apontar na direção do retorno
 	rotation = direcao_boss.angle()
 
 func _on_body_entered(body: Node2D) -> void:
