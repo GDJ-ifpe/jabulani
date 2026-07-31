@@ -3,11 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dl3mq7vi5l8fx"
-valid=false
+path="res://.godot/imported/Background.png-20ec35d1eca779724f11ce268f2cc91a.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://shared/ui/ui_sprites/GodofTurle/Background.png"
+dest_files=["res://.godot/imported/Background.png-20ec35d1eca779724f11ce268f2cc91a.ctex"]
 
 [params]
 

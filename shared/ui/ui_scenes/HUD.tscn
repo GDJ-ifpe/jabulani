@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://bmoljl2nm2vvg"]
 
 [ext_resource type="Script" uid="uid://3spmaudistnp" path="res://shared/ui/hud_manager.gd" id="1_5fyfn"]
-[ext_resource type="Texture2D" path="res://shared/ui/ui_sprites/DoomTurtle/Face_00.png" id="2_7n4fj"]
-[ext_resource type="Texture2D" path="res://shared/ui/ui_sprites/Elements/Hearth.png" id="3_5ip4n"]
-[ext_resource type="Texture2D" path="res://shared/ui/ui_sprites/DoomTurtle/Face_02.png" id="3_twf0w"]
-[ext_resource type="Texture2D" path="res://shared/ui/ui_sprites/Elements/Shell.png" id="4_l8xe2"]
-[ext_resource type="Texture2D" path="res://shared/ui/ui_sprites/DoomTurtle/Face_05.png" id="4_twf0w"]
-[ext_resource type="Texture2D" path="res://shared/ui/ui_sprites/DoomTurtle/Face_08.png" id="5_gyp3a"]
-[ext_resource type="Texture2D" path="res://shared/ui/ui_sprites/DoomTurtle/Face_11.png" id="6_l5jig"]
-[ext_resource type="Texture2D" path="res://shared/ui/ui_sprites/DoomTurtle/Face_14.png" id="7_00jmo"]
+[ext_resource type="Texture2D" uid="uid://cthxtkujjon8m" path="res://shared/ui/ui_sprites/DoomTurtle/Face_00.png" id="2_7n4fj"]
+[ext_resource type="Texture2D" uid="uid://dk25tg2hoffpd" path="res://shared/ui/ui_sprites/Elements/Hearth.png" id="3_5ip4n"]
+[ext_resource type="Texture2D" uid="uid://b7arlscj4tbwx" path="res://shared/ui/ui_sprites/DoomTurtle/Face_02.png" id="3_twf0w"]
+[ext_resource type="Texture2D" uid="uid://bkons3ecg0u03" path="res://shared/ui/ui_sprites/Elements/Shell.png" id="4_l8xe2"]
+[ext_resource type="Texture2D" uid="uid://bt0tk10j0a1dv" path="res://shared/ui/ui_sprites/DoomTurtle/Face_05.png" id="4_twf0w"]
+[ext_resource type="Texture2D" uid="uid://bp80uenpakvut" path="res://shared/ui/ui_sprites/DoomTurtle/Face_08.png" id="5_gyp3a"]
+[ext_resource type="Texture2D" uid="uid://c6ps568u3eere" path="res://shared/ui/ui_sprites/DoomTurtle/Face_11.png" id="6_l5jig"]
+[ext_resource type="Texture2D" uid="uid://cfaen6tvtpreo" path="res://shared/ui/ui_sprites/DoomTurtle/Face_14.png" id="7_00jmo"]
 
-[node name="Hud" type="Control" unique_id=156354739]
+[node name="Hud" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5fyfn")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1199934612]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,12 +35,12 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="pontos_coluna" type="HBoxContainer" parent="MarginContainer" unique_id=679084096]
+[node name="pontos_coluna" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="pontuacao" type="Label" parent="MarginContainer/pontos_coluna" unique_id=2044428130]
+[node name="pontuacao" type="Label" parent="MarginContainer/pontos_coluna"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -49,7 +49,7 @@ text = "pontuação :"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="contador_pontos" type="Label" parent="MarginContainer/pontos_coluna" unique_id=1206881498]
+[node name="contador_pontos" type="Label" parent="MarginContainer/pontos_coluna"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -58,24 +58,24 @@ text = "0000"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1795295517]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="status_coluna" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=463888923]
+[node name="status_coluna" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="vidas_icon" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna" unique_id=113588841]
+[node name="vidas_icon" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("2_7n4fj")
 stretch_mode = 3
 
-[node name="vidas_icon2" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon" unique_id=1256555628]
+[node name="vidas_icon2" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon"]
 visible = false
 layout_mode = 0
 offset_right = 57.0
@@ -85,7 +85,7 @@ size_flags_vertical = 4
 texture = ExtResource("3_twf0w")
 stretch_mode = 3
 
-[node name="vidas_icon3" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2" unique_id=1713840718]
+[node name="vidas_icon3" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2"]
 visible = false
 layout_mode = 0
 offset_right = 57.0
@@ -95,7 +95,7 @@ size_flags_vertical = 4
 texture = ExtResource("4_twf0w")
 stretch_mode = 3
 
-[node name="vidas_icon4" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3" unique_id=1098576442]
+[node name="vidas_icon4" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3"]
 visible = false
 layout_mode = 0
 offset_right = 57.0
@@ -105,7 +105,7 @@ size_flags_vertical = 4
 texture = ExtResource("5_gyp3a")
 stretch_mode = 3
 
-[node name="vidas_icon5" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4" unique_id=44677493]
+[node name="vidas_icon5" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4"]
 visible = false
 layout_mode = 0
 offset_right = 57.0
@@ -115,7 +115,7 @@ size_flags_vertical = 4
 texture = ExtResource("6_l5jig")
 stretch_mode = 3
 
-[node name="vidas_icon6" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4/vidas_icon5" unique_id=215410674]
+[node name="vidas_icon6" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/vidas_icon/vidas_icon2/vidas_icon3/vidas_icon4/vidas_icon5"]
 visible = false
 layout_mode = 0
 offset_right = 57.0
@@ -125,7 +125,7 @@ size_flags_vertical = 4
 texture = ExtResource("7_00jmo")
 stretch_mode = 3
 
-[node name="separador" type="Label" parent="MarginContainer/VBoxContainer/status_coluna" unique_id=944938101]
+[node name="separador" type="Label" parent="MarginContainer/VBoxContainer/status_coluna"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -134,45 +134,45 @@ text = "X"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/status_coluna" unique_id=615423536]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/status_coluna"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer" unique_id=1919092032]
-layout_mode = 2
-texture = ExtResource("3_5ip4n")
-expand_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer" unique_id=1996304136]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_5ip4n")
 expand_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer" unique_id=1859808015]
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_5ip4n")
 expand_mode = 2
 
-[node name="TextureRect4" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer" unique_id=1010464039]
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_5ip4n")
 expand_mode = 2
 
-[node name="TextureRect5" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer" unique_id=1873092334]
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_5ip4n")
 expand_mode = 2
 
-[node name="TextureRect6" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer" unique_id=670214656]
+[node name="TextureRect5" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_5ip4n")
 expand_mode = 2
 
-[node name="status_coluna2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1446521754]
+[node name="TextureRect6" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_5ip4n")
+expand_mode = 2
+
+[node name="status_coluna2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="separador" type="Label" parent="MarginContainer/VBoxContainer/status_coluna2" unique_id=1497913392]
+[node name="separador" type="Label" parent="MarginContainer/VBoxContainer/status_coluna2"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -181,35 +181,35 @@ text = "		          "
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/status_coluna2" unique_id=1886362678]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/status_coluna2"]
 layout_mode = 2
 
-[node name="powerup" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer" unique_id=213844246]
-layout_mode = 2
-texture = ExtResource("4_l8xe2")
-expand_mode = 3
-
-[node name="powerup2" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer" unique_id=961302005]
+[node name="powerup" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_l8xe2")
 expand_mode = 3
 
-[node name="powerup3" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer" unique_id=1176814565]
+[node name="powerup2" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_l8xe2")
 expand_mode = 3
 
-[node name="powerup4" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer" unique_id=1454454542]
+[node name="powerup3" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_l8xe2")
 expand_mode = 3
 
-[node name="powerup5" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer" unique_id=57254641]
+[node name="powerup4" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_l8xe2")
 expand_mode = 3
 
-[node name="powerup6" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer" unique_id=1549277241]
+[node name="powerup5" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_l8xe2")
+expand_mode = 3
+
+[node name="powerup6" type="TextureRect" parent="MarginContainer/VBoxContainer/status_coluna2/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_l8xe2")
 expand_mode = 3
