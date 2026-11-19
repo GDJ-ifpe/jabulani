@@ -1,487 +1,336 @@
-extends CharacterBody2D
-
 class_name BossPassaro
+extends BaseBoss
 
-## SISTEMA DE MOVIMENTAÇÃO VIA PATH2D
-## O boss deve ser filho de um PathFollow2D na cena da fase.
-## O PathFollow2D controla a posição do boss ao longo do Path2D.
-## Se não houver PathFollow2D como pai, usa movimento senoidal como fallback.
+## Carlitos, O Rasga Mortalha de Monóculo - chefe do Sertão.
+## Voa por um caminho (Path2D: o chefe é filho de um PathFollow2D; sem ele, só paira) e repete o ciclo:
+##   "Se Ter Pena Matasse": 5 a 7 penas em leque na direção do jogador; ao chegar à distância
+##       máxima elas são puxadas de volta e também ferem na volta; faz isso 1 ou 2 vezes
+##   -> CANSADO: pousa no chão, ao alcance do golpe (a brecha para o jogador atacar)
+##   "Rap do Zé Felipe": canta de 5 a 10 s; 3 s depois de começar, urubus passam a atravessar
+##       o cenário (cada um com aviso na borda de onde vem)
+##   -> CANSADO -> repete.
+## A rajada de vento tem estado reservado, mas está desligada: não faz parte dos ataques atuais.
 
-signal boss_died
+enum Estado { APRESENTACAO, VOANDO, PENAS, CANSADO, CANTANDO, RAJADA_DE_VENTO, MORRENDO }
+enum FasePenas { PREPARO, AGUARDANDO_VOLTA, INTERVALO }
+enum FaseCansado { DESCENDO, NO_CHAO, SUBINDO }
 
-# ---------- CÂMERA E INTRODUÇÃO ----------
-@export var zoom_intro_boss: Vector2 = Vector2(1.5, 1.5)  # zoom no boss na introdução
-@export var zoom_luta: Vector2 = Vector2(0.7, 0.7)  # zoom durante a luta (mais afastado)
-@export var duracao_transicao_camera: float = 1.5  # duração da transição de câmera
-@export var tempo_intro: float = 2.0  # tempo que mostra o boss antes de voltar ao player
+@export_group("Voo")
+@export var velocidade_voo: float = 70.0 # velocidade ao longo do caminho (px/s) - "velocidade média"
+@export var amplitude_senoidal: float = 20.0 # sem caminho: oscilação vertical (px)
+@export var frequencia_senoidal: float = 0.5 # sem caminho: oscilações por segundo
+@export var tempo_entre_ataques: float = 1.5 # s voando entre o fim do cansaço e o ataque seguinte
 
-# ---------- MOVIMENTAÇÃO ----------
-@export var velocidade_voo: float = 40.0
-@export var amplitude_senoidal: float = 50.0
-@export var frequencia_senoidal: float = 1.5
+@export_group("Se Ter Pena Matasse")
+@export var cena_pena: PackedScene
+@export var penas_min: int = 5 # penas por leque: de 5...
+@export var penas_max: int = 7 # ...a 7
+@export var leques_min: int = 1 # repete o leque 1...
+@export var leques_max: int = 2 # ...ou 2 vezes antes de cansar
+@export var dano_pena: int = 1 # dano por pena (ida e volta)
+@export var angulo_leque: float = 60.0 # abertura total do leque (graus)
+@export var velocidade_pena: float = 260.0 # px/s na ida
+@export var velocidade_retorno_pena: float = 320.0 # px/s na volta
+@export var distancia_pena_max: float = 440.0 # distância em que as penas são puxadas de volta (px); cobre a arena de 640 px
+@export var tempo_preparo_penas: float = 0.5 # aviso: animação de disparo antes de as penas saírem (s)
+@export var intervalo_entre_leques: float = 0.6 # s
+@export var espera_maxima_das_penas: float = 6.0 # segurança: não espera a volta além disto (s)
 
-# ---------- COMBATE ----------
-@export var max_hp: int = 8
-@export var dano_contato: int = 1
+@export_group("Rap do Zé Felipe")
+@export var cena_urubu: PackedScene
+@export var espera_urubus: float = 3.0 # s cantando antes do primeiro urubu
+@export var canto_min: float = 5.0 # canta de 5...
+@export var canto_max: float = 10.0 # ...a 10 s
+@export var dano_urubu: int = 1 # dano por urubu
+@export var intervalo_urubu: float = 1.1 # s entre um urubu e o próximo
+@export var velocidade_urubu: float = 210.0 # px/s
+@export var aviso_urubu: float = 0.6 # s de aviso na borda antes de cada urubu
+@export var alturas_dos_urubus: Array[float] = [16.0, 80.0] # faixas de voo, em px acima do chão
 
-# ---------- ATAQUE PENAS ----------
-@export var penas_por_leque: int = 10
-@export var angulo_leque: float = 60.0  # graus totais do leque
-@export var velocidade_pena: float = 250.0
-@export var distancia_pena_max: float = 300.0
-@export var tempo_retorno_penas: float = 1.5  # segundos até puxar de volta
+@export_group("Cansado")
+@export var tempo_cansado: float = 4.0 # s no chão, vulnerável
+@export var velocidade_de_pouso: float = 240.0 # px/s descendo e subindo
+@export var altura_do_chao: float = 328.0 # y global do topo do chão da arena
+@export var altura_pousado: float = 30.0 # distância do centro do corpo ao chão quando pousado (px)
+@export var margem_de_pouso: float = 70.0 # não pousa a menos disto das bordas da arena (px)
+@export var cor_cansado: Color = Color(0.82, 0.82, 0.95)
 
-# ---------- ATAQUE CANTO ----------
-@export var urubus_por_canto: int = 4
-@export var intervalo_spawn_urubu: float = 0.4  # entre cada urubu
-@export var velocidade_urubu: float = -200.0  # negativo = da direita pra esquerda
+@export_group("Rajada de vento")
+@export var usar_rajada_de_vento: bool = false # desligada; só reserva o estado
 
-# ---------- PADRÃO RÍTMICO ----------
-@export var intervalo_penas: float = 2.5  # tempo entre cada ataque de penas
-@export var intervalo_canto: float = 1.5  # tempo entre cantos
-@export var ciclo_penas_antes_canto: int = 2  # quantas vezes atirar penas antes do canto
+@export_group("Animação")
+@export var escala_base: float = 0.28 # escala do sprite para as folhas "Idle" e "Voando" (cópias a 25 % das originais)
+## As folhas foram desenhadas em tamanhos diferentes; este fator iguala cada animação à escala base.
+@export var escala_por_animacao: Dictionary = {"plumataque": 1.871, "hit": 1.871, "death": 1.871}
+@export var deslocamento_do_sprite: Vector2 = Vector2(-10.0, -33.0) # posição do sprite olhando para a esquerda
 
-# ---------- NÓS ----------
-@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
-@onready var damage_area: Area2D = $DamageArea
-@onready var spawn_penas: Marker2D = $SpawnPenas
+var estado: Estado = Estado.APRESENTACAO
+var _tempo_estado: float = 0.0
+var _proximo_ataque: Estado = Estado.PENAS
 
-var hp: int
-var is_dead: bool = false
-var is_hurt: bool = false
-var player: CharacterBody2D = null
-var camera_ref: Camera2D = null
-var camera_original_zoom: Vector2 = Vector2(1, 1)
-var camera_esta_no_player: bool = true
+var _fase_penas: FasePenas = FasePenas.PREPARO
+var _tempo_fase: float = 0.0
+var _leques_restantes: int = 0
+var _penas_ativas: Array = [] # sem tipo: pode conter penas que já saíram da cena
 
-# Máquina de estados
-enum BossState { IDLE, VOANDO, ATACANDO_PENAS, CANTANDO, RECUO, MORRENDO }
-var state: BossState = BossState.IDLE
+var _fase_cansado: FaseCansado = FaseCansado.DESCENDO
+var _posicao_de_voo: Vector2 = Vector2.ZERO
 
-# Controle de voo
-var tempo_voo: float = 0.0
-var base_y: float = 0.0
-var usar_path: bool = false
-var path_follow_ref: PathFollow2D = null
+var _duracao_canto: float = 0.0
+var _tempo_proximo_urubu: float = 0.0
+var _urubus_agendados: Array[Dictionary] = [] # {tempo, sentido, y}
 
-# Ciclo de ataques
-var ataques_penas_realizados: int = 0
-var timer_ataque: float = 0.0
-var is_in_attack: bool = false
+var _caminho: PathFollow2D = null
+var _tempo_voo: float = 0.0
+var _altura_base: float = 0.0
+var _trava_de_animacao: float = 0.0
+var _limites: Rect2 = Rect2(0.0, 0.0, 640.0, 360.0)
 
-# Penas ativas (para puxar de volta)
-var penas_ativas: Array = []
 
-func _ready() -> void:
-	hp = max_hp
-	_configurar_damage_area()
-	_encontrar_player()
-	_encontrar_camera()
-	_configurar_movimentacao()
-	
-	print("[BOSS] Boss Pássaro iniciado!")
-	state = BossState.VOANDO
-	
-	# Inicia a sequência de câmera
-	_iniciar_sequencia_camera()
+func _inicializar() -> void:
+	_caminho = get_parent() as PathFollow2D
+	_altura_base = global_position.y
+	var arena: Node = get_tree().get_first_node_in_group("arena")
+	if arena != null and "limites" in arena:
+		_limites = Rect2(arena.limites)
+	_tocar("voando")
+	_olhar_para_player()
 
-func _iniciar_sequencia_camera() -> void:
-	"""Sequência: zoom no boss -> zoom out na luta -> espera morte"""
-	if not camera_ref:
-		return
-	
-	# 1. Centraliza a câmera no boss com zoom in
-	centralizar_camera_em(global_position, duracao_transicao_camera)
-	aplicar_zoom_camera(zoom_intro_boss, duracao_transicao_camera)
-	
-	# 2. Aguarda o tempo de introdução
-	await get_tree().create_timer(tempo_intro).timeout
-	
-	if is_dead:
-		return
-	
-	# 3. Volta ao player com zoom out (mais afastado que o normal)
-	restaurar_camera_com_zoom(zoom_luta, duracao_transicao_camera)
-	
-	print("[BOSS] Luta iniciada!")
 
-func _on_boss_morrer_ou_player_morrer() -> void:
-	"""Quando o boss ou player morrer, restaura o zoom original"""
-	restaurar_camera_normal(1.0)
+func _ao_iniciar_luta() -> void:
+	_mudar_estado(Estado.VOANDO)
 
-func _configurar_movimentacao() -> void:
-	"""Tenta encontrar PathFollow2D como pai, senão usa senoidal"""
-	path_follow_ref = get_parent() as PathFollow2D
-	usar_path = path_follow_ref != null
-	if not usar_path:
-		base_y = global_position.y
-		print("[BOSS] Sem PathFollow2D como pai. Usando movimento senoidal.")
-	else:
-		print("[BOSS] PathFollow2D encontrado como pai. Seguindo caminho.")
-
-func _configurar_damage_area() -> void:
-	damage_area.add_to_group("enemy_hitbox")
-	damage_area.body_entered.connect(_on_damage_area_body_entered)
-
-func _encontrar_player() -> void:
-	player = get_tree().get_first_node_in_group("player")
-
-func _encontrar_camera() -> void:
-	"""Encontra a câmera dentro do player"""
-	if player == null:
-		_encontrar_player()
-	if player == null:
-		return
-	camera_ref = player.get_node("Camera2D") as Camera2D
-	if camera_ref:
-		camera_original_zoom = camera_ref.zoom
-		print("[BOSS] Câmera encontrada!")
-	else:
-		print("[BOSS] Câmera não encontrada no player.")
-
-func aplicar_zoom_camera(zoom_alvo: Vector2, duracao: float = duracao_transicao_camera) -> void:
-	"""Aplica zoom na câmera com transição suave"""
-	if not camera_ref:
-		return
-	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(camera_ref, "zoom", zoom_alvo, duracao)
-
-func centralizar_camera_em(ponto: Vector2, _duracao: float = duracao_transicao_camera) -> void:
-	"""Centraliza a câmera em um ponto específico (desacopla do player)"""
-	if not camera_ref or not camera_esta_no_player:
-		return
-	
-	# Desabilita o script da câmera para não sobrescrever a posição
-	camera_ref.set_process(false)
-	
-	# Usa call_deferred para evitar erro de "parent node is busy"
-	var camera = camera_ref
-	var cena = get_tree().current_scene
-	
-	# Remove a câmera do player e adiciona na raiz (deferred)
-	if camera.get_parent():
-		camera.get_parent().remove_child(camera)
-	cena.call_deferred("add_child", camera)
-	camera.global_position = ponto
-	camera_esta_no_player = false
-	
-	print("[BOSS] Câmera centralizada em: ", ponto)
-
-func restaurar_camera_com_zoom(zoom_alvo: Vector2, duracao: float = duracao_transicao_camera) -> void:
-	"""Restaura a câmera para o player com um zoom específico (não o original)"""
-	if not camera_ref or camera_esta_no_player:
-		return
-	
-	# Move a câmera de volta para o player
-	if player and camera_ref.get_parent():
-		camera_ref.get_parent().remove_child(camera_ref)
-		player.call_deferred("add_child", camera_ref)
-		camera_ref.position = Vector2.ZERO
-		camera_esta_no_player = true
-	
-	# Reabilita o script da câmera
-	camera_ref.set_process(true)
-	
-	# Aplica o zoom da luta (não o original)
-	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(camera_ref, "zoom", zoom_alvo, duracao)
-	
-	print("[BOSS] Câmera restaurada ao player com zoom: ", zoom_alvo)
-
-func restaurar_camera_normal(duracao: float = 1.0) -> void:
-	"""Restaura a câmera para o zoom original e seguir o player"""
-	if not camera_ref:
-		return
-	
-	# Se estava fora do player, recoloca
-	if not camera_esta_no_player:
-		if player and camera_ref.get_parent():
-			camera_ref.get_parent().remove_child(camera_ref)
-			player.call_deferred("add_child", camera_ref)
-			camera_ref.position = Vector2.ZERO
-			camera_esta_no_player = true
-		
-		# Reabilita o script da câmera
-		camera_ref.set_process(true)
-	
-	# Restaura o zoom original
-	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(camera_ref, "zoom", camera_original_zoom, duracao)
-	
-	print("[BOSS] Câmera restaurada ao zoom original: ", camera_original_zoom)
-
-func _on_damage_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		if body.has_method("receber_dano"):
-			body.receber_dano(dano_contato)
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
-	
-	_processar_movimento(delta)
-	_processar_ciclo_ataque(delta)
-	_atualizar_animacao()
+	_tempo_estado += delta
+	_tempo_fase += delta
+	_trava_de_animacao = maxf(_trava_de_animacao - delta, 0.0)
+	match estado:
+		Estado.APRESENTACAO:
+			pass
+		Estado.VOANDO:
+			_voar(delta)
+			if _tempo_estado >= tempo_entre_ataques:
+				_mudar_estado(_proximo_ataque)
+		Estado.PENAS:
+			_processar_penas()
+		Estado.CANSADO:
+			_processar_cansado(delta)
+		Estado.CANTANDO:
+			_processar_canto()
+		Estado.RAJADA_DE_VENTO:
+			_mudar_estado(Estado.VOANDO)
 	_olhar_para_player()
-	
-	move_and_slide()
 
-func _processar_movimento(delta: float) -> void:
-	if state == BossState.MORRENDO:
-		velocity = Vector2.ZERO
-		return
-	
-	# Durante o canto, o boss fica parado
-	if state == BossState.CANTANDO or state == BossState.RECUO:
-		velocity.x = move_toward(velocity.x, 0, velocidade_voo * 2 * delta)
-		velocity.y = move_toward(velocity.y, 0, velocidade_voo * 2 * delta)
-		return
-	
-	# Durante ataque de penas, boss continua se movendo
-	if usar_path:
-		_processar_path_movement(delta)
+
+func _mudar_estado(novo: Estado) -> void:
+	estado = novo
+	_tempo_estado = 0.0
+	_tempo_fase = 0.0
+	match novo:
+		Estado.VOANDO:
+			_tocar("voando")
+		Estado.PENAS:
+			_proximo_ataque = Estado.CANTANDO
+			_leques_restantes = randi_range(leques_min, leques_max)
+			_preparar_leque()
+		Estado.CANTANDO:
+			_proximo_ataque = Estado.PENAS
+			_duracao_canto = randf_range(canto_min, canto_max)
+			# O aviso aparece antes, para o primeiro urubu entrar exatamente em `espera_urubus`.
+			_tempo_proximo_urubu = maxf(espera_urubus - aviso_urubu, 0.0)
+			_urubus_agendados.clear()
+			_tocar("sing")
+			AudioManager.tocar_sfx(&"TODO_AUDIO_canto_carlitos")
+		Estado.CANSADO:
+			_fase_cansado = FaseCansado.DESCENDO
+			_posicao_de_voo = global_position
+			definir_cansado(true)
+			_tocar("idle")
+			if anim != null:
+				anim.self_modulate = cor_cansado
+			AudioManager.tocar_sfx(&"TODO_AUDIO_carlitos_cansado", -6.0)
+
+
+# ---------------------------------------------------------------- voo
+
+func _voar(delta: float) -> void:
+	if _caminho != null:
+		_caminho.progress += velocidade_voo * delta
 	else:
-		_processar_senoidal_movement(delta)
+		_tempo_voo += delta
+		global_position.y = _altura_base + sin(_tempo_voo * frequencia_senoidal * TAU) * amplitude_senoidal
 
-func _processar_path_movement(delta: float) -> void:
-	# Move o PathFollow2D pai ao longo do Path2D
-	# O boss é filho do PathFollow2D, então se move junto automaticamente
-	path_follow_ref.progress += velocidade_voo * delta
-	
-	# Para a velocity do CharacterBody2D (não precisa se mover por conta própria)
-	velocity = Vector2.ZERO
-	
-	# Se passou do fim do path, volta ao início (loop)
-	if path_follow_ref.progress_ratio >= 1.0:
-		path_follow_ref.progress = 0.0
-
-func _processar_senoidal_movement(delta: float) -> void:
-	# Movimento senoidal (fallback)
-	tempo_voo += delta
-	
-	# Fica parado no X, oscila no Y
-	var seno_y = sin(tempo_voo * frequencia_senoidal * TAU) * amplitude_senoidal
-	var target_y = base_y + seno_y
-	
-	var diff_y = target_y - global_position.y
-	velocity.y = diff_y * 5 * delta
-	velocity.x = move_toward(velocity.x, 0, velocidade_voo * 2 * delta)
 
 func _olhar_para_player() -> void:
-	if player == null:
+	if anim == null or not is_instance_valid(player) or estado == Estado.MORRENDO:
 		return
-	# Boss sempre vira para o player
-	# A sprite está virada para a esquerda por padrão (flip_h = false)
-	# Quando o player está à direita, flip_h = true para virar para a direita
-	var diff_x = player.global_position.x - global_position.x
-	if diff_x > 0:
-		anim.flip_h = true
-	elif diff_x < 0:
-		anim.flip_h = false
+	var diferenca: float = player.global_position.x - global_position.x
+	if absf(diferenca) > 4.0:
+		# A arte olha para a esquerda; espelha quando o jogador está à direita.
+		anim.flip_h = diferenca > 0.0
+	anim.position = Vector2(deslocamento_do_sprite.x * (-1.0 if anim.flip_h else 1.0), deslocamento_do_sprite.y)
 
-func _processar_ciclo_ataque(delta: float) -> void:
-	if is_dead or state == BossState.RECUO or is_in_attack:
+
+# ---------------------------------------------------------------- Se Ter Pena Matasse
+
+func _preparar_leque() -> void:
+	_fase_penas = FasePenas.PREPARO
+	_tempo_fase = 0.0
+	_tocar("plumataque", true)
+	AudioManager.tocar_sfx(&"TODO_AUDIO_penas_preparo", -6.0)
+
+
+func _processar_penas() -> void:
+	match _fase_penas:
+		FasePenas.PREPARO:
+			if _tempo_fase >= tempo_preparo_penas:
+				_disparar_leque()
+				_leques_restantes -= 1
+				_fase_penas = FasePenas.AGUARDANDO_VOLTA
+				_tempo_fase = 0.0
+		FasePenas.AGUARDANDO_VOLTA:
+			_penas_ativas = _penas_ativas.filter(func(p: Variant) -> bool: return is_instance_valid(p))
+			if _penas_ativas.is_empty() or _tempo_fase >= espera_maxima_das_penas:
+				if _leques_restantes > 0:
+					_fase_penas = FasePenas.INTERVALO
+					_tempo_fase = 0.0
+					_tocar("voando")
+				else:
+					_mudar_estado(Estado.CANSADO)
+		FasePenas.INTERVALO:
+			if _tempo_fase >= intervalo_entre_leques:
+				_preparar_leque()
+
+
+func _disparar_leque() -> void:
+	if cena_pena == null or not is_instance_valid(player):
 		return
-	
-	timer_ataque -= delta
-	
-	if timer_ataque <= 0:
-		_executar_proximo_ataque()
+	var origem: Vector2 = global_position
+	var angulo_base: float = (player.global_position - origem).angle()
+	var quantidade: int = randi_range(penas_min, penas_max)
+	var passo: float = angulo_leque / float(quantidade - 1) if quantidade > 1 else 0.0
+	for i in quantidade:
+		var pena := cena_pena.instantiate() as Pena
+		if pena == null:
+			continue
+		var angulo: float = angulo_base + deg_to_rad(-angulo_leque * 0.5 + passo * i)
+		pena.dano = dano_pena
+		_arena().add_child(pena)
+		pena.global_position = origem
+		pena.iniciar(Vector2.from_angle(angulo), velocidade_pena, distancia_pena_max, self, velocidade_retorno_pena)
+		_penas_ativas.append(pena)
+	AudioManager.tocar_sfx(&"TODO_AUDIO_penas_disparo", -4.0)
 
-func _executar_proximo_ataque() -> void:
-	if ataques_penas_realizados >= ciclo_penas_antes_canto:
-		# Hora do canto!
-		ataques_penas_realizados = 0
-		_iniciar_ataque_canto()
-	else:
-		# Atira penas
-		ataques_penas_realizados += 1
-		_iniciar_ataque_penas()
 
-func _iniciar_ataque_penas() -> void:
-	is_in_attack = true
-	state = BossState.ATACANDO_PENAS
-	
-	print("[BOSS] Ataque de penas!")
-	
-	# Dispara penas em direção ao player (boss continua se movendo)
-	_disparar_penas_para_player()
-	
-	# Aguarda o tempo de retorno e puxa as penas
-	await get_tree().create_timer(tempo_retorno_penas).timeout
-	
-	if not is_dead:
-		_puxar_penas_de_volta()
-	
-	await get_tree().create_timer(1.0).timeout
-	
-	if not is_dead:
-		_terminar_ataque()
+# ---------------------------------------------------------------- cansado
 
-func _disparar_penas_para_player() -> void:
-	var pena_scene = preload("res://fases/fase1_sertao/boss/Base_Scenes/Pena.tscn")
-	if not pena_scene:
-		push_error("[BOSS] Cena Pena.tscn não encontrada!")
+func _processar_cansado(delta: float) -> void:
+	match _fase_cansado:
+		FaseCansado.DESCENDO:
+			var pouso := Vector2(
+				clampf(_posicao_de_voo.x, _limites.position.x + margem_de_pouso, _limites.end.x - margem_de_pouso),
+				altura_do_chao - altura_pousado)
+			global_position = global_position.move_toward(pouso, velocidade_de_pouso * delta)
+			if global_position.distance_to(pouso) < 1.0:
+				_fase_cansado = FaseCansado.NO_CHAO
+				_tempo_fase = 0.0
+		FaseCansado.NO_CHAO:
+			if _trava_de_animacao <= 0.0:
+				_tocar("idle")
+			if _tempo_fase >= tempo_cansado:
+				_fase_cansado = FaseCansado.SUBINDO
+				definir_cansado(false)
+				if anim != null:
+					anim.self_modulate = Color.WHITE
+				_tocar("voando")
+		FaseCansado.SUBINDO:
+			global_position = global_position.move_toward(_posicao_de_voo, velocidade_de_pouso * delta)
+			if global_position.distance_to(_posicao_de_voo) < 1.0:
+				global_position = _posicao_de_voo
+				_mudar_estado(Estado.VOANDO)
+
+
+# ---------------------------------------------------------------- Rap do Zé Felipe
+
+func _processar_canto() -> void:
+	# Agenda: cada urubu é anunciado na borda `aviso_urubu` segundos antes de entrar.
+	if _tempo_estado >= _tempo_proximo_urubu and _tempo_proximo_urubu < _duracao_canto:
+		_tempo_proximo_urubu += intervalo_urubu
+		_agendar_urubu()
+	while not _urubus_agendados.is_empty() and _tempo_estado >= _urubus_agendados[0]["tempo"]:
+		var dados: Dictionary = _urubus_agendados.pop_front()
+		_soltar_urubu(dados["sentido"], dados["y"])
+	if _tempo_estado >= _duracao_canto and _urubus_agendados.is_empty():
+		_mudar_estado(Estado.CANSADO)
+
+
+func _agendar_urubu() -> void:
+	if alturas_dos_urubus.is_empty():
 		return
-	
-	if player == null:
-		_encontrar_player()
-	if player == null:
+	var sentido: float = 1.0 if randf() < 0.5 else -1.0 # 1 = entra pela esquerda
+	var y: float = altura_do_chao - float(alturas_dos_urubus.pick_random())
+	var x_borda: float = _limites.position.x + 12.0 if sentido > 0.0 else _limites.end.x - 12.0
+	TelegraphWarning.criar(_arena(), Vector2(x_borda, y), Vector2(20.0, 26.0), aviso_urubu,
+		TelegraphWarning.Forma.RETANGULO, Vector2(sentido, 0.0))
+	_urubus_agendados.append({"tempo": _tempo_estado + aviso_urubu, "sentido": sentido, "y": y})
+
+
+func _soltar_urubu(sentido: float, y: float) -> void:
+	if cena_urubu == null:
 		return
-	
-	# Calcula direção base para o player
-	var dir_base = (player.global_position - spawn_penas.global_position).normalized()
-	var angulo_base = dir_base.angle()
-	
-	var angulo_inicial = -angulo_leque / 2.0
-	var passo_angulo = angulo_leque / float(penas_por_leque - 1) if penas_por_leque > 1 else 0
-	
-	for i in range(penas_por_leque):
-		var pena: Node2D = pena_scene.instantiate()
-		pena.global_position = spawn_penas.global_position
-		
-		# Calcula direção do leque centrado no player
-		var angulo_rad = angulo_base + deg_to_rad(angulo_inicial + passo_angulo * i)
-		var direcao = Vector2(cos(angulo_rad), sin(angulo_rad)).normalized()
-		pena.iniciar(direcao, velocidade_pena, distancia_pena_max, self)
-		
-		get_tree().current_scene.add_child(pena)
-		penas_ativas.append(pena)
-		
-		# Pequeno delay entre cada pena
-		await get_tree().create_timer(0.05).timeout
-
-func _puxar_penas_de_volta() -> void:
-	for pena in penas_ativas:
-		if is_instance_valid(pena):
-			pena.retornar_ao_boss()
-	penas_ativas.clear()
-
-func _iniciar_ataque_canto() -> void:
-	is_in_attack = true
-	state = BossState.CANTANDO
-	_play_anim("sing")
-	
-	print("[BOSS] Rap do Zé Felipe!")
-	
-	# Spawna urubus em sequência
-	for i in range(urubus_por_canto):
-		if is_dead:
-			return
-		_spawnar_urubu()
-		await get_tree().create_timer(intervalo_spawn_urubu).timeout
-	
-	# A cena dura um pouco mais
-	await get_tree().create_timer(1.5).timeout
-	
-	if not is_dead:
-		_terminar_ataque()
-
-func _spawnar_urubu() -> void:
-	var urubu_scene = preload("res://fases/fase1_sertao/boss/Base_Scenes/Urubu.tscn")
-	if not urubu_scene:
-		push_error("[BOSS] Cena Urubu.tscn não encontrada!")
+	var urubu := cena_urubu.instantiate() as Urubu
+	if urubu == null:
 		return
-	
-	if player == null:
-		_encontrar_player()
-	
-	# Calcula posição de spawn baseada na altura do player
-	var spawn_x: float
-	if player != null:
-		# Spawna à direita da tela, na altura do player com variação
-		spawn_x = max(global_position.x + 200, player.global_position.x + 400)
-	else:
-		spawn_x = global_position.x + 400
-	
-	# Spawna na altura do player (com pequena variação)
-	var altura_player = player.global_position.y if player != null else global_position.y
-	var altura_spawn = altura_player + randf_range(-20, 20)
-	
-	var spawn_pos = Vector2(spawn_x, altura_spawn)
-	
-	var urubu: Node2D = urubu_scene.instantiate()
-	urubu.global_position = spawn_pos
-	urubu.velocidade_base = velocidade_urubu
-	
-	get_tree().current_scene.add_child(urubu)
+	urubu.preparar_travessia(sentido, velocidade_urubu)
+	urubu.dano_contato = dano_urubu
+	var x: float = _limites.position.x - 30.0 if sentido > 0.0 else _limites.end.x + 30.0
+	urubu.position = _arena().to_local(Vector2(x, y)) if _arena() is Node2D else Vector2(x, y)
+	_arena().add_child(urubu)
 
-func _terminar_ataque() -> void:
-	is_in_attack = false
-	state = BossState.VOANDO
-	timer_ataque = intervalo_penas
 
-func _atualizar_animacao() -> void:
-	if is_dead:
-		return
-	
-	match state:
-		BossState.VOANDO, BossState.ATACANDO_PENAS:
-			_play_anim("voando")
-		BossState.CANTANDO:
-			_play_anim("sing")
-		BossState.RECUO:
-			_play_anim("hit")
-		BossState.MORRENDO:
-			_play_anim("death")
-		_:
-			_play_anim("idle")
+# ---------------------------------------------------------------- reações
 
-func receber_dano(quantidade: int) -> void:
-	if is_dead or is_hurt:
-		return
-	
-	hp -= quantidade
-	hp = max(hp, 0)
-	print("[BOSS] HP: ", hp, "/", max_hp)
-	
-	if hp <= 0:
-		_morrer()
-	else:
-		_levar_hit()
+func _ao_levar_hit() -> void:
+	if estado == Estado.CANSADO:
+		_tocar("hit", true)
+		_trava_de_animacao = 0.35
+	AudioManager.tocar_sfx(&"TODO_AUDIO_carlitos_hit", -4.0)
 
-func _levar_hit() -> void:
-	is_hurt = true
-	state = BossState.RECUO
-	_play_anim("hit")
-	
-	# Efeito visual de hit
-	var tween = create_tween()
-	tween.tween_property(anim, "modulate:a", 0.2, 0.05)
-	tween.tween_property(anim, "modulate:a", 1.0, 0.05)
-	
-	await get_tree().create_timer(0.3).timeout
-	
-	if not is_dead:
-		is_hurt = false
-		state = BossState.VOANDO
 
-func _morrer() -> void:
-	is_dead = true
-	state = BossState.MORRENDO
-	velocity = Vector2.ZERO
-	_play_anim("death")
-	
-	# Desativa dano de contato
-	damage_area.monitoring = false
-	
-	# Destrói penas ativas
-	for pena in penas_ativas:
+func _ao_morrer() -> void:
+	estado = Estado.MORRENDO
+	for pena in _penas_ativas:
 		if is_instance_valid(pena):
 			pena.queue_free()
-	penas_ativas.clear()
-	
-	# Restaura o zoom normal ao morrer
-	restaurar_camera_normal(1.0)
-	
-	emit_signal("boss_died", global_position)
-	
-	await get_tree().create_timer(1.5).timeout
-	queue_free()
+	_penas_ativas.clear()
+	_urubus_agendados.clear()
+	for inimigo in get_tree().get_nodes_in_group("enemy"):
+		if inimigo is Urubu:
+			inimigo.queue_free()
+	if anim != null:
+		anim.self_modulate = Color.WHITE
+		create_tween().tween_property(anim, "modulate:a", 0.0, duracao_morte).set_delay(0.6)
+	_tocar("death", true)
+	AudioManager.tocar_sfx(&"TODO_AUDIO_carlitos_morte")
 
-func _play_anim(nome: String) -> void:
-	if not is_instance_valid(anim):
+
+# ---------------------------------------------------------------- utilidades
+
+func _arena() -> Node:
+	return get_tree().current_scene
+
+
+## Toca a animação já com a escala certa para a folha dela.
+func _tocar(nome: String, do_inicio: bool = false) -> void:
+	if anim == null or anim.sprite_frames == null or not anim.sprite_frames.has_animation(nome):
 		return
-	if anim.sprite_frames and anim.sprite_frames.has_animation(nome):
-		if anim.animation != nome:
-			anim.play(nome)
+	var fator: float = float(escala_por_animacao.get(nome, 1.0))
+	anim.scale = Vector2.ONE * escala_base * fator
+	if do_inicio:
+		anim.stop()
+		anim.play(nome)
+	elif anim.animation != nome or not anim.is_playing():
+		anim.play(nome)

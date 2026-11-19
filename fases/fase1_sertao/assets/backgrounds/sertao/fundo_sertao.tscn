@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_00.png" id="1_bg0"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_01.png" id="2_bg1"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_02.png" id="3_bg2"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_03.png" id="4_bg3"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_04.png" id="5_bg4"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_05.png" id="6_bg5"]
+
+[node name="FundoSertao" type="Node2D"]
+texture_filter = 2
+
+[node name="Ceu" type="Sprite2D" parent="."]
+scale = Vector2(0.625, 0.3516)
+texture = ExtResource("1_bg0")
+centered = false
+
+[node name="Nuvens" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.7)
+position = Vector2(0, -120)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("2_bg1")
+centered = false
+
+[node name="CaatingaLonge" type="Sprite2D" parent="."]
+position = Vector2(0, 175)
+scale = Vector2(0.625, 0.5)
+texture = ExtResource("3_bg2")
+centered = false
+
+[node name="CaatingaPerto" type="Sprite2D" parent="."]
+position = Vector2(0, 208)
+scale = Vector2(0.627, 0.5)
+texture = ExtResource("4_bg3")
+centered = false
+
+[node name="Terra" type="Sprite2D" parent="."]
+position = Vector2(0, 248)
+scale = Vector2(0.625, 0.5)
+texture = ExtResource("5_bg4")
+centered = false
+
+[node name="ChaoRachado" type="Sprite2D" parent="."]
+position = Vector2(0, 294)
+scale = Vector2(0.625, 0.56)
+texture = ExtResource("6_bg5")
+centered = false
+
+[node name="ChaoRachado2" type="Sprite2D" parent="."]
+position = Vector2(0, 326)
+scale = Vector2(0.625, 0.56)
+texture = ExtResource("6_bg5")
+centered = false
+flip_h = true

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dsj4sm6ku4omg" path="res://fases/fase1_sertao/boss/Sprites/Carlito/Projeteis/pluma.png" id="2_wiqsa"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(2, 9)
+size = Vector2(22, 5)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_noyvj"]
 animations = [{
@@ -12,23 +12,25 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_wiqsa")
 }],
-"loop": 1,
+"loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[node name="Pena" type="Node2D" unique_id=137999324]
+[node name="Pena" type="Area2D" unique_id=137999324]
+collision_layer = 32
+collision_mask = 1
+monitorable = false
 script = ExtResource("1_8m2eq")
+velocidade = 230.0
+tempo_de_vida = 8.0
+some_ao_acertar = false
+some_no_terreno = false
 
-[node name="AreaDano" type="Area2D" parent="." unique_id=428963758]
-collision_layer = 12
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDano" unique_id=117624088]
-position = Vector2(0, -0.5)
-rotation = -1.5707964
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=117624088]
 shape = SubResource("1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=574346845]
-position = Vector2(0.028653622, -0.5444306)
-scale = Vector2(0.03646505, 0.029184075)
+texture_filter = 1
+scale = Vector2(0.11, 0.11)
 sprite_frames = SubResource("SpriteFrames_noyvj")

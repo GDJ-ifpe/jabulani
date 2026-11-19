@@ -1,0 +1,352 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://shared/systems/arena.gd" id="1_p1gfu"]
+[ext_resource type="AudioStream" path="res://fases/fase1_sertao/assets/soundtracks/crystal_cave_song18.mp3" id="2_xhnk8"]
+[ext_resource type="AudioStream" path="res://fases/fase1_sertao/assets/soundtracks/dungeon_ambient_1.ogg" id="3_pq6c1"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/caverna/camada_5.png" id="4_tpoa5"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/caverna/camada_4.png" id="5_y1qf4"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/caverna/camada_3.png" id="6_2kmap"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/caverna/camada_2.png" id="7_ei2f2"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/caverna/camada_1.png" id="8_mdyam"]
+[ext_resource type="TileSet" path="res://fases/fase1_sertao/assets/tilesets/caverna/caverna_tileset.tres" id="9_7e2v4"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase1_caverna/cenario/plataforma_vazada.tscn" id="10_8xlta"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/tilesets/caverna/decorations.png" id="11_2354s"]
+[ext_resource type="Script" path="res://shared/systems/spawn_point.gd" id="12_5d7y6"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase1_caverna/enemies/formiga_sauva/ninho.tscn" id="13_kfap2"]
+[ext_resource type="Script" path="res://fases/fase1_sertao/subfase1_caverna/enemies/formiga_sauva/ninho.gd" id="14_vakrf"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase1_caverna/enemies/formiga_sauva/formiga.tscn" id="15_qcfhd"]
+[ext_resource type="Script" path="res://shared/systems/exit_gate.gd" id="16_7mvxo"]
+[ext_resource type="Script" path="res://shared/systems/wave_spawner.gd" id="17_64dp5"]
+[ext_resource type="Script" path="res://shared/systems/wave_data.gd" id="18_6vpd0"]
+[ext_resource type="Resource" path="res://fases/fase1_sertao/subfase1_caverna/waves/caverna_onda_1.tres" id="19_cjpvl"]
+[ext_resource type="Resource" path="res://fases/fase1_sertao/subfase1_caverna/waves/caverna_onda_2.tres" id="20_rccv5"]
+[ext_resource type="Resource" path="res://fases/fase1_sertao/subfase1_caverna/waves/caverna_onda_3.tres" id="21_xir3i"]
+[ext_resource type="PackedScene" path="res://shared/player/player.tscn" id="22_5gwh3"]
+[ext_resource type="Script" path="res://shared/player/player.gd" id="23_7cfc4"]
+[ext_resource type="PackedScene" path="res://shared/player/powerups/jabussintese.tscn" id="24_e1sx0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atbpy"]
+size = Vector2(24, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i28r5"]
+size = Vector2(12, 64)
+
+[node name="Caverna" type="Node2D" unique_id=624027657 node_paths=PackedStringArray("aviso")]
+texture_filter = 1
+script = ExtResource("1_p1gfu")
+titulo_conclusao = "Subfase 1 concluída"
+musica = ExtResource("2_xhnk8")
+ambiente = ExtResource("3_pq6c1")
+aviso = NodePath("Avisos/Aviso")
+
+[node name="Fundo" type="Node2D" parent="." unique_id=2061844626]
+
+[node name="Camada5" type="Parallax2D" parent="Fundo" unique_id=2108346672]
+z_index = -20
+scroll_scale = Vector2(0.05, 1)
+repeat_size = Vector2(512, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/Camada5" unique_id=1131386959]
+position = Vector2(0, -152)
+texture = ExtResource("4_tpoa5")
+centered = false
+
+[node name="Camada4" type="Parallax2D" parent="Fundo" unique_id=945751262]
+z_index = -20
+scroll_scale = Vector2(0.15, 1)
+repeat_size = Vector2(512, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/Camada4" unique_id=461436445]
+position = Vector2(0, -152)
+texture = ExtResource("5_y1qf4")
+centered = false
+
+[node name="Camada3" type="Parallax2D" parent="Fundo" unique_id=56861687]
+z_index = -20
+scroll_scale = Vector2(0.3, 1)
+repeat_size = Vector2(512, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/Camada3" unique_id=283132638]
+position = Vector2(0, -152)
+texture = ExtResource("6_2kmap")
+centered = false
+
+[node name="Camada2" type="Parallax2D" parent="Fundo" unique_id=1421880031]
+z_index = -20
+scroll_scale = Vector2(0.45, 1)
+repeat_size = Vector2(512, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/Camada2" unique_id=1696907533]
+position = Vector2(0, -152)
+texture = ExtResource("7_ei2f2")
+centered = false
+
+[node name="Camada1" type="Parallax2D" parent="Fundo" unique_id=729032373]
+z_index = -20
+scroll_scale = Vector2(0.6, 1)
+repeat_size = Vector2(512, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/Camada1" unique_id=1287789993]
+position = Vector2(0, -152)
+texture = ExtResource("8_mdyam")
+centered = false
+
+[node name="Terreno" type="TileMapLayer" parent="." unique_id=507304408]
+position = Vector2(0, -24)
+tile_map_data = PackedByteArray("AAD/////AAABAAEAAAD//wAAAAABAAEAAAD//wEAAAABAAEAAAD//wIAAAABAAEAAAD//wMAAAABAAEAAAD//wQAAAABAAEAAAD//wUAAAABAAEAAAD//wYAAAABAAEAAAD//wcAAAABAAEAAAD//wgAAAABAAEAAAD//wkAAAABAAEAAAD//woAAAABAAEAAAD//wsAAAABAAEAAAD//wwAAAABAAEAAAAAAP//AAABAAEAAAAAAAAAAAADAAMAAAAAAAEAAAACAAEAAAAAAAIAAAACAAEAAAAAAAMAAAACAAEAAAAAAAQAAAACAAEAAAAAAAUAAAACAAEAAAAAAAYAAAACAAEAAAAAAAcAAAACAAEAAAAAAAgAAAACAAEAAAAAAAkAAAACAAEAAAAAAAoAAAACAAEAAAAAAAsAAAADAAMAAAAAAAwAAAABAAEAAAABAP//AAABAAEAAAABAAAAAAABAAIAAAABAAsAAAABAAAAAAABAAwAAAABAAEAAAACAP//AAABAAEAAAACAAAAAAABAAIAAAACAAsAAAABAAAAAAACAAwAAAABAAEAAAADAP//AAABAAEAAAADAAAAAAABAAIAAAADAAsAAAABAAAAAAADAAwAAAABAAEAAAAEAP//AAABAAEAAAAEAAAAAAABAAIAAAAEAAsAAAABAAAAAAAEAAwAAAABAAEAAAAFAP//AAABAAEAAAAFAAAAAAABAAIAAAAFAAsAAAABAAAAAAAFAAwAAAABAAEAAAAGAP//AAABAAEAAAAGAAAAAAABAAIAAAAGAAsAAAABAAAAAAAGAAwAAAABAAEAAAAHAP//AAABAAEAAAAHAAAAAAABAAIAAAAHAAsAAAABAAAAAAAHAAwAAAABAAEAAAAIAP//AAABAAEAAAAIAAAAAAABAAIAAAAIAAsAAAABAAAAAAAIAAwAAAABAAEAAAAJAP//AAABAAEAAAAJAAAAAAABAAIAAAAJAAsAAAABAAAAAAAJAAwAAAABAAEAAAAKAP//AAABAAEAAAAKAAAAAAABAAIAAAAKAAsAAAABAAAAAAAKAAwAAAABAAEAAAALAP//AAABAAEAAAALAAAAAAABAAIAAAALAAsAAAABAAAAAAALAAwAAAABAAEAAAAMAP//AAABAAEAAAAMAAAAAAABAAIAAAAMAAsAAAABAAAAAAAMAAwAAAABAAEAAAANAP//AAABAAEAAAANAAAAAAABAAIAAAANAAsAAAABAAAAAAANAAwAAAABAAEAAAAOAP//AAABAAEAAAAOAAAAAAABAAIAAAAOAAsAAAABAAAAAAAOAAwAAAABAAEAAAAPAP//AAABAAEAAAAPAAAAAAABAAIAAAAPAAsAAAABAAAAAAAPAAwAAAABAAEAAAAQAP//AAABAAEAAAAQAAAAAAABAAIAAAAQAAsAAAABAAAAAAAQAAwAAAABAAEAAAARAP//AAABAAEAAAARAAAAAAABAAIAAAARAAsAAAABAAAAAAARAAwAAAABAAEAAAASAP//AAABAAEAAAASAAAAAAABAAIAAAASAAsAAAABAAAAAAASAAwAAAABAAEAAAATAP//AAABAAEAAAATAAAAAAABAAIAAAATAAsAAAABAAAAAAATAAwAAAABAAEAAAAUAP//AAABAAEAAAAUAAAAAAABAAIAAAAUAAsAAAABAAAAAAAUAAwAAAABAAEAAAAVAP//AAABAAEAAAAVAAAAAAABAAIAAAAVAAsAAAABAAAAAAAVAAwAAAABAAEAAAAWAP//AAABAAEAAAAWAAAAAAABAAIAAAAWAAsAAAABAAAAAAAWAAwAAAABAAEAAAAXAP//AAABAAEAAAAXAAAAAAABAAIAAAAXAAsAAAABAAAAAAAXAAwAAAABAAEAAAAYAP//AAABAAEAAAAYAAAAAAABAAIAAAAYAAsAAAABAAAAAAAYAAwAAAABAAEAAAAZAP//AAABAAEAAAAZAAAAAAABAAIAAAAZAAsAAAABAAAAAAAZAAwAAAABAAEAAAAaAP//AAABAAEAAAAaAAAAAAABAAIAAAAaAAsAAAABAAAAAAAaAAwAAAABAAEAAAAbAP//AAABAAEAAAAbAAAAAAABAAIAAAAbAAsAAAABAAAAAAAbAAwAAAABAAEAAAAcAP//AAABAAEAAAAcAAAAAAABAAIAAAAcAAsAAAABAAAAAAAcAAwAAAABAAEAAAAdAP//AAABAAEAAAAdAAAAAAABAAIAAAAdAAsAAAABAAAAAAAdAAwAAAABAAEAAAAeAP//AAABAAEAAAAeAAAAAAABAAIAAAAeAAsAAAABAAAAAAAeAAwAAAABAAEAAAAfAP//AAABAAEAAAAfAAAAAAABAAIAAAAfAAsAAAABAAAAAAAfAAwAAAABAAEAAAAgAP//AAABAAEAAAAgAAAAAAABAAIAAAAgAAsAAAABAAAAAAAgAAwAAAABAAEAAAAhAP//AAABAAEAAAAhAAAAAAABAAIAAAAhAAsAAAABAAAAAAAhAAwAAAABAAEAAAAiAP//AAABAAEAAAAiAAAAAAABAAIAAAAiAAsAAAABAAAAAAAiAAwAAAABAAEAAAAjAP//AAABAAEAAAAjAAAAAAABAAIAAAAjAAsAAAABAAAAAAAjAAwAAAABAAEAAAAkAP//AAABAAEAAAAkAAAAAAABAAIAAAAkAAQAAAAAAAMAAAAkAAsAAAABAAAAAAAkAAwAAAABAAEAAAAlAP//AAABAAEAAAAlAAAAAAABAAIAAAAlAAQAAAABAAMAAAAlAAsAAAABAAAAAAAlAAwAAAABAAEAAAAmAP//AAABAAEAAAAmAAAAAAABAAIAAAAmAAQAAAABAAMAAAAmAAsAAAABAAAAAAAmAAwAAAABAAEAAAAnAP//AAABAAEAAAAnAAAAAAADAAMAAAAnAAEAAAAAAAIAAAAnAAQAAAABAAAAAAAnAAUAAAAAAAEAAAAnAAYAAAAAAAEAAAAnAAcAAAAAAAEAAAAnAAgAAAAAAAEAAAAnAAkAAAAAAAEAAAAnAAoAAAAAAAEAAAAnAAsAAAADAAMAAAAnAAwAAAABAAEAAAAoAP//AAABAAEAAAAoAAAAAAABAAEAAAAoAAEAAAADAAMAAAAoAAIAAAAAAAEAAAAoAAMAAAAAAAEAAAAoAAQAAAADAAMAAAAoAAUAAAABAAEAAAAoAAYAAAABAAEAAAAoAAcAAAABAAEAAAAoAAgAAAABAAEAAAAoAAkAAAABAAEAAAAoAAoAAAABAAEAAAAoAAsAAAABAAEAAAAoAAwAAAABAAEAAAA=")
+tile_set = ExtResource("9_7e2v4")
+
+[node name="Plataformas" type="Node2D" parent="." unique_id=1664229934]
+
+[node name="Plataforma1" type="StaticBody2D" parent="Plataformas" unique_id=800189117 instance=ExtResource("10_8xlta")]
+position = Vector2(208, 280)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Plataforma2" type="StaticBody2D" parent="Plataformas" unique_id=457640380 instance=ExtResource("10_8xlta")]
+position = Vector2(96, 232)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Plataforma3" type="StaticBody2D" parent="Plataformas" unique_id=2036014568 instance=ExtResource("10_8xlta")]
+position = Vector2(40, 184)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Plataforma4" type="StaticBody2D" parent="Plataformas" unique_id=1929722956 instance=ExtResource("10_8xlta")]
+position = Vector2(200, 184)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Plataforma5" type="StaticBody2D" parent="Plataformas" unique_id=312842328 instance=ExtResource("10_8xlta")]
+position = Vector2(800, 280)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Plataforma6" type="StaticBody2D" parent="Plataformas" unique_id=1667122793 instance=ExtResource("10_8xlta")]
+position = Vector2(912, 232)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Plataforma7" type="StaticBody2D" parent="Plataformas" unique_id=546537007 instance=ExtResource("10_8xlta")]
+position = Vector2(976, 184)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Plataforma8" type="StaticBody2D" parent="Plataformas" unique_id=1643542194 instance=ExtResource("10_8xlta")]
+position = Vector2(1056, 136)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Decoracao" type="Node2D" parent="." unique_id=1963971981]
+z_index = -1
+
+[node name="Estalactite1" type="Sprite2D" parent="Decoracao" unique_id=1648006042]
+position = Vector2(266, 6)
+scale = Vector2(2, 2)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(64, 112, 34, 47)
+
+[node name="TODO_ARTE_estalactite_rachada" type="Sprite2D" parent="Decoracao" unique_id=970464311]
+modulate = Color(0.8, 0.72, 0.68, 1)
+position = Vector2(444, 6)
+scale = Vector2(2, 2)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(35, 117, 26, 42)
+
+[node name="Trinca" type="Line2D" parent="Decoracao/TODO_ARTE_estalactite_rachada" unique_id=655471250]
+points = PackedVector2Array(10, 2, 14, 10, 11, 17, 15, 25, 12, 33)
+width = 1.0
+default_color = Color(0.2, 0.12, 0.1, 1)
+
+[node name="Estalactite2" type="Sprite2D" parent="Decoracao" unique_id=1882306983]
+position = Vector2(608, 6)
+scale = Vector2(2, 2)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 124, 32, 36)
+
+[node name="Estalactite3" type="Sprite2D" parent="Decoracao" unique_id=1577214606]
+position = Vector2(846, 6)
+scale = Vector2(2, 2)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(64, 112, 34, 47)
+
+[node name="Estalactite4" type="Sprite2D" parent="Decoracao" unique_id=939575206]
+position = Vector2(144, 6)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 124, 32, 36)
+
+[node name="Estalactite5" type="Sprite2D" parent="Decoracao" unique_id=1335087080]
+position = Vector2(1010, 6)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(35, 117, 26, 42)
+
+[node name="Estalagmite1" type="Sprite2D" parent="Decoracao" unique_id=550366950]
+position = Vector2(330, 297)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(130, 97, 30, 31)
+
+[node name="Estalagmite2" type="Sprite2D" parent="Decoracao" unique_id=1109542422]
+position = Vector2(1130, 296)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(168, 96, 18, 32)
+
+[node name="Pedras1" type="Sprite2D" parent="Decoracao" unique_id=554918327]
+position = Vector2(590, 300)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(96, 100, 32, 28)
+
+[node name="Cristal1" type="Sprite2D" parent="Decoracao" unique_id=210026370]
+position = Vector2(940, 306)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(8, 74, 24, 22)
+
+[node name="Cristal2" type="Sprite2D" parent="Decoracao" unique_id=1993142592]
+position = Vector2(1196, 72)
+texture = ExtResource("11_2354s")
+centered = false
+region_enabled = true
+region_rect = Rect2(160, 64, 32, 32)
+
+[node name="PontosDeSpawn" type="Node2D" parent="." unique_id=1969854966]
+
+[node name="Estalactite1" type="Marker2D" parent="PontosDeSpawn" unique_id=806904088]
+position = Vector2(300, 106)
+script = ExtResource("12_5d7y6")
+tipo = 1
+
+[node name="Estalactite2" type="Marker2D" parent="PontosDeSpawn" unique_id=1260933883]
+position = Vector2(640, 84)
+script = ExtResource("12_5d7y6")
+tipo = 1
+
+[node name="Estalactite3" type="Marker2D" parent="PontosDeSpawn" unique_id=487410060]
+position = Vector2(880, 106)
+script = ExtResource("12_5d7y6")
+tipo = 1
+
+[node name="Teia" type="Marker2D" parent="PontosDeSpawn" unique_id=742402181 node_paths=PackedStringArray("no_waypoints", "no_pontos_de_parede", "ponto_parede_saida")]
+position = Vector2(560, 20)
+script = ExtResource("12_5d7y6")
+tipo = 2
+no_waypoints = NodePath("Waypoints")
+no_pontos_de_parede = NodePath("Paredes")
+ponto_parede_saida = NodePath("ParedeDaSaida")
+
+[node name="Waypoints" type="Node2D" parent="PontosDeSpawn/Teia" unique_id=608282878]
+
+[node name="W0" type="Marker2D" parent="PontosDeSpawn/Teia/Waypoints" unique_id=1155451204]
+
+[node name="W1" type="Marker2D" parent="PontosDeSpawn/Teia/Waypoints" unique_id=1949782429]
+position = Vector2(0, 170)
+
+[node name="W2" type="Marker2D" parent="PontosDeSpawn/Teia/Waypoints" unique_id=545755574]
+position = Vector2(130, 266)
+
+[node name="W3" type="Marker2D" parent="PontosDeSpawn/Teia/Waypoints" unique_id=326536370]
+position = Vector2(230, 180)
+
+[node name="Paredes" type="Node2D" parent="PontosDeSpawn/Teia" unique_id=1067504767]
+
+[node name="P0" type="Marker2D" parent="PontosDeSpawn/Teia/Paredes" unique_id=1338408146]
+position = Vector2(-170, 308)
+
+[node name="P1" type="Marker2D" parent="PontosDeSpawn/Teia/Paredes" unique_id=619858218]
+position = Vector2(180, 308)
+
+[node name="ParedeDaSaida" type="Marker2D" parent="PontosDeSpawn/Teia" unique_id=64069564]
+position = Vector2(680, 84)
+
+[node name="PontoNinho" type="Marker2D" parent="PontosDeSpawn" unique_id=1322177806 node_paths=PackedStringArray("ninho")]
+position = Vector2(470, 316)
+script = ExtResource("12_5d7y6")
+tipo = 3
+ninho = NodePath("../../Ninho")
+
+[node name="Ninho" type="StaticBody2D" parent="." unique_id=1307871687 instance=ExtResource("13_kfap2")]
+position = Vector2(470, 328)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("14_vakrf")
+cena_formiga = ExtResource("15_qcfhd")
+
+[node name="Saida" type="Area2D" parent="." unique_id=1918593824 node_paths=PackedStringArray("barreira", "visual_fechada", "visual_aberta")]
+position = Vector2(1264, 72)
+script = ExtResource("16_7mvxo")
+proxima_cena = "res://fases/fase1_sertao/subfase2_superficie/superficie.tscn"
+barreira = NodePath("Barreira")
+visual_fechada = NodePath("TODO_ARTE_saida_fechada")
+visual_aberta = NodePath("TODO_ARTE_saida_aberta")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Saida" unique_id=1887522845]
+shape = SubResource("RectangleShape2D_atbpy")
+
+[node name="Barreira" type="StaticBody2D" parent="Saida" unique_id=116897353]
+position = Vector2(-10, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Saida/Barreira" unique_id=2135468913]
+shape = SubResource("RectangleShape2D_i28r5")
+
+[node name="TODO_ARTE_saida_fechada" type="Polygon2D" parent="Saida" unique_id=156286274]
+color = Color(0.25, 0.18, 0.2, 1)
+polygon = PackedVector2Array(-16, -32, 16, -32, 16, 32, -16, 32)
+
+[node name="TODO_ARTE_saida_aberta" type="Polygon2D" parent="Saida" unique_id=938359981]
+color = Color(1, 0.93, 0.7, 0.85)
+polygon = PackedVector2Array(-16, -32, 16, -32, 16, 32, -16, 32)
+
+[node name="Inimigos" type="Node2D" parent="." unique_id=1568830163]
+
+[node name="WaveSpawner" type="Node" parent="." unique_id=263407449 node_paths=PackedStringArray("destino")]
+script = ExtResource("17_64dp5")
+ondas = Array[ExtResource("18_6vpd0")]([ExtResource("19_cjpvl"), ExtResource("20_rccv5"), ExtResource("21_xir3i")])
+destino = NodePath("../Inimigos")
+
+[node name="player" type="CharacterBody2D" parent="." unique_id=2024786376 node_paths=PackedStringArray("anim") groups=["player"] instance=ExtResource("22_5gwh3")]
+position = Vector2(88, 311)
+collision_mask = 67
+script = ExtResource("23_7cfc4")
+anim = NodePath("AnimatedSprite2D")
+cena_jabussintese = ExtResource("24_e1sx0")
+
+[node name="Avisos" type="CanvasLayer" parent="." unique_id=1475203364]
+layer = 9
+
+[node name="Aviso" type="Label" parent="Avisos" unique_id=572911413]
+texture_filter = 2
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 60.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "Onda 1"
+horizontal_alignment = 1

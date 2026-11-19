@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="WaveData" format=3]
+
+[ext_resource type="Script" path="res://shared/systems/wave_entry.gd" id="1_75h55"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase1_caverna/enemies/morcego/bruce.tscn" id="2_b0gqm"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase1_caverna/enemies/aranha_chifres/aranha_chifres.tscn" id="3_ru2n4"]
+[ext_resource type="Script" path="res://shared/systems/wave_data.gd" id="4_l2mwg"]
+
+[sub_resource type="Resource" id="Resource_h5dvg"]
+script = ExtResource("1_75h55")
+cena = ExtResource("2_b0gqm")
+quantidade = 2
+tipo_de_spawn = 1
+
+[sub_resource type="Resource" id="Resource_0ldns"]
+script = ExtResource("1_75h55")
+cena = ExtResource("3_ru2n4")
+tipo_de_spawn = 2
+
+[sub_resource type="Resource" id="Resource_j62pk"]
+script = ExtResource("1_75h55")
+cena = ExtResource("2_b0gqm")
+quantidade = 3
+tipo_de_spawn = 1
+
+[sub_resource type="Resource" id="Resource_qqvbj"]
+script = ExtResource("1_75h55")
+cena = ExtResource("3_ru2n4")
+tipo_de_spawn = 2
+
+[sub_resource type="Resource" id="Resource_shvda"]
+script = ExtResource("1_75h55")
+cena = ExtResource("2_b0gqm")
+tipo_de_spawn = 1
+
+[resource]
+script = ExtResource("4_l2mwg")
+entradas = Array[ExtResource("1_75h55")]([SubResource("Resource_h5dvg"), SubResource("Resource_0ldns"), SubResource("Resource_j62pk"), SubResource("Resource_qqvbj"), SubResource("Resource_shvda")])
+intervalo_s = 4.0

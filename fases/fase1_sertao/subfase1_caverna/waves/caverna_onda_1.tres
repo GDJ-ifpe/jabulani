@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WaveData" format=3]
+
+[ext_resource type="Script" path="res://shared/systems/wave_entry.gd" id="1_p8ga1"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase1_caverna/enemies/morcego/bruce.tscn" id="2_wh66s"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase1_caverna/enemies/aranha_chifres/aranha_chifres.tscn" id="3_22o0o"]
+[ext_resource type="Script" path="res://shared/systems/wave_data.gd" id="4_1x4po"]
+
+[sub_resource type="Resource" id="Resource_8lun3"]
+script = ExtResource("1_p8ga1")
+cena = ExtResource("2_wh66s")
+tipo_de_spawn = 1
+
+[sub_resource type="Resource" id="Resource_x5fk3"]
+script = ExtResource("1_p8ga1")
+cena = ExtResource("3_22o0o")
+tipo_de_spawn = 2
+
+[sub_resource type="Resource" id="Resource_kn7bg"]
+script = ExtResource("1_p8ga1")
+tipo_de_spawn = 3
+
+[resource]
+script = ExtResource("4_1x4po")
+entradas = Array[ExtResource("1_p8ga1")]([SubResource("Resource_8lun3"), SubResource("Resource_x5fk3"), SubResource("Resource_kn7bg")])
