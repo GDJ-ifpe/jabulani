@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://shared/ui/painel_jogo.gd" id="1_painel"]
+
+[node name="Pausa" type="Control" groups=["painel_pausa"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_painel")
+titulo = "Pausa"
+opcoes = PackedStringArray("Continuar", "Reiniciar arena", "Menu")
+acoes = Array[int]([0, 1, 2])

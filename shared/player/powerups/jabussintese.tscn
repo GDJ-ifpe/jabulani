@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://shared/player/powerups/jabussintese.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://shared/player/powerups/jabussintese_frames.tres" id="2_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ataque"]
+size = Vector2(40, 40)
+
+[node name="Jabussintese" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 66
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_corpo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -20)
+scale = Vector2(0.44, 0.44)
+sprite_frames = ExtResource("2_frames")
+animation = &"brotar"
+
+[node name="Ataque" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ataque"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_ataque")

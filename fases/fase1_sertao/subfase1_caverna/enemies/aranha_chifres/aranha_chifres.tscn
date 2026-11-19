@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase1_sertao/subfase1_caverna/enemies/aranha_chifres/aranha_chifres.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://fases/fase1_sertao/subfase1_caverna/enemies/aranha_chifres/aranha_frames.tres" id="2_frames"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase1_caverna/enemies/aranha_chifres/parede_teia.tscn" id="3_parede"]
+[ext_resource type="Script" path="res://shared/components/hitbox.gd" id="4_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+size = Vector2(40, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mordida"]
+size = Vector2(30, 28)
+
+[node name="AranhaChifres" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_script")
+cena_parede = ExtResource("3_parede")
+max_hp = 3
+velocidade = 170.0
+tamanho_dano_contato = Vector2(36, 24)
+duracao_morte = 0.8
+usa_gravidade = false
+sprite_olha_para_esquerda = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -12)
+scale = Vector2(0.2, 0.2)
+sprite_frames = ExtResource("2_frames")
+animation = &"parado"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_corpo")
+
+[node name="Mordida" type="Area2D" parent="."]
+script = ExtResource("4_hitbox")
+ativa = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mordida"]
+position = Vector2(30, 0)
+shape = SubResource("RectangleShape2D_mordida")

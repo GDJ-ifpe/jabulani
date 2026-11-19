@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase1_sertao/subfase2_superficie/enemies/sarue_sergio/sarue.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://fases/fase1_sertao/subfase2_superficie/enemies/sarue_sergio/sarue_frames.tres" id="2_frames"]
+
+[ext_resource type="Script" path="res://shared/components/hitbox.gd" id="3_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+size = Vector2(18, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mordida"]
+size = Vector2(20, 18)
+
+[node name="Sarue" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 66
+script = ExtResource("1_script")
+max_hp = 2
+dano_contato = 0
+velocidade = 70.0
+sprite_olha_para_esquerda = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -5)
+sprite_frames = ExtResource("2_frames")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_corpo")
+
+[node name="Mordida" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 1
+monitoring = false
+monitorable = false
+script = ExtResource("3_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mordida"]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_mordida")

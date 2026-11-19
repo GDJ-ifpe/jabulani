@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase1_sertao/subfase1_caverna/enemies/aranha_chifres/parede_teia.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teia"]
+size = Vector2(10, 96)
+
+[node name="ParedeTeia" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -48)
+shape = SubResource("RectangleShape2D_teia")
+
+[node name="TODO_ARTE_teia" type="Node2D" parent="."]
+
+[node name="Fundo" type="Polygon2D" parent="TODO_ARTE_teia"]
+color = Color(1, 1, 1, 0.25)
+polygon = PackedVector2Array(-5, 0, 5, 0, 5, -96, -5, -96)
+
+[node name="Fios" type="Line2D" parent="TODO_ARTE_teia"]
+points = PackedVector2Array(-5, 0, 5, -16, -5, -32, 5, -48, -5, -64, 5, -80, -5, -96, 5, -96, -5, -80, 5, -64, -5, -48, 5, -32, -5, -16, 5, 0)
+width = 1.0
+default_color = Color(1, 1, 1, 0.9)

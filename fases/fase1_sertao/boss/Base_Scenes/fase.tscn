@@ -1,48 +1,121 @@
-[gd_scene format=3 uid="uid://c7ddiutc1tll7"]
+[gd_scene format=4 uid="uid://c7ddiutc1tll7"]
 
-[ext_resource type="PackedScene" uid="uid://rcy0ows2fa7y" path="res://fases/fase1_sertao/boss/Base_Scenes/Boss.tscn" id="1_x3c6p"]
-[ext_resource type="PackedScene" uid="uid://cp1kteqky157e" path="res://shared/player/player.tscn" id="2_jpr82"]
+[ext_resource type="Script" path="res://fases/fase1_sertao/boss/Base_Scenes/arena_chefe.gd" id="1_flm1j"]
+[ext_resource type="AudioStream" path="res://fases/fase1_sertao/assets/soundtracks/boss_fase1.mp3" id="2_hm60n"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_00.png" id="3_qocud"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_01.png" id="4_lkwi5"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_02.png" id="5_sgnpi"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_03.png" id="6_cn62n"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_04.png" id="7_qog3m"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_05.png" id="8_7a57o"]
+[ext_resource type="TileSet" path="res://fases/fase1_sertao/assets/tilesets/sertao/sertao_tileset.tres" id="9_5yjk0"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/boss/Base_Scenes/Boss.tscn" id="10_nggh6"]
+[ext_resource type="PackedScene" path="res://shared/player/player.tscn" id="11_udtb0"]
 
 [sub_resource type="Curve2D" id="Curve2D_jpr82"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -15, 14, 0, 0, 0, 0, -1, 25, 0, 0, 0, 0, 8, 30, 0, 0, 0, 0, 27, 32, 0, 0, 0, 0, 50, 30, 0, 0, 0, 0, 66, 27, 0, 0, 0, 0, 83, 21, 0, 0, 0, 0, 91, 15, 0, 0, 0, 0, 84, 18, 0, 0, 0, 0, 64, 24, 0, 0, 0, 0, 49, 27, 0, 0, 0, 0, 28, 27, 0, 0, 0, 0, 10, 26, 0, 0, 0, 0, 3, 22, 0, 0, 0, 0, -11, 13, 0, 0, 0, 0, -15, 14)
+"points": PackedVector2Array(0, 0, 0, 0, 500, 110, 0, 0, 0, 0, 400, 140, 0, 0, 0, 0, 320, 150, 0, 0, 0, 0, 240, 140, 0, 0, 0, 0, 140, 110, 0, 0, 0, 0, 240, 95, 0, 0, 0, 0, 320, 90, 0, 0, 0, 0, 400, 95, 0, 0, 0, 0, 500, 110)
 }
-point_count = 16
+point_count = 9
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7i4tb"]
-size = Vector2(85, 20)
+size = Vector2(16, 720)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7i4tb"]
+[node name="Fase" type="Node2D" unique_id=727111984 node_paths=PackedStringArray("aviso")]
+texture_filter = 1
+script = ExtResource("1_flm1j")
+proxima_cena = "res://fases/fase1_sertao/cutscenes/pos_carlitos.tscn"
+limites = Rect2i(0, 0, 640, 360)
+titulo_conclusao = "Subfase 3 concluída"
+musica = ExtResource("2_hm60n")
+aviso = NodePath("Avisos/Aviso")
 
-[node name="Fase" type="Node2D" unique_id=727111984]
+[node name="Fundo" type="Node2D" parent="." unique_id=1225588926]
+z_index = -20
+texture_filter = 2
+
+[node name="Ceu" type="Sprite2D" parent="Fundo" unique_id=827633133]
+scale = Vector2(0.625, 0.3516)
+texture = ExtResource("3_qocud")
+centered = false
+
+[node name="Nuvens" type="Sprite2D" parent="Fundo" unique_id=1865786487]
+modulate = Color(1, 1, 1, 0.7)
+position = Vector2(0, -120)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("4_lkwi5")
+centered = false
+
+[node name="CaatingaLonge" type="Sprite2D" parent="Fundo" unique_id=1354062814]
+position = Vector2(0, 175)
+scale = Vector2(0.625, 0.5)
+texture = ExtResource("5_sgnpi")
+centered = false
+
+[node name="CaatingaPerto" type="Sprite2D" parent="Fundo" unique_id=986808396]
+position = Vector2(0, 208)
+scale = Vector2(0.627, 0.5)
+texture = ExtResource("6_cn62n")
+centered = false
+
+[node name="Terra" type="Sprite2D" parent="Fundo" unique_id=1028651713]
+position = Vector2(0, 248)
+scale = Vector2(0.625, 0.5)
+texture = ExtResource("7_qog3m")
+centered = false
+
+[node name="ChaoRachado" type="Sprite2D" parent="Fundo" unique_id=1469587884]
+position = Vector2(0, 294)
+scale = Vector2(0.625, 0.5)
+texture = ExtResource("8_7a57o")
+centered = false
+
+[node name="Decoracao" type="TileMapLayer" parent="." unique_id=954365705]
+z_index = -2
+position = Vector2(0, -24)
+tile_map_data = PackedByteArray("AAABAAoAAAAGAAIAAAARAAoAAAALAAEAAAAJAAoAAAAGAAQAAAANAAkAAAAKAAIAAAAOAAkAAAALAAIAAAANAAoAAAAKAAMAAAAOAAoAAAALAAMAAAA=")
+tile_set = ExtResource("9_5yjk0")
+collision_enabled = false
+
+[node name="Terreno" type="TileMapLayer" parent="." unique_id=233886480]
+position = Vector2(0, -24)
+tile_map_data = PackedByteArray("AAD//wsAAAABAAAAAAD//wwAAAABAAEAAAAAAAsAAAABAAAAAAAAAAwAAAABAAEAAAABAAsAAAABAAAAAAABAAwAAAABAAEAAAACAAsAAAABAAAAAAACAAwAAAABAAEAAAADAAsAAAABAAAAAAADAAwAAAABAAEAAAAEAAsAAAABAAAAAAAEAAwAAAABAAEAAAAFAAsAAAABAAAAAAAFAAwAAAABAAEAAAAGAAsAAAABAAAAAAAGAAwAAAABAAEAAAAHAAsAAAABAAAAAAAHAAwAAAABAAEAAAAIAAsAAAABAAAAAAAIAAwAAAABAAEAAAAJAAsAAAABAAAAAAAJAAwAAAABAAEAAAAKAAsAAAABAAAAAAAKAAwAAAABAAEAAAALAAsAAAABAAAAAAALAAwAAAABAAEAAAAMAAsAAAABAAAAAAAMAAwAAAABAAEAAAANAAsAAAABAAAAAAANAAwAAAABAAEAAAAOAAsAAAABAAAAAAAOAAwAAAABAAEAAAAPAAsAAAABAAAAAAAPAAwAAAABAAEAAAAQAAsAAAABAAAAAAAQAAwAAAABAAEAAAARAAsAAAABAAAAAAARAAwAAAABAAEAAAASAAsAAAABAAAAAAASAAwAAAABAAEAAAATAAsAAAABAAAAAAATAAwAAAABAAEAAAAUAAsAAAABAAAAAAAUAAwAAAABAAEAAAA=")
+tile_set = ExtResource("9_5yjk0")
 
 [node name="Path2D" type="Path2D" parent="." unique_id=1292425186]
 curve = SubResource("Curve2D_jpr82")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1494335120]
-position = Vector2(-15, 14)
-rotation = 0.66596925
+position = Vector2(500, 110)
 rotates = false
 
-[node name="Boss" parent="Path2D/PathFollow2D" unique_id=704353812 instance=ExtResource("1_x3c6p")]
-position = Vector2(-21.286764, -12.524931)
-rotation = -0.66596925
-scale = Vector2(1.0000001, 1.0000001)
-tempo_intro = 0.5
-velocidade_voo = 50.0
-velocidade_pena = 40.0
-distancia_pena_max = 100.0
-velocidade_urubu = -80.0
+[node name="Boss" parent="Path2D/PathFollow2D" unique_id=704353812 instance=ExtResource("10_nggh6")]
 
-[node name="player" parent="." unique_id=2024786376 instance=ExtResource("2_jpr82")]
+[node name="player" parent="." unique_id=2024786376 instance=ExtResource("11_udtb0")]
+position = Vector2(120, 311)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=344232855]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=912746235]
-position = Vector2(27, 67)
+position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_7i4tb")
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D" unique_id=2105612949]
-position = Vector2(0.5, -1.0000005)
-scale = Vector2(83, 20)
-texture = SubResource("PlaceholderTexture2D_7i4tb")
+[node name="ParedeDireita" type="CollisionShape2D" parent="StaticBody2D" unique_id=786876403]
+position = Vector2(648, 0)
+shape = SubResource("RectangleShape2D_7i4tb")
+
+[node name="Avisos" type="CanvasLayer" parent="." unique_id=512379201]
+layer = 9
+
+[node name="Aviso" type="Label" parent="Avisos" unique_id=795053762]
+texture_filter = 2
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 60.0
+offset_bottom = 90.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1

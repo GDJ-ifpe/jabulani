@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/tilesets/caverna/tileset_base.png" id="1_tileset"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plataforma"]
+size = Vector2(96, 8)
+
+[node name="PlataformaVazada" type="StaticBody2D"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(48, 4)
+shape = SubResource("RectangleShape2D_plataforma")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tileset")
+centered = false
+region_enabled = true
+region_rect = Rect2(160, 512, 96, 32)

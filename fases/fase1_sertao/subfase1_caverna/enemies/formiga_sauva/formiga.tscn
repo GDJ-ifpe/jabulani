@@ -1,0 +1,27 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase1_sertao/subfase1_caverna/enemies/formiga_sauva/formiga.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://fases/fase1_sertao/subfase1_caverna/enemies/formiga_sauva/formiga_frames.tres" id="2_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+size = Vector2(22, 14)
+
+[node name="Formiga" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 66
+script = ExtResource("1_script")
+max_hp = 1
+velocidade = 60.0
+tamanho_dano_contato = Vector2(22, 14)
+duracao_morte = 0.4
+sprite_olha_para_esquerda = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -9)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_frames")
+animation = &"andando"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_corpo")

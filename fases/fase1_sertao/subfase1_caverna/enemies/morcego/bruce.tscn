@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase1_sertao/subfase1_caverna/enemies/morcego/bruce.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://fases/fase1_sertao/subfase1_caverna/enemies/morcego/bruce_frames.tres" id="2_frames"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_corpo"]
+radius = 10.0
+
+[node name="Bruce" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_script")
+velocidade = 110.0
+tamanho_dano_contato = Vector2(18, 16)
+usa_gravidade = false
+sprite_olha_para_esquerda = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+self_modulate = Color(1.6, 1.6, 1.8, 1)
+sprite_frames = ExtResource("2_frames")
+animation = &"pendurado"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_corpo")
+
+[node name="ConeGrito" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 1
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ConeGrito"]
+polygon = PackedVector2Array(0, 0, 120, -56, 120, 56)
+
+[node name="ConeVisual" type="Polygon2D" parent="ConeGrito"]
+modulate = Color(0.8, 0.6, 1, 0)
+polygon = PackedVector2Array(0, 0, 120, -56, 120, 56)
