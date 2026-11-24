@@ -19,7 +19,7 @@ enum FaseCansado { DESCENDO, NO_CHAO, SUBINDO }
 @export var velocidade_voo: float = 70.0 # velocidade ao longo do caminho (px/s) - "velocidade média"
 @export var amplitude_senoidal: float = 20.0 # sem caminho: oscilação vertical (px)
 @export var frequencia_senoidal: float = 0.5 # sem caminho: oscilações por segundo
-@export var tempo_entre_ataques: float = 1.5 # s voando entre o fim do cansaço e o ataque seguinte
+@export var tempo_entre_ataques: float = 2.0 # s voando entre o fim do cansaço e o ataque seguinte
 
 @export_group("Se Ter Pena Matasse")
 @export var cena_pena: PackedScene
@@ -29,10 +29,10 @@ enum FaseCansado { DESCENDO, NO_CHAO, SUBINDO }
 @export var leques_max: int = 2 # ...ou 2 vezes antes de cansar
 @export var dano_pena: int = 1 # dano por pena (ida e volta)
 @export var angulo_leque: float = 60.0 # abertura total do leque (graus)
-@export var velocidade_pena: float = 260.0 # px/s na ida
+@export var velocidade_pena: float = 240.0 # px/s na ida
 @export var velocidade_retorno_pena: float = 320.0 # px/s na volta
 @export var distancia_pena_max: float = 440.0 # distância em que as penas são puxadas de volta (px); cobre a arena de 640 px
-@export var tempo_preparo_penas: float = 0.5 # aviso: animação de disparo antes de as penas saírem (s)
+@export var tempo_preparo_penas: float = 0.65 # aviso: animação de disparo antes de as penas saírem (s)
 @export var intervalo_entre_leques: float = 0.6 # s
 @export var espera_maxima_das_penas: float = 6.0 # segurança: não espera a volta além disto (s)
 
@@ -42,13 +42,13 @@ enum FaseCansado { DESCENDO, NO_CHAO, SUBINDO }
 @export var canto_min: float = 5.0 # canta de 5...
 @export var canto_max: float = 10.0 # ...a 10 s
 @export var dano_urubu: int = 1 # dano por urubu
-@export var intervalo_urubu: float = 1.1 # s entre um urubu e o próximo
-@export var velocidade_urubu: float = 210.0 # px/s
-@export var aviso_urubu: float = 0.6 # s de aviso na borda antes de cada urubu
+@export var intervalo_urubu: float = 1.3 # s entre um urubu e o próximo
+@export var velocidade_urubu: float = 190.0 # px/s
+@export var aviso_urubu: float = 0.8 # s de aviso na borda antes de cada urubu
 @export var alturas_dos_urubus: Array[float] = [16.0, 80.0] # faixas de voo, em px acima do chão
 
 @export_group("Cansado")
-@export var tempo_cansado: float = 4.0 # s no chão, vulnerável
+@export var tempo_cansado: float = 5.0 # s no chão, vulnerável
 @export var velocidade_de_pouso: float = 240.0 # px/s descendo e subindo
 @export var altura_do_chao: float = 328.0 # y global do topo do chão da arena
 @export var altura_pousado: float = 30.0 # distância do centro do corpo ao chão quando pousado (px)

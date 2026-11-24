@@ -15,9 +15,9 @@ extends Node2D
 @export var margem_da_arena: float = 48.0 # não passa desta distância das bordas (px)
 
 @export_group("Disparo")
-@export var primeiro_disparo: float = 2.5 # s entre chegar e o primeiro disparo
-@export var intervalo_entre_disparos: float = 4.0 # s
-@export var tempo_de_aviso: float = 0.7 # s piscando antes de atirar
+@export var primeiro_disparo: float = 3.0 # s entre chegar e o primeiro disparo
+@export var intervalo_entre_disparos: float = 5.0 # s
+@export var tempo_de_aviso: float = 0.9 # s piscando antes de atirar
 @export var alcance_de_disparo: float = 220.0 # só atira com o jogador a até esta distância horizontal (px)
 
 var _rolinhas: Array = [] # sem tipo: pode conter rolinhas que já saíram da cena

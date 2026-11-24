@@ -25,18 +25,18 @@ signal player_hit(hp_restante: int)
 @export_group("Dash")
 @export var velocidade_dash: float = 620.0 # px/s (620 x 0.18 s = ~112 px por dash)
 @export var duracao_dash: float = 0.18 # duração do dash (s)
-@export var recarga_dash: float = 0.9 # cooldown do dash (s)
+@export var recarga_dash: float = 0.75 # cooldown do dash (s)
 
 @export_group("Combate")
 @export var duracao_ataque: float = 0.35 # duração da animação de ataque (s)
-@export var duracao_invencibilidade: float = 0.6 # invencibilidade ao levar dano (s)
+@export var duracao_invencibilidade: float = 1.0 # invencibilidade ao levar dano (s)
 @export var duracao_atordoamento: float = 0.4 # tempo sem controle ao levar dano ou impulso (s)
 @export var recuo_dano: Vector2 = Vector2(150.0, -150.0) # impulso ao levar dano (x = para longe da origem, y = para cima)
 
 @export_group("Jabussíntese")
 @export var cena_jabussintese: PackedScene
 @export var custo_jabussintese: int = 1 # pontos de poder gastos por uso
-@export var recarga_jabussintese: float = 5.0 # intervalo mínimo entre usos (s)
+@export var recarga_jabussintese: float = 4.0 # intervalo mínimo entre usos (s)
 @export var distancia_jabussintese: float = 40.0 # distância à frente do Jabulani onde o poder surge (px)
 
 @export_group("Desorientação")

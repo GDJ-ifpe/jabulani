@@ -5,7 +5,7 @@ extends BaseProjectile
 ## Visual provisório: TODO_ARTE_pedra e TODO_ARTE_missil_fogo.
 
 @export var tempo_como_pedra: float = 0.5 # s até a pedra virar míssil
-@export var velocidade_do_missil: float = 170.0 # px/s
+@export var velocidade_do_missil: float = 150.0 # px/s
 
 var _virou_missil: bool = false
 var _tempo: float = 0.0

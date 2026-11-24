@@ -22,8 +22,8 @@ enum Estado { VOANDO, PREPARO }
 @export var cena_carnica: PackedScene
 @export var dano_carnica: int = 1 # dano da carniça
 @export var tolerancia_horizontal: float = 14.0 # considera "em cima do jogador" dentro desta distância (px)
-@export var tempo_preparo: float = 0.45 # aviso (piscando, parado no ar) antes de soltar (s)
-@export var recarga_carnica: float = 2.5 # s até carregar outra carniça
+@export var tempo_preparo: float = 0.6 # aviso (piscando, parado no ar) antes de soltar (s)
+@export var recarga_carnica: float = 3.0 # s até carregar outra carniça
 @export var ponto_de_soltura: Vector2 = Vector2(0.0, 16.0) # de onde a carniça sai, relativo ao urubu
 @export var cor_aviso: Color = Color(1.0, 0.55, 0.3)
 

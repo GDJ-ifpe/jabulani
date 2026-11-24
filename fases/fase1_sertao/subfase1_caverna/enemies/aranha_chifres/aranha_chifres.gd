@@ -13,8 +13,8 @@ enum Estado { PARADA, ANDANDO, TECENDO, ATACANDO }
 @export var pontos_de_parede: Array[Vector2] = []
 @export var cena_parede: PackedScene
 @export var pausa_no_waypoint: float = 0.7 # s parada em cada ponto da teia
-@export var intervalo_entre_paredes: float = 6.0 # s entre uma parede e outra
-@export var duracao_parede: float = 5.0 # s de vida de cada parede temporária
+@export var intervalo_entre_paredes: float = 7.5 # s entre uma parede e outra
+@export var duracao_parede: float = 4.0 # s de vida de cada parede temporária
 @export var tempo_tecendo: float = 0.6 # s parada tecendo (aviso antes de a parede surgir)
 @export var distancia_minima_do_player: float = 28.0 # não ergue parede em cima do jogador (px)
 @export var cor_fio: Color = Color(1.0, 1.0, 1.0, 0.55)
@@ -22,9 +22,9 @@ enum Estado { PARADA, ANDANDO, TECENDO, ATACANDO }
 @export_group("Mordida")
 @export var dano_mordida: int = 1
 @export var distancia_de_ataque: float = 52.0 # px
-@export var tempo_preparo_mordida: float = 0.3 # aviso (início da animação) antes de a mordida valer
+@export var tempo_preparo_mordida: float = 0.4 # aviso (início da animação) antes de a mordida valer
 @export var duracao_mordida: float = 0.2 # janela em que a mordida fere (s)
-@export var recarga_mordida: float = 1.6 # s
+@export var recarga_mordida: float = 2.0 # s
 
 var estado: Estado = Estado.PARADA
 var _tempo_estado: float = 0.0

@@ -10,7 +10,7 @@ signal destruido
 @export var cena_formiga: PackedScene
 @export var max_hp: int = 10 # ninho destrutível com HP alto
 @export var intervalo_s: float = 4.0 # s entre formigas (ritmo das ondas: 1 a cada 4 s)
-@export var max_formigas_vivas: int = 3 # limite de formigas deste ninho ao mesmo tempo
+@export var max_formigas_vivas: int = 2 # limite de formigas deste ninho ao mesmo tempo
 @export var pontos: int = 10
 @export var ponto_de_saida: Vector2 = Vector2(0.0, -10.0) # onde a formiga aparece, relativo ao ninho
 @export var cor_inativo: Color = Color(0.6, 0.6, 0.6)

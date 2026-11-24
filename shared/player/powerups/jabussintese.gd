@@ -3,7 +3,7 @@ extends CharacterBody2D
 ## Jabussíntese: poder do Jabulani. Surge à frente do jogador, cai até o chão,
 ## brota e causa dano a cada inimigo atingido uma única vez.
 
-@export var dano: int = 1 # dano por inimigo atingido
+@export var dano: int = 2 # dano por inimigo atingido
 @export var velocidade_queda: float = 600.0 # px/s até tocar o chão
 
 var _atingidos: Array[Node] = []

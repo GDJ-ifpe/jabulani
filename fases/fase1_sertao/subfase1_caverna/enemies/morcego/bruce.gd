@@ -13,13 +13,13 @@ enum Estado { PENDURADO, VOO, PREPARO, GRITO, RECUPERACAO }
 @export var altura_de_voo: float = 40.0 # quanto acima do jogador ele paira (px)
 
 @export_group("Grito Ultrassônico")
-@export var tempo_preparo: float = 0.6 # aviso antes do grito (s)
+@export var tempo_preparo: float = 0.8 # aviso antes do grito (s)
 @export var duracao_grito: float = 0.3 # janela em que o cone está ativo (s)
-@export var tempo_recuperacao: float = 1.8 # pausa depois do grito (s)
+@export var tempo_recuperacao: float = 2.2 # pausa depois do grito (s)
 @export var alcance_cone: float = 120.0 # comprimento do cone (px)
 @export var abertura_cone_graus: float = 50.0 # ângulo total do cone
-@export var duracao_desorientacao: float = 2.0 # s de desorientação no jogador
-@export var forca_empurrao: float = 260.0 # impulso aplicado ao jogador (px/s)
+@export var duracao_desorientacao: float = 1.5 # s de desorientação no jogador
+@export var forca_empurrao: float = 200.0 # impulso aplicado ao jogador (px/s)
 @export var dano_grito: int = 0 # o grito desorienta e empurra; dano opcional
 @export var cor_aviso: Color = Color(0.8, 0.6, 1.0, 0.25)
 @export var cor_grito: Color = Color(0.9, 0.8, 1.0, 0.6)

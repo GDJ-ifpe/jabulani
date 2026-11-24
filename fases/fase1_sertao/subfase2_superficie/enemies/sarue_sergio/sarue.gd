@@ -11,12 +11,12 @@ enum Estado { PERSEGUINDO, MORDENDO }
 @export var dano_mordida: int = 1
 @export var distancia_de_mordida: float = 28.0 # começa a morder a esta distância (px)
 @export var altura_de_mordida: float = 24.0 # só morde se o jogador estiver nesta faixa vertical (px)
-@export var tempo_preparo_mordida: float = 0.33 # aviso: a boca abrindo antes de a mordida valer (s)
+@export var tempo_preparo_mordida: float = 0.42 # aviso: a boca abrindo antes de a mordida valer (s)
 @export var duracao_mordida: float = 0.17 # janela em que a mordida fere (s)
-@export var recarga_mordida: float = 1.2 # s
+@export var recarga_mordida: float = 1.5 # s
 
 @export_group("Explosão")
-@export var tempo_ate_explodir: float = 0.8 # aviso entre a derrota e a explosão (s)
+@export var tempo_ate_explodir: float = 1.0 # aviso entre a derrota e a explosão (s)
 @export var raio_explosao: float = 36.0 # px
 @export var dano_explosao: int = 1
 @export var duracao_explosao: float = 0.2 # janela em que a explosão fere (s)
