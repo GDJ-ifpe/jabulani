@@ -29,6 +29,7 @@ var _proxima_pendente: String = "" # cena que "Continuar" abre na tela de conclu
 var _trocando: bool = false
 var _painel: Node = null # pausa, game over ou conclusão em exibição
 var _opcoes: Node = null # Opções abertas por cima da pausa
+var _precarregando: String = "" # cena pedida em segundo plano (ver precarregar)
 var _camada: CanvasLayer
 var _fade: ColorRect
 
@@ -114,6 +115,8 @@ func concluir_arena(proxima_cena: String) -> void:
 		return
 	var existe_proxima: bool = proxima_cena != "" and ResourceLoader.exists(proxima_cena)
 	_proxima_pendente = proxima_cena if existe_proxima else ""
+	if existe_proxima:
+		precarregar(proxima_cena)
 	var titulo: String = ""
 	var arena: Node = get_tree().get_first_node_in_group("arena")
 	if arena != null and "titulo_conclusao" in arena:
@@ -160,6 +163,25 @@ func pular_cutscene() -> void:
 		cena.pular()
 
 
+## Começa a carregar uma cena em segundo plano, para a troca não travar o jogo depois
+## (principalmente no navegador). A troca de cena usa o resultado se o caminho for o mesmo.
+func precarregar(caminho: String) -> void:
+	if caminho == "" or caminho == _precarregando or not ResourceLoader.exists(caminho):
+		return
+	_descartar_precarga()
+	if ResourceLoader.load_threaded_request(caminho) == OK:
+		_precarregando = caminho
+
+
+## Esquece uma pré-carga que não vai ser usada (ex.: voltou ao menu no meio da cutscene).
+func _descartar_precarga() -> void:
+	if _precarregando == "":
+		return
+	if ResourceLoader.load_threaded_get_status(_precarregando) == ResourceLoader.THREAD_LOAD_LOADED:
+		ResourceLoader.load_threaded_get(_precarregando)
+	_precarregando = ""
+
+
 func sair_do_jogo() -> void:
 	get_tree().quit()
 
@@ -184,7 +206,16 @@ func _trocar_cena(caminho: String) -> void:
 	await tween.finished
 	_fechar_painel()
 	get_tree().paused = false
-	get_tree().change_scene_to_file(caminho)
+	if caminho == _precarregando:
+		_precarregando = ""
+		var cena: PackedScene = ResourceLoader.load_threaded_get(caminho) as PackedScene
+		if cena != null:
+			get_tree().change_scene_to_packed(cena)
+		else:
+			get_tree().change_scene_to_file(caminho)
+	else:
+		_descartar_precarga()
+		get_tree().change_scene_to_file(caminho)
 	await get_tree().process_frame
 	await get_tree().process_frame
 	tween = create_tween()

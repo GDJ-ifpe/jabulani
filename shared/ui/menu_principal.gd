@@ -24,6 +24,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	painel.opcao_escolhida.connect(_on_opcao)
+	GameManager.precarregar(GameManager.PRIMEIRA_CENA)
 	_adicionar_logo_grupo()
 
 
