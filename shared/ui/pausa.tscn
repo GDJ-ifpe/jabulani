@@ -11,5 +11,5 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_painel")
 titulo = "Pausa"
-opcoes = PackedStringArray("Continuar", "Reiniciar arena", "Menu")
-acoes = Array[int]([0, 1, 2])
+opcoes = PackedStringArray("Continuar", "Opções", "Reiniciar arena", "Menu")
+acoes = Array[int]([0, 6, 1, 2])

@@ -13,6 +13,7 @@ const CENA_CHEFE_FASE1: String = "res://fases/fase1_sertao/boss/Base_Scenes/fase
 const CENA_POS_CHEFE_FASE1: String = "res://fases/fase1_sertao/cutscenes/pos_carlitos.tscn"
 const CENA_PAUSA: String = "res://shared/ui/pausa.tscn"
 const CENA_PAUSA_CUTSCENE: String = "res://shared/ui/pausa_cutscene.tscn"
+const CENA_OPCOES: String = "res://shared/ui/opcoes.tscn"
 const CENA_GAME_OVER: String = "res://shared/ui/game_over.tscn"
 const CENA_CONCLUSAO: String = "res://shared/ui/subfase_concluida.tscn"
 const CENA_FASE_CONCLUIDA: String = "res://shared/ui/fase_concluida.tscn"
@@ -27,6 +28,7 @@ var _arena_atual: String = ""
 var _proxima_pendente: String = "" # cena que "Continuar" abre na tela de conclusão
 var _trocando: bool = false
 var _painel: Node = null # pausa, game over ou conclusão em exibição
+var _opcoes: Node = null # Opções abertas por cima da pausa
 var _camada: CanvasLayer
 var _fade: ColorRect
 
@@ -51,6 +53,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	var options: bool = InputMap.has_action(&"pausar") and event.is_action_pressed(&"pausar")
 	var cancelar: bool = event.is_action_pressed("ui_cancel")
 	if not options and not cancelar:
+		return
+	if _opcoes != null:
+		# A própria tela de Opções trata Esc e Bola (volta para a pausa); Options fecha tudo.
+		if options:
+			continuar()
+			get_viewport().set_input_as_handled()
 		return
 	if _painel != null and _painel.is_in_group("painel_pausa"):
 		continuar()
@@ -206,6 +214,31 @@ func pausar() -> void:
 	_abrir_painel(CENA_PAUSA_CUTSCENE if em_cutscene() else CENA_PAUSA, true)
 
 
+## Opção "Opções" da pausa: abre os volumes por cima da pausa e volta para ela ao fechar.
+func abrir_opcoes() -> void:
+	if _painel == null or _opcoes != null:
+		return
+	var cena: PackedScene = load(CENA_OPCOES)
+	if cena == null:
+		push_error("GameManager: painel não encontrado: %s" % CENA_OPCOES)
+		return
+	_opcoes = cena.instantiate()
+	_opcoes.tree_exited.connect(_on_opcoes_fechadas.bind(_opcoes))
+	_camada.add_child(_opcoes)
+	_camada.move_child(_fade, -1)
+	_painel.visible = false
+
+
+func _on_opcoes_fechadas(opcoes: Node) -> void:
+	if _opcoes != opcoes:
+		return
+	_opcoes = null
+	if is_instance_valid(_painel) and not _painel.is_queued_for_deletion():
+		_painel.visible = true
+		if _painel.has_method("focar"):
+			_painel.focar()
+
+
 func continuar() -> void:
 	_fechar_painel()
 	get_tree().paused = false
@@ -238,6 +271,9 @@ func _abrir_painel(caminho: String, pausar_jogo: bool, preparar: Callable = Call
 
 
 func _fechar_painel() -> void:
+	if _opcoes != null:
+		_opcoes.queue_free()
+		_opcoes = null
 	if _painel != null:
 		_painel.queue_free()
 		_painel = null

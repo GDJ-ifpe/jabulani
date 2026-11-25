@@ -12,6 +12,7 @@ const VOLUME_MUDO_DB: float = -60.0
 const TAXA_AMOSTRAGEM: int = 22050
 
 var duracao_crossfade: float = 1.0 # s
+@export var volume_geral: float = 0.595 # volume do barramento Master: 15% e depois mais 30% abaixo do máximo
 
 var _musica: AudioStreamPlayer
 var _ambiente: AudioStreamPlayer
@@ -21,6 +22,7 @@ var _placeholders: Dictionary[StringName, AudioStream] = {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	AudioServer.set_bus_volume_db(0, linear_to_db(volume_geral))
 	_musica = _criar_player(BUS_MUSICA)
 	_ambiente = _criar_player(BUS_AMBIENTE)
 

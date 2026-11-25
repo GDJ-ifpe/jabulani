@@ -3,7 +3,7 @@ extends PainelMenu
 ## Painéis abertos pelo GameManager durante o jogo: pausa, game over e telas de conclusão.
 ## Cada opção chama uma ação do GameManager, na mesma ordem dos botões.
 
-enum Acao { CONTINUAR, REINICIAR_ARENA, MENU, JOGAR_DE_NOVO, PROXIMA_CENA, PULAR_CENA }
+enum Acao { CONTINUAR, REINICIAR_ARENA, MENU, JOGAR_DE_NOVO, PROXIMA_CENA, PULAR_CENA, OPCOES }
 
 @export var acoes: Array[Acao] = []
 @export var mostrar_pontuacao: bool = false
@@ -39,3 +39,5 @@ func _on_opcao(indice: int) -> void:
 			GameManager.continuar_para_proxima()
 		Acao.PULAR_CENA:
 			GameManager.pular_cutscene()
+		Acao.OPCOES:
+			GameManager.abrir_opcoes()
