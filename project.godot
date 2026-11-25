@@ -15,25 +15,32 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="jabulani"
-run/main_scene="uid://cp1kteqky157e"
+run/main_scene="res://shared/ui/menu_principal.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://icones/icone_jabulani.png"
+config/windows_native_icon="res://icones/icone_jabulani.ico"
 
 [autoload]
 
 PlayerData="*uid://bc4b6da5f678t"
+Events="*res://globals/events.gd"
+AudioManager="*res://globals/audio_manager.gd"
+GameManager="*res://globals/game_manager.gd"
+Controle="*res://globals/controle.gd"
 
 [display]
 
-window/size/viewport_width=128
-window/size/viewport_height=66
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/mode=2
 window/stretch/mode="canvas_items"
 
 [global_group]
 
-Player=""
 player=""
+enemy=""
+boss=""
+projectile=""
 
 [input]
 
@@ -87,9 +94,11 @@ crouch={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Terreno"
-2d_physics/layer_3="Hitbox"
-2d_physics/layer_4="Enimigos"
+2d_physics/layer_3="AtaquePlayer"
+2d_physics/layer_4="Inimigos"
 2d_physics/layer_5="Itens"
+2d_physics/layer_6="DanoInimigo"
+2d_physics/layer_7="PlataformaVazada"
 
 [rendering]
 

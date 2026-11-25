@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase1_sertao/subfase2_superficie/enemies/rolinha_rolyandra/rolinha.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://fases/fase1_sertao/subfase2_superficie/enemies/rolinha_rolyandra/rolinha_frames.tres" id="2_frames"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase2_superficie/enemies/rolinha_rolyandra/missil_fogo.tscn" id="3_missil"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+size = Vector2(20, 16)
+
+[node name="Rolinha" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_script")
+cena_projetil = ExtResource("3_missil")
+max_hp = 1
+tamanho_dano_contato = Vector2(16, 12)
+duracao_morte = 0.5
+usa_gravidade = false
+sprite_olha_para_esquerda = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_frames")
+animation = &"voando"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_corpo")

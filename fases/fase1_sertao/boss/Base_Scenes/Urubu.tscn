@@ -1,111 +1,40 @@
 [gd_scene format=3 uid="uid://b4h2k7q3w8j6n"]
 
 [ext_resource type="Script" uid="uid://vk45pkculf86" path="res://fases/fase1_sertao/boss/Base_Scenes/urubu.gd" id="1_5g7h2"]
-[ext_resource type="Texture2D" uid="uid://cr6cia1jvy71x" path="res://fases/fase1_sertao/boss/Sprites/Urubu/Voo.png" id="2_7skcw"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oinel"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(0, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_noyvj"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(211, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hr7ce"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(422, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ieafj"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(633, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dp6n4"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(844, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ymwys"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(1055, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bc8ms"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(1266, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_01s15"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(1477, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k3ak7"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(1688, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fxl3w"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(1899, 0, 211, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2g4ot"]
-atlas = ExtResource("2_7skcw")
-region = Rect2(2110, 0, 211, 161)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_yjvfx"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oinel")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_noyvj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hr7ce")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ieafj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dp6n4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ymwys")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bc8ms")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_01s15")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k3ak7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fxl3w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2g4ot")
-}],
-"loop": 1,
-"name": &"voando",
-"speed": 18.0
-}]
+[ext_resource type="SpriteFrames" path="res://fases/fase1_sertao/boss/Base_Scenes/urubu_frames.tres" id="2_frames"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase2_superficie/enemies/urubu_carniceiro/carnica.tscn" id="3_carnica"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/subfase2_superficie/enemies/urubu_carniceiro/sprites/recycle_items.png" id="4_lixo"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(8, 4)
+size = Vector2(30, 16)
 
 [node name="Urubu" type="CharacterBody2D" unique_id=757913203]
-collision_layer = 12
+collision_layer = 8
+collision_mask = 0
 script = ExtResource("1_5g7h2")
+cena_carnica = ExtResource("3_carnica")
+max_hp = 2
+velocidade = 90.0
+tamanho_dano_contato = Vector2(28, 14)
+duracao_morte = 0.9
+usa_gravidade = false
+sprite_olha_para_esquerda = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1947167582]
-position = Vector2(1.7881393e-07, 0)
-scale = Vector2(0.047393367, 0.037267085)
-sprite_frames = SubResource("SpriteFrames_yjvfx")
+texture_filter = 2
+position = Vector2(0, 5)
+scale = Vector2(0.22, 0.22)
+sprite_frames = ExtResource("2_frames")
 animation = &"voando"
 autoplay = "voando"
-frame_progress = 0.20359512
 
-[node name="AreaDano" type="Area2D" parent="." unique_id=786517684]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDano" unique_id=221476530]
-position = Vector2(-1, -1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
+
+[node name="Carga" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_lixo")
+region_enabled = true
+region_rect = Rect2(206, 16, 35, 46)

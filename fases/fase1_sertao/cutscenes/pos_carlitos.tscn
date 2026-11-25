@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase1_sertao/cutscenes/pos_carlitos.gd" id="1_palco"]
+[ext_resource type="Script" path="res://shared/systems/cutscene_player.gd" id="2_cutscene"]
+[ext_resource type="Script" path="res://shared/systems/dialogue_line.gd" id="3_fala"]
+
+[sub_resource type="Resource" id="Resource_passo1"]
+script = ExtResource("3_fala")
+acao = &"brotar_agua"
+duracao_sem_texto = 3.0
+
+[sub_resource type="Resource" id="Resource_fala2"]
+script = ExtResource("3_fala")
+falante = "Carlitos"
+texto = "O meu canto era… apenas um eco… do nosso desespero… Ele nos prometeu água, nós prometeu um futuro, mas tudo o que trouxe foi a seca… Agora vejo que nada disso foi real… Espero que consiga desfazer o que foi feito. Que nosso canto... ecoe pelos céus... mais uma vez."
+
+[sub_resource type="Resource" id="Resource_passo3"]
+script = ExtResource("3_fala")
+acao = &"virar_lago"
+duracao_sem_texto = 3.2
+
+[sub_resource type="Resource" id="Resource_fala4"]
+script = ExtResource("3_fala")
+falante = "Narrador"
+texto = "O primeiro guardião corrompido foi libertado, avante Jabulani, sua jornada acabou de começar."
+
+[node name="PosCarlitos" type="Node2D"]
+script = ExtResource("1_palco")
+
+[node name="CutscenePlayer" type="Node" parent="."]
+script = ExtResource("2_cutscene")
+id = &"pos_carlitos"
+falas = Array[ExtResource("3_fala")]([SubResource("Resource_passo1"), SubResource("Resource_fala2"), SubResource("Resource_passo3"), SubResource("Resource_fala4")])

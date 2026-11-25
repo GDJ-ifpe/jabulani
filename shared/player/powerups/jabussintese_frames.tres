@@ -1,0 +1,83 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dugnmedg73t2n"]
+
+[ext_resource type="Texture2D" uid="uid://bk28cei8vppih" path="res://shared/player/sprites/Efects/Jabussintese.png" id="1_ut76p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20hy5"]
+atlas = ExtResource("1_ut76p")
+region = Rect2(0, 46, 125, 45)
+margin = Rect2(7, 46, 15, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46dcs"]
+atlas = ExtResource("1_ut76p")
+region = Rect2(189, 0, 89, 90)
+margin = Rect2(25, 0, 51, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ul3rs"]
+atlas = ExtResource("1_ut76p")
+region = Rect2(350, 0, 88, 88)
+margin = Rect2(26, 0, 52, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37nko"]
+atlas = ExtResource("1_ut76p")
+region = Rect2(509, 0, 81, 88)
+margin = Rect2(29, 0, 59, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mr4a"]
+atlas = ExtResource("1_ut76p")
+region = Rect2(634, 0, 71, 88)
+margin = Rect2(34, 0, 69, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgvx1"]
+atlas = ExtResource("1_ut76p")
+region = Rect2(751, 2, 66, 86)
+margin = Rect2(37, 2, 74, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12wmv"]
+atlas = ExtResource("1_ut76p")
+region = Rect2(893, 20, 52, 68)
+margin = Rect2(44, 20, 88, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo865"]
+atlas = ExtResource("1_ut76p")
+region = Rect2(1021, 36, 40, 52)
+margin = Rect2(50, 36, 100, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8v56"]
+atlas = ExtResource("1_ut76p")
+region = Rect2(1118, 45, 40, 43)
+margin = Rect2(50, 45, 100, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20hy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46dcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ul3rs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37nko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mr4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgvx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12wmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo865")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8v56")
+}],
+"loop": 0,
+"name": &"brotar",
+"speed": 12.0
+}]

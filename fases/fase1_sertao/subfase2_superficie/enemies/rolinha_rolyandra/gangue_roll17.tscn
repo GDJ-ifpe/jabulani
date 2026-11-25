@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase1_sertao/subfase2_superficie/enemies/rolinha_rolyandra/gangue_roll17.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase2_superficie/enemies/rolinha_rolyandra/rolinha.tscn" id="2_rolinha"]
+
+[node name="GangueRoll17" type="Node2D"]
+script = ExtResource("1_script")
+cena_rolinha = ExtResource("2_rolinha")

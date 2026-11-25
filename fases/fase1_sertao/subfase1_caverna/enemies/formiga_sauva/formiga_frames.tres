@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/subfase1_caverna/enemies/formiga_sauva/sprites/formiga_vermelha.png" id="1_e3r5j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgkeg"]
+atlas = ExtResource("1_e3r5j")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aig2e"]
+atlas = ExtResource("1_e3r5j")
+region = Rect2(0, 16, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgkeg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aig2e")
+}],
+"loop": 1,
+"name": &"andando",
+"speed": 8.0
+}]

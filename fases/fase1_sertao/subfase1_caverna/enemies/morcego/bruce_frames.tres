@@ -1,0 +1,98 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/subfase1_caverna/enemies/morcego/sprites/bat_32x32.png" id="1_72b4i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brvcm"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2ufx"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_di0mo"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfeby"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixqgf"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chdxv"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4t3gi"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouvom"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpbdb"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ip8g3"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uj460"]
+atlas = ExtResource("1_72b4i")
+region = Rect2(128, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brvcm")
+}],
+"loop": 1,
+"name": &"pendurado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2ufx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_di0mo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfeby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixqgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_chdxv")
+}],
+"loop": 1,
+"name": &"preparo",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4t3gi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouvom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpbdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ip8g3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uj460")
+}],
+"loop": 1,
+"name": &"voando",
+"speed": 10.0
+}]

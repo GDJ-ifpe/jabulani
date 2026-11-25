@@ -1,0 +1,37 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/subfase2_superficie/enemies/rolinha_rolyandra/sprites/pigeon_sprite_sheet.png" id="1_shgmo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8cqs"]
+atlas = ExtResource("1_shgmo")
+region = Rect2(16, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvp6g"]
+atlas = ExtResource("1_shgmo")
+region = Rect2(0, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jy6re"]
+atlas = ExtResource("1_shgmo")
+region = Rect2(32, 96, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8cqs")
+}],
+"loop": 1,
+"name": &"parada",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvp6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jy6re")
+}],
+"loop": 1,
+"name": &"voando",
+"speed": 8.0
+}]

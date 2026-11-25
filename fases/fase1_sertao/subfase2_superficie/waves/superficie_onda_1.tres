@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WaveData" format=3]
+
+[ext_resource type="Script" path="res://shared/systems/wave_entry.gd" id="1_entry"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/boss/Base_Scenes/Urubu.tscn" id="c_urubu"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase2_superficie/enemies/sarue_sergio/sarue.tscn" id="c_sarue"]
+[ext_resource type="PackedScene" path="res://fases/fase1_sertao/subfase2_superficie/enemies/rolinha_rolyandra/gangue_roll17.tscn" id="c_gangue"]
+[ext_resource type="Script" path="res://shared/systems/wave_data.gd" id="9_data"]
+
+[sub_resource type="Resource" id="Resource_e0"]
+script = ExtResource("1_entry")
+cena = ExtResource("c_urubu")
+tipo_de_spawn = 4
+
+[sub_resource type="Resource" id="Resource_e1"]
+script = ExtResource("1_entry")
+cena = ExtResource("c_sarue")
+
+[sub_resource type="Resource" id="Resource_e2"]
+script = ExtResource("1_entry")
+cena = ExtResource("c_gangue")
+tipo_de_spawn = 4
+
+[resource]
+script = ExtResource("9_data")
+entradas = Array[ExtResource("1_entry")]([SubResource("Resource_e0"), SubResource("Resource_e1"), SubResource("Resource_e2")])

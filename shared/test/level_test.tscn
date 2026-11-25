@@ -7,8 +7,20 @@
 [ext_resource type="Texture2D" uid="uid://b7arlscj4tbwx" path="res://shared/ui/ui_sprites/DoomTurtle/Face_02.png" id="5_rk5g7"]
 [ext_resource type="Texture2D" uid="uid://bt0tk10j0a1dv" path="res://shared/ui/ui_sprites/DoomTurtle/Face_05.png" id="6_ko4wd"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
+size = Vector2(1280, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
+size = Vector2(32, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_degrau64"]
+size = Vector2(128, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_degrau96"]
+size = Vector2(96, 96)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3776"]
-size = Vector2(65.49609, 5.09375)
+size = Vector2(128, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fhvmd"]
 animations = [{
@@ -41,38 +53,104 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhvmd"]
-size = Vector2(22, 22)
+size = Vector2(32, 32)
 
 [node name="Game" type="Node2D" unique_id=1490505763]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1269931279]
+collision_layer = 2
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1886032767]
-position = Vector2(-7.748047, 63)
-shape = SubResource("RectangleShape2D_k3776")
+[node name="Chao" type="CollisionShape2D" parent="StaticBody2D" unique_id=1886032767]
+position = Vector2(640, 344)
+shape = SubResource("RectangleShape2D_chao")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=1601495979]
-position = Vector2(58, 64)
-shape = SubResource("RectangleShape2D_k3776")
+[node name="Visual" type="Polygon2D" parent="StaticBody2D/Chao" unique_id=1105620341]
+color = Color(0.36, 0.27, 0.2, 1)
+polygon = PackedVector2Array(-640, -16, 640, -16, 640, 16, -640, 16)
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1463725672]
-position = Vector2(58, 36)
+[node name="ParedeEsquerda" type="CollisionShape2D" parent="StaticBody2D" unique_id=1105620342]
+position = Vector2(-16, 0)
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="ParedeDireita" type="CollisionShape2D" parent="StaticBody2D" unique_id=1105620343]
+position = Vector2(1296, 0)
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="Degrau64" type="CollisionShape2D" parent="StaticBody2D" unique_id=1105620350]
+position = Vector2(864, 296)
+shape = SubResource("RectangleShape2D_degrau64")
+
+[node name="Visual" type="Polygon2D" parent="StaticBody2D/Degrau64" unique_id=1105620351]
+color = Color(0.45, 0.34, 0.25, 1)
+polygon = PackedVector2Array(-64, -32, 64, -32, 64, 32, -64, 32)
+
+[node name="Degrau96" type="CollisionShape2D" parent="StaticBody2D" unique_id=1105620352]
+position = Vector2(976, 280)
+shape = SubResource("RectangleShape2D_degrau96")
+
+[node name="Visual" type="Polygon2D" parent="StaticBody2D/Degrau96" unique_id=1105620353]
+color = Color(0.4, 0.3, 0.22, 1)
+polygon = PackedVector2Array(-48, -48, 48, -48, 48, 48, -48, 48)
+
+[node name="PlataformasVazadas" type="StaticBody2D" parent="." unique_id=1105620360]
+collision_layer = 64
+collision_mask = 0
+
+[node name="Plataforma1" type="CollisionShape2D" parent="PlataformasVazadas" unique_id=1601495979]
+position = Vector2(176, 284)
 shape = SubResource("RectangleShape2D_k3776")
+one_way_collision = true
+
+[node name="Visual" type="Polygon2D" parent="PlataformasVazadas/Plataforma1" unique_id=1105620344]
+color = Color(0.55, 0.45, 0.32, 1)
+polygon = PackedVector2Array(-64, -4, 64, -4, 64, 4, -64, 4)
+
+[node name="Plataforma2" type="CollisionShape2D" parent="PlataformasVazadas" unique_id=1463725672]
+position = Vector2(120, 236)
+shape = SubResource("RectangleShape2D_k3776")
+one_way_collision = true
+
+[node name="Visual" type="Polygon2D" parent="PlataformasVazadas/Plataforma2" unique_id=1105620345]
+color = Color(0.55, 0.45, 0.32, 1)
+polygon = PackedVector2Array(-64, -4, 64, -4, 64, 4, -64, 4)
+
+[node name="Plataforma3" type="CollisionShape2D" parent="PlataformasVazadas" unique_id=1105620346]
+position = Vector2(72, 188)
+shape = SubResource("RectangleShape2D_k3776")
+one_way_collision = true
+
+[node name="Visual" type="Polygon2D" parent="PlataformasVazadas/Plataforma3" unique_id=1105620347]
+color = Color(0.55, 0.45, 0.32, 1)
+polygon = PackedVector2Array(-64, -4, 64, -4, 64, 4, -64, 4)
+
+[node name="Plataforma4" type="CollisionShape2D" parent="PlataformasVazadas" unique_id=1105620348]
+position = Vector2(256, 188)
+shape = SubResource("RectangleShape2D_k3776")
+one_way_collision = true
+
+[node name="Visual" type="Polygon2D" parent="PlataformasVazadas/Plataforma4" unique_id=1105620349]
+color = Color(0.55, 0.45, 0.32, 1)
+polygon = PackedVector2Array(-64, -4, 64, -4, 64, 4, -64, 4)
 
 [node name="InimigoTeste" type="CharacterBody2D" parent="." unique_id=1287471050]
-position = Vector2(90, 51)
+position = Vector2(560, 312)
 script = ExtResource("3_1fh4e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="InimigoTeste" unique_id=1940297625]
-position = Vector2(46, 51)
-scale = Vector2(0.35087714, 0.46511638)
+scale = Vector2(0.56, 0.74)
 sprite_frames = SubResource("SpriteFrames_fhvmd")
-animation = &"death"
-frame_progress = 0.13523926
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InimigoTeste" unique_id=912840333]
-position = Vector2(46, 51)
 shape = SubResource("RectangleShape2D_fhvmd")
 
 [node name="player" parent="." unique_id=2024786376 instance=ExtResource("1_t25hi")]
-position = Vector2(23, 53)
+position = Vector2(400, 311)
+
+[node name="Camera2D" parent="player" index="2" unique_id=73920325]
+limit_left = 0
+limit_top = 0
+limit_right = 1280
+limit_bottom = 360
+
+[editable path="player"]

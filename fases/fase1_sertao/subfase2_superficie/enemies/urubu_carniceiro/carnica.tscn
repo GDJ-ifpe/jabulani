@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase1_sertao/subfase2_superficie/enemies/urubu_carniceiro/carnica.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/subfase2_superficie/enemies/urubu_carniceiro/sprites/recycle_items.png" id="2_lixo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_carnica"]
+size = Vector2(12, 16)
+
+[node name="Carnica" type="Area2D"]
+collision_layer = 32
+collision_mask = 3
+monitorable = false
+script = ExtResource("1_script")
+velocidade = 220.0
+tempo_de_vida = 5.0
+gira_com_a_direcao = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_lixo")
+region_enabled = true
+region_rect = Rect2(206, 16, 35, 46)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_carnica")

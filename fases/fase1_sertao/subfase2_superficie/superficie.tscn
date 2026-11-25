@@ -1,0 +1,269 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://shared/systems/arena.gd" id="1_xqlvj"]
+[ext_resource type="AudioStream" path="res://fases/fase1_sertao/assets/soundtracks/fase1.mp3" id="2_7lx1h"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_00.png" id="3_762xd"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_01.png" id="4_0sl2o"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_02.png" id="5_5oh0e"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_03.png" id="6_k3cli"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_04.png" id="7_tetks"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/backgrounds/sertao/background_05.png" id="8_icb5x"]
+[ext_resource type="TileSet" path="res://fases/fase1_sertao/assets/tilesets/sertao/sertao_tileset.tres" id="9_v4dqe"]
+[ext_resource type="Texture2D" path="res://fases/fase1_sertao/assets/tilesets/sertao/sertao_tileset.png" id="10_sxqge"]
+[ext_resource type="PackedScene" path="res://shared/components/temporary_platform.tscn" id="11_gboxt"]
+[ext_resource type="Script" path="res://shared/systems/spawn_point.gd" id="12_r14rx"]
+[ext_resource type="Script" path="res://shared/systems/exit_gate.gd" id="13_visug"]
+[ext_resource type="Script" path="res://shared/systems/wave_spawner.gd" id="14_k3q8n"]
+[ext_resource type="Script" path="res://shared/systems/wave_data.gd" id="15_7tfnk"]
+[ext_resource type="Resource" path="res://fases/fase1_sertao/subfase2_superficie/waves/superficie_onda_1.tres" id="16_macod"]
+[ext_resource type="Resource" path="res://fases/fase1_sertao/subfase2_superficie/waves/superficie_onda_2.tres" id="17_bsbjt"]
+[ext_resource type="Resource" path="res://fases/fase1_sertao/subfase2_superficie/waves/superficie_onda_3.tres" id="18_w1onp"]
+[ext_resource type="PackedScene" path="res://shared/player/player.tscn" id="19_43hl7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
+size = Vector2(16, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_topo_cacto"]
+size = Vector2(40, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_braco_cacto"]
+size = Vector2(36, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_saida"]
+size = Vector2(24, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barreira"]
+size = Vector2(12, 64)
+
+[node name="Superficie" type="Node2D" unique_id=981837864 node_paths=PackedStringArray("aviso")]
+texture_filter = 1
+script = ExtResource("1_xqlvj")
+titulo_conclusao = "Subfase 2 concluída"
+musica = ExtResource("2_7lx1h")
+aviso = NodePath("Avisos/Aviso")
+
+[node name="Ceu" type="CanvasLayer" parent="." unique_id=71484707]
+layer = -100
+
+[node name="Sprite2D" type="Sprite2D" parent="Ceu" unique_id=846654093]
+texture_filter = 2
+scale = Vector2(0.625, 0.3516)
+texture = ExtResource("3_762xd")
+centered = false
+
+[node name="Fundo" type="Node2D" parent="." unique_id=1579235961]
+texture_filter = 2
+
+[node name="Nuvens" type="Parallax2D" parent="Fundo" unique_id=650341829]
+z_index = -20
+scroll_scale = Vector2(0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/Nuvens" unique_id=50985730]
+modulate = Color(1, 1, 1, 0.7)
+position = Vector2(0, -120)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("4_0sl2o")
+centered = false
+
+[node name="CaatingaLonge" type="Parallax2D" parent="Fundo" unique_id=884329388]
+z_index = -20
+scroll_scale = Vector2(0.15, 1)
+repeat_size = Vector2(512, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/CaatingaLonge" unique_id=5016309]
+position = Vector2(0, 175)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_5oh0e")
+centered = false
+
+[node name="CaatingaPerto" type="Parallax2D" parent="Fundo" unique_id=1195781310]
+z_index = -20
+scroll_scale = Vector2(0.3, 1)
+repeat_size = Vector2(511, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/CaatingaPerto" unique_id=721130916]
+position = Vector2(0, 208)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_k3cli")
+centered = false
+
+[node name="Terra" type="Parallax2D" parent="Fundo" unique_id=195601142]
+z_index = -20
+scroll_scale = Vector2(0.5, 1)
+repeat_size = Vector2(512, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/Terra" unique_id=1421701294]
+position = Vector2(0, 248)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_tetks")
+centered = false
+
+[node name="ChaoRachado" type="Parallax2D" parent="Fundo" unique_id=1934417615]
+z_index = -20
+scroll_scale = Vector2(0.75, 1)
+repeat_size = Vector2(512, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo/ChaoRachado" unique_id=849418910]
+position = Vector2(0, 294)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_icb5x")
+centered = false
+
+[node name="Decoracao" type="TileMapLayer" parent="." unique_id=818360698]
+z_index = -2
+position = Vector2(0, -24)
+tile_map_data = PackedByteArray("AAAWAAkAAAAMAAAAAAAWAAoAAAAMAAEAAAAXAAkAAAANAAAAAAAXAAoAAAANAAEAAAAYAAkAAAAOAAAAAAAYAAoAAAAGAAMAAAAZAAkAAAAPAAAAAAAZAAoAAAAPAAEAAAAaAAkAAAAQAAAAAAAaAAoAAAAQAAEAAAAbAAkAAAARAAAAAAAbAAoAAAARAAEAAAAcAAkAAAASAAAAAAAcAAoAAAASAAEAAAAdAAkAAAATAAAAAAAdAAoAAAATAAEAAAAFAAkAAAAKAAIAAAAGAAkAAAALAAIAAAAFAAoAAAAKAAMAAAAGAAoAAAALAAMAAAACAAoAAAAGAAIAAAAJAAoAAAAGAAQAAAAVAAoAAAALAAEAAAAhAAoAAAAKAAEAAAAkAAkAAAAGAAAAAAAkAAoAAAAGAAEAAAA=")
+tile_set = ExtResource("9_v4dqe")
+collision_enabled = false
+
+[node name="Arvore" type="Sprite2D" parent="." unique_id=2040931976]
+z_index = -3
+position = Vector2(1030, 72)
+texture = ExtResource("10_sxqge")
+centered = false
+region_enabled = true
+region_rect = Rect2(1216, 64, 224, 256)
+
+[node name="Terreno" type="TileMapLayer" parent="." unique_id=591479547]
+position = Vector2(0, -24)
+tile_map_data = PackedByteArray("AAD//wsAAAABAAAAAAD//wwAAAABAAEAAAAAAAsAAAABAAAAAAAAAAwAAAABAAEAAAABAAsAAAABAAAAAAABAAwAAAABAAEAAAACAAsAAAABAAAAAAACAAwAAAABAAEAAAADAAsAAAABAAAAAAADAAwAAAABAAEAAAAEAAsAAAABAAAAAAAEAAwAAAABAAEAAAAFAAsAAAABAAAAAAAFAAwAAAABAAEAAAAGAAsAAAABAAAAAAAGAAwAAAABAAEAAAAHAAsAAAABAAAAAAAHAAwAAAABAAEAAAAIAAsAAAABAAAAAAAIAAwAAAABAAEAAAAJAAsAAAABAAAAAAAJAAwAAAABAAEAAAAKAAsAAAABAAAAAAAKAAwAAAABAAEAAAALAAsAAAABAAAAAAALAAwAAAABAAEAAAAMAAsAAAABAAAAAAAMAAwAAAABAAEAAAANAAsAAAABAAAAAAANAAwAAAABAAEAAAAOAAsAAAABAAAAAAAOAAwAAAABAAEAAAAPAAsAAAABAAAAAAAPAAwAAAABAAEAAAAQAAsAAAABAAAAAAAQAAwAAAABAAEAAAARAAsAAAABAAAAAAARAAwAAAABAAEAAAASAAsAAAABAAAAAAASAAwAAAABAAEAAAATAAsAAAABAAAAAAATAAwAAAABAAEAAAAUAAsAAAABAAAAAAAUAAwAAAABAAEAAAAVAAsAAAABAAAAAAAVAAwAAAABAAEAAAAWAAsAAAABAAAAAAAWAAwAAAABAAEAAAAXAAsAAAABAAAAAAAXAAwAAAABAAEAAAAYAAsAAAABAAAAAAAYAAwAAAABAAEAAAAZAAsAAAABAAAAAAAZAAwAAAABAAEAAAAaAAsAAAABAAAAAAAaAAwAAAABAAEAAAAbAAsAAAABAAAAAAAbAAwAAAABAAEAAAAcAAsAAAABAAAAAAAcAAwAAAABAAEAAAAdAAsAAAABAAAAAAAdAAwAAAABAAEAAAAeAAsAAAABAAAAAAAeAAwAAAABAAEAAAAfAAsAAAABAAAAAAAfAAwAAAABAAEAAAAgAAsAAAABAAAAAAAgAAwAAAABAAEAAAAhAAsAAAABAAAAAAAhAAwAAAABAAEAAAAiAAsAAAABAAAAAAAiAAwAAAABAAEAAAAjAAsAAAABAAAAAAAjAAwAAAABAAEAAAAkAAsAAAABAAAAAAAkAAwAAAABAAEAAAAlAAsAAAABAAAAAAAlAAwAAAABAAEAAAAmAAsAAAABAAAAAAAmAAwAAAABAAEAAAAnAAsAAAABAAAAAAAnAAwAAAABAAEAAAAoAAsAAAABAAAAAAAoAAwAAAABAAEAAAAPAAkAAAAAAAAAAAAPAAoAAAAAAAIAAAAQAAkAAAABAAAAAAAQAAoAAAABAAIAAAARAAkAAAABAAAAAAARAAoAAAABAAIAAAASAAkAAAABAAAAAAASAAoAAAABAAIAAAATAAkAAAACAAAAAAATAAoAAAACAAIAAAAQAAcAAAAEAAEAAAARAAcAAAAFAAEAAAAQAAgAAAAEAAIAAAARAAgAAAAFAAIAAAALAAkAAAAEAAEAAAAMAAkAAAAFAAEAAAALAAoAAAAEAAIAAAAMAAoAAAAFAAIAAAA=")
+tile_set = ExtResource("9_v4dqe")
+
+[node name="TODO_ARTE_casa_de_barro" type="Node2D" parent="." unique_id=905438152]
+position = Vector2(480, 264)
+
+[node name="Porta" type="Polygon2D" parent="TODO_ARTE_casa_de_barro" unique_id=1632438445]
+color = Color(0.3, 0.18, 0.1, 1)
+polygon = PackedVector2Array(66, 24, 94, 24, 94, 64, 66, 64)
+
+[node name="Janela" type="Polygon2D" parent="TODO_ARTE_casa_de_barro" unique_id=892168020]
+color = Color(0.3, 0.18, 0.1, 1)
+polygon = PackedVector2Array(116, 22, 138, 22, 138, 40, 116, 40)
+
+[node name="Limites" type="StaticBody2D" parent="." unique_id=424475737]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Esquerda" type="CollisionShape2D" parent="Limites" unique_id=126846148]
+position = Vector2(-8, 0)
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="Direita" type="CollisionShape2D" parent="Limites" unique_id=1111794048]
+position = Vector2(1288, 0)
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="CactoAlto" type="Node2D" parent="." unique_id=1197137075]
+position = Vector2(880, 328)
+
+[node name="Sprite2D" type="Sprite2D" parent="CactoAlto" unique_id=191411680]
+position = Vector2(-30, -128)
+scale = Vector2(2, 2)
+texture = ExtResource("10_sxqge")
+centered = false
+region_enabled = true
+region_rect = Rect2(288, 64, 32, 64)
+
+[node name="TODO_ARTE_braco_do_cacto" type="Polygon2D" parent="CactoAlto" unique_id=943764985]
+color = Color(0.42, 0.72, 0.16, 1)
+polygon = PackedVector2Array(-44, -66, -10, -66, -10, -54, -32, -54, -32, -58, -44, -58)
+
+[node name="Apoios" type="StaticBody2D" parent="CactoAlto" unique_id=1056559045]
+collision_layer = 64
+collision_mask = 0
+
+[node name="Topo" type="CollisionShape2D" parent="CactoAlto/Apoios" unique_id=1973875674]
+position = Vector2(0, -124)
+shape = SubResource("RectangleShape2D_topo_cacto")
+one_way_collision = true
+
+[node name="Braco" type="CollisionShape2D" parent="CactoAlto/Apoios" unique_id=1499541573]
+position = Vector2(-26, -62)
+shape = SubResource("RectangleShape2D_braco_cacto")
+one_way_collision = true
+
+[node name="PlataformasDePoeira" type="Node2D" parent="." unique_id=194859809]
+
+[node name="Poeira1" parent="PlataformasDePoeira" unique_id=75100705 instance=ExtResource("11_gboxt")]
+position = Vector2(176, 264)
+
+[node name="Poeira2" parent="PlataformasDePoeira" unique_id=1199631766 instance=ExtResource("11_gboxt")]
+position = Vector2(688, 232)
+
+[node name="Poeira3" parent="PlataformasDePoeira" unique_id=48059962 instance=ExtResource("11_gboxt")]
+position = Vector2(960, 152)
+
+[node name="PontosDeSpawn" type="Node2D" parent="." unique_id=1212984253]
+
+[node name="BordaEsquerda" type="Marker2D" parent="PontosDeSpawn" unique_id=1436726589]
+position = Vector2(28, 312)
+script = ExtResource("12_r14rx")
+
+[node name="BordaDireita" type="Marker2D" parent="PontosDeSpawn" unique_id=1301684074]
+position = Vector2(1210, 312)
+script = ExtResource("12_r14rx")
+
+[node name="AltoEsquerda" type="Marker2D" parent="PontosDeSpawn" unique_id=461393444]
+position = Vector2(40, 170)
+script = ExtResource("12_r14rx")
+tipo = 4
+
+[node name="AltoDireita" type="Marker2D" parent="PontosDeSpawn" unique_id=597469079]
+position = Vector2(1240, 170)
+script = ExtResource("12_r14rx")
+tipo = 4
+
+[node name="Saida" type="Area2D" parent="." unique_id=316226777 node_paths=PackedStringArray("barreira", "visual_fechada", "visual_aberta")]
+position = Vector2(1264, 296)
+script = ExtResource("13_visug")
+proxima_cena = "res://fases/fase1_sertao/boss/Base_Scenes/fase.tscn"
+barreira = NodePath("Barreira")
+visual_fechada = NodePath("TODO_ARTE_saida_fechada")
+visual_aberta = NodePath("TODO_ARTE_saida_aberta")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Saida" unique_id=947762178]
+shape = SubResource("RectangleShape2D_saida")
+
+[node name="Barreira" type="StaticBody2D" parent="Saida" unique_id=1362577443]
+position = Vector2(-10, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Saida/Barreira" unique_id=233059102]
+shape = SubResource("RectangleShape2D_barreira")
+
+[node name="TODO_ARTE_saida_fechada" type="Polygon2D" parent="Saida" unique_id=1061191671]
+color = Color(0.35, 0.22, 0.12, 1)
+polygon = PackedVector2Array(-16, -32, 16, -32, 16, 32, -16, 32)
+
+[node name="TODO_ARTE_saida_aberta" type="Polygon2D" parent="Saida" unique_id=1665705365]
+color = Color(1, 0.93, 0.7, 0.85)
+polygon = PackedVector2Array(-16, -32, 16, -32, 16, 32, -16, 32)
+
+[node name="Inimigos" type="Node2D" parent="." unique_id=1273072024]
+
+[node name="WaveSpawner" type="Node" parent="." unique_id=134136200 node_paths=PackedStringArray("destino")]
+script = ExtResource("14_k3q8n")
+ondas = Array[ExtResource("15_7tfnk")]([ExtResource("16_macod"), ExtResource("17_bsbjt"), ExtResource("18_w1onp")])
+destino = NodePath("../Inimigos")
+
+[node name="player" parent="." unique_id=675908971 instance=ExtResource("19_43hl7")]
+position = Vector2(88, 311)
+
+[node name="Avisos" type="CanvasLayer" parent="." unique_id=131171225]
+layer = 9
+
+[node name="Aviso" type="Label" parent="Avisos" unique_id=2053497712]
+texture_filter = 2
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 60.0
+offset_bottom = 90.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "Onda 1"
+horizontal_alignment = 1

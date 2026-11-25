@@ -1,93 +1,41 @@
-extends Node2D
-
 class_name Pena
+extends BaseProjectile
 
-## Projétil de pena do boss
-## Dispara em uma direção, depois retorna ao ponto de origem
+## Pena do Carlitos. Vai em linha reta até a distância máxima, para um instante e é puxada
+## de volta para o chefe. Fere na ida e na volta; atravessa o cenário e não some ao acertar.
 
-@onready var area_dano: Area2D = $AreaDano
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@export var distancia_maxima: float = 440.0 # px
+@export var pausa_antes_de_voltar: float = 0.25 # s parada no ponto mais distante
+@export var velocidade_de_retorno: float = 300.0 # px/s
 
-var direcao: Vector2 = Vector2.RIGHT
-var velocidade: float = 250.0
-var distancia_maxima: float = 300.0
-var distancia_percorrida: float = 0.0
+var dono: Node2D = null
+var _percorrido: float = 0.0
+var _pausa: float = -1.0 # < 0: ainda indo
 
-var boss_ref: Node2D = null
-var posicao_origem: Vector2 = Vector2.ZERO
-var retornando: bool = false
-var velocidade_retorno: float = 300.0
 
-var dano: int = 1
-var ja_acertou: bool = false
+func iniciar(direcao: Vector2, velocidade_de_ida: float, distancia: float, chefe: Node2D, velocidade_de_volta: float = -1.0) -> void:
+	dono = chefe
+	distancia_maxima = distancia
+	if velocidade_de_volta >= 0.0:
+		velocidade_de_retorno = velocidade_de_volta
+	lancar(direcao, velocidade_de_ida)
 
-func _ready() -> void:
-	area_dano.body_entered.connect(_on_body_entered)
-	area_dano.add_to_group("projectile")
-
-func iniciar(dir: Vector2, vel: float, dist_max: float, boss: Node2D) -> void:
-	direcao = dir
-	velocidade = vel
-	distancia_maxima = dist_max
-	boss_ref = boss
-	posicao_origem = global_position
-	
-	# Rotaciona sprite para apontar na direção do movimento
-	rotation = dir.angle()
 
 func retornar_ao_boss() -> void:
-	retornando = true
+	if not retornando:
+		retornar(dono, velocidade_de_retorno)
 
-func _physics_process(delta: float) -> void:
-	if boss_ref == null:
-		queue_free()
-		return
-	
-	if retornando:
-		_seguir_boss(delta)
-	else:
-		_mover_para_frente(delta)
 
-func _mover_para_frente(delta: float) -> void:
-	var movimento = direcao * velocidade * delta
-	global_position += movimento
-	distancia_percorrida += movimento.length()
-	
-	# Mantém a rotação alinhada com a direção do movimento
-	rotation = direcao.angle()
-	
-	# Se atingiu distância máxima sem retornar, volta automático
-	if distancia_percorrida >= distancia_maxima:
-		retornando = true
-
-func _seguir_boss(delta: float) -> void:
-	if not is_instance_valid(boss_ref):
-		queue_free()
+func _mover(delta: float) -> void:
+	if not is_instance_valid(dono):
+		destruir()
 		return
-	
-	# Move em direção ao boss
-	var diff = boss_ref.global_position - global_position
-	var dist = diff.length()
-	
-	if dist < 30:
-		# Chegou no boss, some
-		queue_free()
+	if _pausa >= 0.0:
+		_pausa -= delta
+		if _pausa < 0.0:
+			retornar_ao_boss()
 		return
-	
-	var direcao_boss = diff.normalized()
-	global_position += direcao_boss * velocidade_retorno * delta
-	# Rotaciona para apontar na direção do retorno
-	rotation = direcao_boss.angle()
-
-func _on_body_entered(body: Node2D) -> void:
-	if ja_acertou:
-		return
-	
-	if body.is_in_group("player"):
-		ja_acertou = true
-		if body.has_method("receber_dano"):
-			body.receber_dano(dano)
-		
-		# Se acertou o player, mesmo assim volta ao boss
-		if not retornando:
-			retornando = true
+	super(delta)
+	_percorrido += velocidade_atual.length() * delta
+	if _percorrido >= distancia_maxima:
+		_pausa = pausa_antes_de_voltar
