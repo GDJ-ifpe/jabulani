@@ -46,13 +46,18 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if _painel != null and _painel.is_in_group("painel_pausa"):
-			continuar()
-			get_viewport().set_input_as_handled()
-		elif pode_pausar():
-			pausar()
-			get_viewport().set_input_as_handled()
+	# Esc e o Options do controle abrem e fecham a pausa. A Bola do controle também é ui_cancel
+	# (volta nos menus), mas em jogo ela é o dash: só fecha a pausa, nunca abre.
+	var options: bool = InputMap.has_action(&"pausar") and event.is_action_pressed(&"pausar")
+	var cancelar: bool = event.is_action_pressed("ui_cancel")
+	if not options and not cancelar:
+		return
+	if _painel != null and _painel.is_in_group("painel_pausa"):
+		continuar()
+		get_viewport().set_input_as_handled()
+	elif pode_pausar() and (options or not event is InputEventJoypadButton):
+		pausar()
+		get_viewport().set_input_as_handled()
 
 
 # ---------------------------------------------------------------- navegação

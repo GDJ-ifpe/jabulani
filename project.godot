@@ -25,6 +25,7 @@ PlayerData="*uid://bc4b6da5f678t"
 Events="*res://globals/events.gd"
 AudioManager="*res://globals/audio_manager.gd"
 GameManager="*res://globals/game_manager.gd"
+Controle="*res://globals/controle.gd"
 
 [display]
 
