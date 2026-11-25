@@ -45,6 +45,7 @@ func _ready() -> void:
 		AudioManager.tocar_ambiente(ambiente)
 	else:
 		AudioManager.parar_ambiente()
+	GameManager.precarregar(proxima_cena)
 	if iniciar_sozinho:
 		iniciar()
 
